@@ -1,0 +1,37 @@
+body{
+	/*display: flex;*/
+	/*align-items: center;*/
+}
+
+#login_form{
+	display: inline-block;
+	padding: 2%;
+	border: 1px solid #000000;
+	border-radius: 25px;
+
+	position:fixed;
+    top: 50%;
+    left: 50%;
+    width:30em;
+    height:18em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+}
+
+#login_form > *{
+	margin: 5px 0px;
+}
+
+#login_form input{
+	width: 20em;
+}
+
+#login_form .login_entity{
+	height: 40px;
+}
+
+#login_form input[type="submit"]{
+	width: 100px;
+}
