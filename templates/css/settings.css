@@ -1,0 +1,33 @@
+.editTable{
+	border: 2px solid;
+	padding: 3px;
+}
+
+.editLine:not(:last-child){
+	border-bottom: 1px solid;
+}
+
+.editLine{
+	padding: 10px;
+}
+
+.editInfo{
+	text-align: center;
+}
+
+.editButton{
+	float:right;
+}
+
+#editPasswordForm{
+	display: none;
+	border: 2px outset;
+	padding-left: 10px;
+}
+
+
+#editEmailForm{
+	display: none;
+	border: 2px outset;
+	padding-left: 10px;
+}
