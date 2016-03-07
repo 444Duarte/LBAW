@@ -120,7 +120,7 @@
               </tr>
               <tr>
                 <td>client20</td>
-                <td>Inventory Manager</td>
+                <td>Client</td>
                 <td><a href=""> <img class="accept_icon" src="res/accept_icon_32.png" alt="Revive User Account" title="Revive User Account"></a></td>
               </tr>
             </tbody>
@@ -133,6 +133,8 @@
 
 <script src="../lib/jquery-1.12.1.min.js"></script>
 <script src="../lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-
+<script type="text/javascript">
+  $(".username").html('admin<span class="caret"></span>');
+</script>
 </body>
 </html>
