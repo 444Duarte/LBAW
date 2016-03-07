@@ -39,6 +39,9 @@
 
 <script src="../lib/jquery-1.12.1.min.js"></script>
 <script src="../lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(".username").hide();
+</script>
 
 </body>
 </html>

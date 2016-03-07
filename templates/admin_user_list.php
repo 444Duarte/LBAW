@@ -135,6 +135,7 @@
 <script src="../lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $(".username").html('admin<span class="caret"></span>');
+  $("#loginButton").hide();
 </script>
 </body>
 </html>
