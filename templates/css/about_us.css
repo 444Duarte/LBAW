@@ -1,0 +1,11 @@
+#compressed-info{
+	display: inline-block;
+}
+
+#important_info{
+	padding: 1em;
+}
+
+#compressed-info iframe{
+	float: left;
+}

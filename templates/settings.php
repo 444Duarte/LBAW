@@ -3,6 +3,7 @@
 	<title>ToolBox User List</title>
 	<link href="../lib/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/generic_template.css">
+  <link rel="stylesheet" type="text/css" href="css/lavish-bootstrap.css">
   <link rel="stylesheet" type="text/css" href="css/settings.css">
 
 </head>

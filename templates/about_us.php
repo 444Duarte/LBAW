@@ -2,7 +2,9 @@
 <head>
 	<title>ToolBox User List</title>
 	<link href="../lib/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="css/generic_template.css">
+  	<link rel="stylesheet" type="text/css" href="css/generic_template.css">
+	<link rel="stylesheet" type="text/css" href="css/lavish-bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/about_us.css">
 
 </head>
 
@@ -22,13 +24,15 @@
 
 				<p>It's enough. This is still the best way. You go after him with a gun, you'll never get out of it alive. But with this... you slip it into his food or drink, there shouldn't be any taste or smell... thirty-six hours later... poof. A man his age, working as hard as he does... no one will be surprised. Mike can have his suspicions, but that's all they'll be. Please, one homicidal maniac at a time. </p>
           	</div>
-          	
-          	<iframe id="maps" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3003.0186084020283!2d-8.59599967571716!3d41.17776133122331!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0x35e8037791644ddf!2sFaculdade+de+Engenharia+da+Universidade+do+Porto!5e0!3m2!1spt-PT!2spt!4v1457365502725" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-          	<div id="important_info" class="pull-right">
-          		<p><strong>Address:</strong> R. Dr. ROberto Frias s/n, 4200-465 Porto</p>
-          		<p><strong>Phone:</strong> 700 300 700</p>
-          		<p><strong>Phone:</strong> 910 000 000</p>
+          	<div id="compressed-info">
+				<div id="important_info" class="pull-right">
+	          		<p><strong>Address:</strong> R. Dr. ROberto Frias s/n, 4200-465 Porto</p>
+	          		<p><strong>Phone:</strong> 700 300 700</p>
+	          		<p><strong>Phone:</strong> 910 000 000</p>
+	          	</div>
+	          	<iframe id="maps" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3003.0186084020283!2d-8.59599967571716!3d41.17776133122331!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0x35e8037791644ddf!2sFaculdade+de+Engenharia+da+Universidade+do+Porto!5e0!3m2!1spt-PT!2spt!4v1457365502725" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
           	</div>
+          	          	
 
           </div>
 

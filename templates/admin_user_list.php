@@ -3,6 +3,8 @@
 	<title>ToolBox User List</title>
 	<link href="../lib/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/generic_template.css">
+  <link rel="stylesheet" type="text/css" href="css/lavish-bootstrap.css">
+
 </head>
 
 <body>
@@ -13,7 +15,7 @@
       <?php include_once 'sidebar.html';?>
 
 
-      <div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
+      <div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main generic-element">
         <h2 class="sub-header">Users List</h2>
         <div class="table-responsive">
           <table class="table table-striped">
