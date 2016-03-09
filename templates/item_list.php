@@ -19,37 +19,37 @@
 					<div id="item-list">
 						<div class="col-xs-6 col-md-3">
 					    <a href="#" class="thumbnail">
-					      <img src="..." alt="Item Exemplo 1">
+					      <img src="res/item_thumb_medium.png" alt="Item Exemplo 1">
 					      <h3>Item Exemplo 1</h3>
 					    </a>
 					  </div>
 					  <div class="col-xs-6 col-md-3">
 					    <a href="#" class="thumbnail">
-					      <img src="..." alt="Item Exemplo 2">
+					      <img src="res/item_thumb_medium.png" alt="Item Exemplo 2">
 					      <h3>Item Exemplo 2</h3>
 					    </a>
 					  </div>
 					  <div class="col-xs-6 col-md-3">
 					    <a href="#" class="thumbnail">
-					      <img src="..." alt="Item Exemplo 3">
+					      <img src="res/item_thumb_medium.png" alt="Item Exemplo 3">
 					      <h3>Item Exemplo 3</h3>
 					    </a>
 					  </div>
 					  <div class="col-xs-6 col-md-3">
 					    <a href="#" class="thumbnail">
-					      <img src="..." alt="Item Exemplo 4">
+					      <img src="res/item_thumb_medium.png" alt="Item Exemplo 4">
 					      <h3>Item Exemplo 4</h3>
 					    </a>
 					  </div>
 					  <div class="col-xs-6 col-md-3">
 					    <a href="#" class="thumbnail">
-					      <img src="..." alt="Item Exemplo 5">
+					      <img src="res/item_thumb_medium.png" alt="Item Exemplo 5">
 					      <h3>Item Exemplo 5</h3>
 					    </a>
 					  </div>
 					  <div class="col-xs-6 col-md-3">
 					    <a href="#" class="thumbnail">
-					      <img src="..." alt="Item Exemplo 6">
+					      <img src="res/item_thumb_medium.png" alt="Item Exemplo 6">
 					      <h3>Item Exemplo 6</h3>
 					    </a>
 					  </div>
