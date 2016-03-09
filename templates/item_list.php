@@ -1,5 +1,6 @@
 <html>
 <?php include_once 'header.html';?>
+<link rel="stylesheet" type="text/css" href="css/item_list.css">
 
 <body>
 	<?php include_once 'topbar.html';?>
@@ -15,44 +16,65 @@
 					  <li class="active">Data</li>
 					</ol>
 
-		    	<div class="col-xs-6 col-md-3">
-				    <a href="#" class="thumbnail">
-				      <img src="..." alt="Item Exemplo 1">
-				      <h3>Item Exemplo 1</h3>
-				    </a>
-				  </div>
-				  <div class="col-xs-6 col-md-3">
-				    <a href="#" class="thumbnail">
-				      <img src="..." alt="Item Exemplo 2">
-				      <h3>Item Exemplo 2</h3>
-				    </a>
-				  </div>
-				  <div class="col-xs-6 col-md-3">
-				    <a href="#" class="thumbnail">
-				      <img src="..." alt="Item Exemplo 3">
-				      <h3>Item Exemplo 3</h3>
-				    </a>
-				  </div>
-				  <div class="col-xs-6 col-md-3">
-				    <a href="#" class="thumbnail">
-				      <img src="..." alt="Item Exemplo 4">
-				      <h3>Item Exemplo 4</h3>
-				    </a>
-				  </div>
-				  <div class="col-xs-6 col-md-3">
-				    <a href="#" class="thumbnail">
-				      <img src="..." alt="Item Exemplo 5">
-				      <h3>Item Exemplo 5</h3>
-				    </a>
-				  </div>
-				  <div class="col-xs-6 col-md-3">
-				    <a href="#" class="thumbnail">
-				      <img src="..." alt="Item Exemplo 6">
-				      <h3>Item Exemplo 6</h3>
-				    </a>
-				  </div>
-	    	</div>
+					<div id="item-list">
+						<div class="col-xs-6 col-md-3">
+					    <a href="#" class="thumbnail">
+					      <img src="..." alt="Item Exemplo 1">
+					      <h3>Item Exemplo 1</h3>
+					    </a>
+					  </div>
+					  <div class="col-xs-6 col-md-3">
+					    <a href="#" class="thumbnail">
+					      <img src="..." alt="Item Exemplo 2">
+					      <h3>Item Exemplo 2</h3>
+					    </a>
+					  </div>
+					  <div class="col-xs-6 col-md-3">
+					    <a href="#" class="thumbnail">
+					      <img src="..." alt="Item Exemplo 3">
+					      <h3>Item Exemplo 3</h3>
+					    </a>
+					  </div>
+					  <div class="col-xs-6 col-md-3">
+					    <a href="#" class="thumbnail">
+					      <img src="..." alt="Item Exemplo 4">
+					      <h3>Item Exemplo 4</h3>
+					    </a>
+					  </div>
+					  <div class="col-xs-6 col-md-3">
+					    <a href="#" class="thumbnail">
+					      <img src="..." alt="Item Exemplo 5">
+					      <h3>Item Exemplo 5</h3>
+					    </a>
+					  </div>
+					  <div class="col-xs-6 col-md-3">
+					    <a href="#" class="thumbnail">
+					      <img src="..." alt="Item Exemplo 6">
+					      <h3>Item Exemplo 6</h3>
+					    </a>
+					  </div>
+		    	</div>
 
+		    	<nav>
+					  <ul class="pagination">
+					    <li class="disabled">
+					      <a href="#" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+					    <li class="active"><a href="#">1</a></li>
+					    <li><a href="#">2</a></li>
+					    <li><a href="#">3</a></li>
+					    <li><a href="#">4</a></li>
+					    <li><a href="#">5</a></li>
+					    <li>
+					      <a href="#" aria-label="Next">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+					  </ul>
+					</nav>
+				</div>
 	    </div>
 	</div>
 	
