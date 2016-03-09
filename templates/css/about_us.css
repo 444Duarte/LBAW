@@ -1,11 +1,19 @@
 #compressed-info{
-	display: inline-block;
+	display: inline;
 }
 
 #important_info{
 	padding: 1em;
 }
 
-#compressed-info iframe{
-	float: left;
+@media (min-width: 768px) {
+	#compressed-info > *{
+		display: inline;
+	}	
+  #important_info{
+  	float: right;
+  }
+	 #compressed-info iframe{
+		float: left;
+	}
 }

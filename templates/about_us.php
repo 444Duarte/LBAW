@@ -20,7 +20,7 @@
 					<p>It's enough. This is still the best way. You go after him with a gun, you'll never get out of it alive. But with this... you slip it into his food or drink, there shouldn't be any taste or smell... thirty-six hours later... poof. A man his age, working as hard as he does... no one will be surprised. Mike can have his suspicions, but that's all they'll be. Please, one homicidal maniac at a time. </p>
 	          	</div>
 	          	<div id="compressed-info">
-					<div id="important_info" class="pull-right">
+					<div id="important_info">
 		          		<p><strong>Address:</strong> R. Dr. ROberto Frias s/n, 4200-465 Porto</p>
 		          		<p><strong>Phone:</strong> 700 300 700</p>
 		          		<p><strong>Phone:</strong> 910 000 000</p>

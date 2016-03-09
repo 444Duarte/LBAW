@@ -25,6 +25,7 @@
 <script src="../lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $("#loginButton").hide();
+  $(".username").html('admin<span class="caret"></span>');
 </script>
 </body>
 </html>
