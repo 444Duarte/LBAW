@@ -1,0 +1,19 @@
+#add-item-button{
+	margin-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+  h2.sub-header{
+		display: inline-block;
+	}
+	.table-top-header{
+		display: inline-block;
+		width: 100%;
+	}
+
+	#add-item-button{
+		float: right;
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+}
