@@ -8,11 +8,14 @@
 	<div class="container-fluid">
     <div class="row">
       <?php include_once 'sidebar.html';?>
-
-
       <div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
         <div class="generic-element">
-          <h2 class="sub-header">Users List</h2>
+          <div class="table-top-header">
+            <h2 class="sub-header">Users List</h2>
+            <button id="add-user-button" type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#add-user-modal" data-whatever="@getbootstrap">           
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Inventory Manager
+            </button>
+          </div>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -26,77 +29,77 @@
                 <tr>
                   <td>im01</td>
                   <td>Inventory Manager</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>im02</td>
                   <td>Inventory Manager</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>im03</td>
                   <td>Inventory Manager</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>im04</td>
                   <td>Inventory Manager</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>im05</td>
                   <td>Inventory Manager</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>client01</td>
                   <td>Client</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>client02</td>
                   <td>Client</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>client03</td>
                   <td>Client</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>client04</td>
                   <td>Client</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>client05</td>
                   <td>Client</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>client06</td>
                   <td>Client</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>client07</td>
                   <td>Client</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>client08</td>
                   <td>Client</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>client09</td>
                   <td>Client</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td>client10</td>
                   <td>Client</td>
-                  <td><a href=""> <img class="delete_icon" src="res/delete-icon_32.png" alt="Block User" title="Block User"></a></td>
+                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
               </tbody>
             </table>
@@ -118,25 +121,45 @@
                 <tr>
                   <td>im99</td>
                   <td>Inventory Manager</td>
-                  <td><a href=""> <img class="accept_icon" src="res/accept_icon_32.png" alt="Revive User Account" title="Revive User Account"></a></td>
-                </tr>
+                  <td><a href="" title="Revive Account"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>                </tr>
                 <tr>
                   <td>client20</td>
                   <td>Client</td>
-                  <td><a href=""> <img class="accept_icon" src="res/accept_icon_32.png" alt="Revive User Account" title="Revive User Account"></a></td>
+                  <td><a href="" title="Revive Account"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>                </tr>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
-        
+        </div>  
       </div>
+      <div id="add-user-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Add Inventory Manager</h4>
+            </div>
+            <div class="modal-body">
+              <form id="add-user-form" action="" method="post">
+                <p>Email:</p>
+                <input type="email" name="email" required>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" id="submit_form_button" class="btn btn-primary">Send registration email</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
       </div>
     </div>
   </div>
 
 <script src="../lib/jquery-1.12.1.min.js"></script>
 <script src="../lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+<script src="js/admin_user_list.js"></script>
 <script type="text/javascript">
   $(".username").html('admin<span class="caret"></span>');
   $("#loginButton").hide();
