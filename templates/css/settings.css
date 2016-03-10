@@ -1,6 +1,7 @@
 .editTable{
 	border: 2px solid;
 	padding: 3px;
+	border-radius: 5px;
 }
 
 .editLine:not(:last-child){
@@ -27,6 +28,10 @@
 	float:right;
 }
 
- .edit-field{
+.edit-field{
 	display: none;
+}
+
+.edit-field form input[type="submit"]{
+	float: right;
 }

@@ -21,14 +21,13 @@
 		      			<div class="edit-field">
 			      			<form class="email_form" action="" method="post">
 			      				<br>Email<br>
-								<input type="email" required>
-
+								<input type="email" name="email"required>
+								<br>Confirm Email<br>
+								<input type="email" name="confirm_email" required>
 								<br>Password<br>
 								<input type="password" name="password" required>
-								<br>Confirm Password<br>
-								<input type="password" name="confirm_password" required>
-								<br>
-								<input type="submit" value="editEmail">
+								<br><br>
+								<input type="submit" value="Change Email">
 							</form>
 						</div>
 		      			<a href="#" class="edit-button" id="editEmail">Edit</a>
@@ -46,8 +45,8 @@
 								<input type="password" name="new_password" required>
 								<br>Confirm Password<br>
 								<input type="password" name="confirm_password" required>
-								<br>
-								<input type="submit" value="editPassword">
+								<br><br>
+								<input type="submit" value="Change Password">
 							</form>
 			      		</div>
 		      			<a href="#" class="edit-button" id="editPassword">Edit</a>
