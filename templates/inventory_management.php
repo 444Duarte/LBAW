@@ -37,11 +37,7 @@
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
                   <td><select class="form-control btn-primary dropdown-toggle">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
                   </select></td>
                   <td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
@@ -52,11 +48,7 @@
                   <td><a href="">Maintenance</a></td>
                   <td>Removed from stock</td>
                   <td><select class="form-control btn-primary dropdown-toggle">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
                   </select></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
@@ -67,11 +59,7 @@
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
                   <td><select class="form-control btn-primary dropdown-toggle">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
                   </select></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
@@ -82,11 +70,7 @@
                   <td><a href="">Maintenance</a></td>
                   <td>Removed from stock</td>
                   <td><select class="form-control btn-primary dropdown-toggle">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
                   </select></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
@@ -97,11 +81,7 @@
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
                   <td><select class="form-control btn-primary dropdown-toggle">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
                   </select></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
@@ -112,11 +92,7 @@
                   <td><a href="">Maintenance</a></td>
                   <td>Removed from stock</td>
                   <td><select class="form-control btn-primary dropdown-toggle">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
                   </select></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
@@ -127,11 +103,7 @@
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
                   <td><select class="form-control btn-primary dropdown-toggle">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
                   </select></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
@@ -142,11 +114,7 @@
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
                   <td><select class="form-control btn-primary dropdown-toggle">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
                   </select></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
@@ -157,11 +125,7 @@
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
                   <td><select class="form-control btn-primary dropdown-toggle">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
                   </select></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>                

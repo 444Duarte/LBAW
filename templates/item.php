@@ -54,7 +54,49 @@
 									<div class="col-sm-6">
 										<button type="button" class="btn btn-primary btn-lg btn-block">Book Item</button>
 									</div>
+									<div class="col-sm-6">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+													<h3 class="panel-title">Available Items</h3>
+												</div>
+												<div class="panel-body">
+													<table class="table table-striped">
+														<thead>
+															<th> ID </th>
+															<th> State </th>
+															<th> Condition </th>
+															<th></th>
+														</thead>
+														<tr>
+															<td> 000001 </td>
+															<td> Available </td>
+															<td><select class="form-control btn-primary dropdown-toggle">
+										                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>	
+										                    </select></td>
+										                    <td><a href="" title="Send for repair"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+														</tr>
+														<tr>
+															<td> 000003 </td>
+															<td> Being Repaired </td>
+															<td> --- </td>
+										                    <td><a href="" title="Mark as available"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
+														</tr>
+														<tr>
+															<td> 000008 </td>
+															<td> Available </td>
+															<td><select class="form-control btn-primary dropdown-toggle">
+										                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
+										                    </select></td>
+										                    <td><a href="" title="Send for repair"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+														</tr>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+									</div>
 								</div>
+								
 								<div class="row">
 									<div class="form-group">
 										<div class="row">
@@ -65,9 +107,11 @@
 									</div>
 								</div>
 							</div>
+							<!--
 							<div role="tabpanel" class="tab-pane" id="history">Item History</div>
 							<div role="tabpanel" class="tab-pane" id="instances">Item instances</div>
 							<div role="tabpanel" class="tab-pane" id="settings">...</div>
+							-->
 						</div>
 					</div>
 				</div>
