@@ -25,6 +25,7 @@
                     <th>Category</th>
                     <th>Sub-Category</th>
                     <th>State</th>
+                    <th>Condition</th>
                     <th></th>
                   </tr>
               </thead>
@@ -35,6 +36,13 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
+                  <td><select class="form-control btn-primary dropdown-toggle">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select></td>
                   <td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -43,6 +51,13 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Removed from stock</td>
+                  <td><select class="form-control btn-primary dropdown-toggle">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -51,6 +66,13 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
+                  <td><select class="form-control btn-primary dropdown-toggle">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -59,6 +81,13 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Removed from stock</td>
+                  <td><select class="form-control btn-primary dropdown-toggle">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -67,6 +96,13 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
+                  <td><select class="form-control btn-primary dropdown-toggle">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -75,6 +111,13 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Removed from stock</td>
+                  <td><select class="form-control btn-primary dropdown-toggle">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -83,6 +126,13 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
+                  <td><select class="form-control btn-primary dropdown-toggle">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -91,6 +141,13 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
+                  <td><select class="form-control btn-primary dropdown-toggle">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -99,6 +156,13 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
+                  <td><select class="form-control btn-primary dropdown-toggle">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>                
               </tbody>

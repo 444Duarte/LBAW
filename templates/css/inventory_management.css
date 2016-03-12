@@ -17,3 +17,9 @@
 		margin-bottom: 10px;
 	}
 }
+
+.form-control{
+	width: 60px;
+	height: 28px;
+	font-size: 	small;
+}
