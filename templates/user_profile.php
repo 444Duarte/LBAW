@@ -44,8 +44,12 @@
 														<h3 class="panel-title">Marcelo Rebelo de Sousa</h3>
 													</div>
 													<div class="panel-body">
+														<p><strong>Age: </strong>67	</p>
 														<p><strong>Address: </strong>Palacio de Belem</p>
 														<p><strong>Phone: </strong>800 000 000	</p>
+														<p><strong>E-mail: </strong><a href="mailto:mrs@gov.pt">mrs@gov.pt</a></p>
+														<p><strong>CIVIL ID No: </strong>144 012 98	</p>
+
 													</div>
 												</div>
 											</div>
