@@ -23,7 +23,7 @@
       <div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
       	<div class="generic-element">
           <div class="table-top-header">
-            <h2 class="sub-header">Users List</h2>
+            <h2 class="sub-header">Items List</h2>
             <button id="add-item-button" type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#add-item-modal" data-whatever="@getbootstrap">           
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Item
             </button>
@@ -32,93 +32,83 @@
             <table class="table table-striped">
               <thead>
                   <tr>
-                    <th>#</th>
                     <th>Name</th>
                     <th>Category</th>
                     <th>Sub-Category</th>
                     <th>State</th>
-                    <th>Condition</th>
-                    <th></th>
+                    <th>Average Condition</th>
+                    <th>Action</th>
                   </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><a href="">000001</a></td>
-                  <td>Item 1</td>
-                  <td><a href="">Tools</a></td>
-                  <td><a href="">Hand Tools</a></td>
+                  <td><a href="item.php">Hammer</a></td>
+                  <td><a href="#">Tools</a></td>
+                  <td><a href="#">Hand Tools</a></td>
                   <td>Available</td>
-                  <td><?php print_stars(5) ?></td>
+                  <td><?php print_stars(4) ?></td>
                   <td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
-                  <td><a href="">000002</a></td>
-                  <td>Item 2</td>
-                  <td><a href="">Tools</a></td>
-                  <td><a href="">Power Tools</a></td>
+                  <td><a href="#">Item 2</a></td>
+                  <td><a href="#">Tools</a></td>
+                  <td><a href="#">Power Tools</a></td>
                   <td>Removed from stock</td>
-                  <td><?php print_stars(1) ?></td>
+                  <td><?php print_stars(0) ?></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
-                  <td><a href="">000003</a></td>
-                  <td>Item 3</td>
-                  <td><a href="">Tools</a></td>
-                  <td><a href="">Hand Tools</a></td>
+                  <td><a href="#">Item 3</a></td>
+                  <td><a href="#">Tools</a></td>
+                  <td><a href="#">Hand Tools</a></td>
                   <td>Maintenance</td>
                   <td><?php print_stars(4) ?></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
-                  <td><a href="">000004</a></td>
-                  <td>Item 4</td>
-                  <td><a href="">Informatics</a></td>
-                  <td><a href="">Peripheral</a></td>
+                  <td><a href="#">Item 4</a></td>
+                  <td><a href="#">Informatics</a></td>
+                  <td><a href="#">Peripheral</a></td>
                   <td>Removed from stock</td>
-                  <td><?php print_stars(5) ?></td>
+                  <td><?php print_stars(0) ?></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
-                  <td><a href="">000005</a></td>
-                  <td>Item 5</td>
-                  <td><a href="">Tools</a></td>
-                  <td><a href="">Hand Tools</a></td>
+                  <td><a href="#">Item 5</a></td>
+                  <td><a href="#">Tools</a></td>
+                  <td><a href="#">Hand Tools</a></td>
                   <td>Available</td>
 				  <td><?php print_stars(3) ?></td>
-				  <td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+				  <td><a href="#" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
-                  <td><a href="">000006</a></td>
-                  <td>Item 6</td>
-                  <td><a href="">Tools</a></td>
-                  <td><a href="">Maintenance</a></td>
+                  <td><a href="#">Item 6</a></td>
+                  <td><a href="#">Tools</a></td>
+                  <td><a href="#">Maintenance</a></td>
                   <td>Removed from stock</td>
-                  <td><?php print_stars(4) ?></td>
+                  <td><?php print_stars(0) ?></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
-                  <td><a href="">000007</a></td>
-                  <td>Item 7</td>
-                  <td><a href="">Tools</a></td>
-                  <td><a href="">Power Tools</a></td>
+                  <td><a href="#">Item 7</a></td>
+                  <td><a href="#">Tools</a></td>
+                  <td><a href="#">Power Tools</a></td>
                   <td>Available</td>
                   <td><?php print_stars(3) ?></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
-                  <td><a href="">000008</a></td>
-                  <td>Item 8</td>
-                  <td><a href="">Informatics</a></td>
-                  <td><a href="">Peripheral</a></td>
+                  <td><a href="#">Item 8</a></td>
+                  <td><a href="#">Informatics</a></td>
+                  <td><a href="#">Peripheral</a></td>
                   <td>Available</td>
                   <td><?php print_stars(5) ?></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
-                  <td><a href="">000009</a></td>
-                  <td>Item 9</td>
-                  <td><a href="">Informatics</a></td>
-                  <td><a href="">Equipment</a></td>
+                  <td><a href="#">Item 9</a></td>
+                  <td><a href="#">Informatics</a></td>
+                  <td><a href="#">Equipment</a></td>
                   <td>Available</td>
                   <td><?php print_stars(2) ?></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
