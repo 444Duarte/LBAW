@@ -22,9 +22,9 @@
 					<div class="row">
 						<ul class="nav nav-tabs nav-justified" role="tablist">
 							<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
-							<li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">History</a></li>
-							<li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Instances</a></li>
-							<li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Settings</a></li>
+							<li role="presentation"><a href="#history" aria-controls="history" role="tab" data-toggle="tab">History</a></li>
+							<li role="presentation"><a href="#instances" aria-controls="instances" role="tab" data-toggle="tab">Instances</a></li>
+							<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
 						</ul>
 					</div>
 
@@ -54,7 +54,21 @@
 									<div class="col-sm-6">
 										<button type="button" class="btn btn-primary btn-lg btn-block">Book Item</button>
 									</div>
-									<div class="col-sm-6">
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<div class="row">
+											<div class="col-md-8">
+												<div id="datetimepicker12"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane" id="history">Item History</div>
+							<div role="tabpanel" class="tab-pane" id="instances">
+								<div class="row">
+									<div class="col-sm-12">
 										<div class="panel panel-default">
 											<div class="panel-heading">
 													<h3 class="panel-title">Available Items</h3>
@@ -94,24 +108,9 @@
 											</div>
 										</div>
 									</div>
-									</div>
-								</div>
-								
-								<div class="row">
-									<div class="form-group">
-										<div class="row">
-											<div class="col-md-8">
-												<div id="datetimepicker12"></div>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
-							<!--
-							<div role="tabpanel" class="tab-pane" id="history">Item History</div>
-							<div role="tabpanel" class="tab-pane" id="instances">Item instances</div>
 							<div role="tabpanel" class="tab-pane" id="settings">...</div>
-							-->
 						</div>
 					</div>
 				</div>
