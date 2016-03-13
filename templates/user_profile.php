@@ -23,7 +23,6 @@
 							<li role="presentation" class="active"><a href="#profile" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
 							<li role="presentation"><a href="#bookings" aria-controls="info" role="tab" data-toggle="tab">Bookings</a></li>
 							<li role="presentation"><a href="#history" aria-controls="info" role="tab" data-toggle="tab">History</a></li>
-							<li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Settings</a></li>
 						</ul>
 					</div>
 
