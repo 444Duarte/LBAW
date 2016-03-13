@@ -31,7 +31,7 @@
 				</ol>
 				<div>
 					<!-- Nav tabs -->
-					<div class="row">
+						<div class="row">
 						<ul class="nav nav-tabs nav-justified" role="tablist">
 							<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
 							<li role="presentation"><a href="#history" aria-controls="history" role="tab" data-toggle="tab">History</a></li>
@@ -91,42 +91,42 @@
 					                <tr>
 									  <td>000003</td>
 					                  <td>Maintenance</td>
-					                  <td>14/03/2016</td>
+					                  <td>12/03/2016</td>
 					                  <td>Pedro Ferreira</td>
 									  <td>MarMan - Manutencao de Martelos, Lda</td>
 					                </tr>
 									<tr>
 									  <td>000003</td>
 					                  <td>Return</td>
-					                  <td>14/03/2016</td>
+					                  <td>12/03/2016</td>
 									  <td>Pedro Ferreira</td>
 									  <td><a href="user_profile.php">Marcelo Rebelo de Sousa</a></td>
 					                </tr>
 					                <tr>
 									  <td>000003</td>
 					                  <td>Lend</td>
-					                  <td>12/03/2016</td>
+					                  <td>10/03/2016</td>
 									  <td>Afonso Castro</td>
 									  <td><a href="user_profile.php">Marcelo Rebelo de Sousa</a></td>
 					                </tr>
 									<tr>
 									  <td>000005</td>
 					                  <td>Add Instance</td>
-					                  <td>12/03/2016</td>
+					                  <td>10/03/2016</td>
 									  <td>Afonso Castro</td>
 									  <td>---</td>
 					                </tr>    
 									<tr>
 									  <td>000003</td>
 					                  <td>Add Instance</td>
-					                  <td>12/03/2016</td>
+					                  <td>10/03/2016</td>
 									  <td>Afonso Castro</td>
 									  <td>---</td>
 					                </tr>    
 					                <tr>
 									  <td>000001</td>
 					                  <td>Add Instance</td>
-					                  <td>12/03/2016</td>
+					                  <td>10/03/2016</td>
 									  <td>Afonso Castro</td>
 									  <td>---</td>
 					                </tr>               

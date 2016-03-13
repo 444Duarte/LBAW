@@ -66,8 +66,8 @@
 					                    <th>Name</th>
 					                    <th>Category</th>
 					                    <th>Sub-Category</th>
-					                    <th>Booking From</th>
-					                    <th>Delivering</th>
+					                    <th>Start Date</th>
+					                    <th>Due Date</th>
 					                    <th>Action</th>
 					                  </tr>
 					              </thead>
@@ -112,8 +112,8 @@
 					                    <th>Name</th>
 					                    <th>Category</th>
 					                    <th>Sub-Category</th>
-					                    <th>Booking From</th>
-					                    <th>Delivery</th>
+					                    <th>Start Date</th>
+					                    <th>Due Date</th>
 					                  </tr>
 					              </thead>
 					              <tbody>
