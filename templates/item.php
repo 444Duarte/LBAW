@@ -1,3 +1,15 @@
+<?php
+	function print_stars($nStars){
+		$i = 0;		
+		for (; $i < $nStars; $i++){
+			echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' ;
+		}
+		for (; $i < 5; $i++){
+			echo '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>' ;
+		}
+	}
+?>
+
 <html>
 <?php include_once 'header.html';?>
 <link rel="stylesheet" type="text/css" href="css/item.css">
@@ -79,29 +91,37 @@
 															<th> ID </th>
 															<th> State </th>
 															<th> Condition </th>
-															<th></th>
+															<th> Actions </th>
 														</thead>
 														<tr>
 															<td> 000001 </td>
 															<td> Available </td>
-															<td><select class="form-control btn-primary dropdown-toggle">
-										                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>	
-										                    </select></td>
-										                    <td><a href="" title="Send for repair"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+															<td><?php print_stars(5) ?></td>
+										                    <td>
+															<a href="#" title="Lend"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
+															<a href="#" title="Maintenance"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
+															<a href="#" title="Return"><span class="glyphicon glyphicon-log-in transparent" aria-hidden="true"></span></a>
+															</td>
 														</tr>
 														<tr>
 															<td> 000003 </td>
-															<td> Being Repaired </td>
-															<td> --- </td>
-										                    <td><a href="" title="Mark as available"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
+															<td> Maintenance </td>
+															<td><?php print_stars(4) ?></td>
+										                    <td>
+															<a href="#" title="Lend"><span class="glyphicon glyphicon-log-out transparent" aria-hidden="true"></span></a>
+															<a href="#" title="Maintenance"><span class="glyphicon glyphicon-wrench transparent" aria-hidden="true"></span></a>
+															<a href="#" title="Return"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
+															</td>
 														</tr>
 														<tr>
-															<td> 000008 </td>
+															<td> 000005 </td>
 															<td> Available </td>
-															<td><select class="form-control btn-primary dropdown-toggle">
-										                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
-										                    </select></td>
-										                    <td><a href="" title="Send for repair"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+															<td><?php print_stars(3) ?></td>
+										                    <td>
+															<a href="#" title="Lend"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
+															<a href="#" title="Maintenance"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
+															<a href="#" title="Return"><span class="glyphicon glyphicon-log-in transparent" aria-hidden="true"></span></a>
+															</td>
 														</tr>
 													</table>
 												</div>

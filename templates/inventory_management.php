@@ -2,10 +2,10 @@
 	function print_stars($nStars){
 		$i = 0;		
 		for (; $i < $nStars; $i++){
-			echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' 
+			echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' ;
 		}
 		for (; $i < 5; $i++){
-			echo '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>' 
+			echo '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>' ;
 		}
 	}
 ?>
@@ -46,7 +46,7 @@
                   <td><a href="">000001</a></td>
                   <td>Item 1</td>
                   <td><a href="">Tools</a></td>
-                  <td><a href="">Maintenance</a></td>
+                  <td><a href="">Hand Tools</a></td>
                   <td>Available</td>
                   <td><?php print_stars(5) ?></td>
                   <td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
@@ -55,38 +55,37 @@
                   <td><a href="">000002</a></td>
                   <td>Item 2</td>
                   <td><a href="">Tools</a></td>
-                  <td><a href="">Maintenance</a></td>
+                  <td><a href="">Power Tools</a></td>
                   <td>Removed from stock</td>
-                  <td><?php print_stars(5) ?></td>
+                  <td><?php print_stars(1) ?></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td><a href="">000003</a></td>
                   <td>Item 3</td>
                   <td><a href="">Tools</a></td>
-                  <td><a href="">Maintenance</a></td>
-                  <td>Available</td>
-                  <td><?php print_stars(1) ?></td>
+                  <td><a href="">Hand Tools</a></td>
+                  <td>Maintenance</td>
+                  <td><?php print_stars(4) ?></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td><a href="">000004</a></td>
                   <td>Item 4</td>
-                  <td><a href="">Tools</a></td>
-                  <td><a href="">Maintenance</a></td>
+                  <td><a href="">Informatics</a></td>
+                  <td><a href="">Peripheral</a></td>
                   <td>Removed from stock</td>
-                  <td><?php print_stars(2) ?></td>
+                  <td><?php print_stars(5) ?></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td><a href="">000005</a></td>
                   <td>Item 5</td>
                   <td><a href="">Tools</a></td>
-                  <td><a href="">Maintenance</a></td>
+                  <td><a href="">Hand Tools</a></td>
                   <td>Available</td>
-				  <td><?php print_stars(2) ?></td>
-                  <td><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
-									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+				  <td><?php print_stars(3) ?></td>
+				  <td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td><a href="">000006</a></td>
@@ -94,23 +93,23 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Removed from stock</td>
-                  <td><?php print_stars(2) ?></td>
+                  <td><?php print_stars(4) ?></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td><a href="">000007</a></td>
                   <td>Item 7</td>
                   <td><a href="">Tools</a></td>
-                  <td><a href="">Maintenance</a></td>
+                  <td><a href="">Power Tools</a></td>
                   <td>Available</td>
-                  <td><?php print_stars(4) ?></td>
+                  <td><?php print_stars(3) ?></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
                   <td><a href="">000008</a></td>
                   <td>Item 8</td>
-                  <td><a href="">Tools</a></td>
-                  <td><a href="">Maintenance</a></td>
+                  <td><a href="">Informatics</a></td>
+                  <td><a href="">Peripheral</a></td>
                   <td>Available</td>
                   <td><?php print_stars(5) ?></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
@@ -118,8 +117,8 @@
                 <tr>
                   <td><a href="">000009</a></td>
                   <td>Item 9</td>
-                  <td><a href="">Tools</a></td>
-                  <td><a href="">Maintenance</a></td>
+                  <td><a href="">Informatics</a></td>
+                  <td><a href="">Equipment</a></td>
                   <td>Available</td>
                   <td><?php print_stars(2) ?></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>

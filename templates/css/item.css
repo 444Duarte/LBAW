@@ -7,3 +7,7 @@
 	height: 28px;
 	font-size: 	small;
 }
+
+.transparent{
+	opacity: 0.5;
+}
