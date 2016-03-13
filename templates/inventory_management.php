@@ -1,3 +1,15 @@
+<?php
+	function print_stars($nStars){
+		$i = 0;		
+		for (; $i < $nStars; $i++){
+			echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' 
+		}
+		for (; $i < 5; $i++){
+			echo '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>' 
+		}
+	}
+?>
+
 <html>
 <?php include_once 'header.html';?>
 <link rel="stylesheet" type="text/css" href="css/inventory_management.css">
@@ -36,9 +48,7 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
-                  <td><select class="form-control btn-primary dropdown-toggle">
-                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
-                  </select></td>
+                  <td><?php print_stars(5) ?></td>
                   <td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -47,9 +57,7 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Removed from stock</td>
-                  <td><select class="form-control btn-primary dropdown-toggle">
-                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
-                  </select></td>
+                  <td><?php print_stars(5) ?></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -58,9 +66,7 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
-                  <td><select class="form-control btn-primary dropdown-toggle">
-                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
-                  </select></td>
+                  <td><?php print_stars(1) ?></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -69,9 +75,7 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Removed from stock</td>
-                  <td><select class="form-control btn-primary dropdown-toggle">
-                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
-                  </select></td>
+                  <td><?php print_stars(2) ?></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -80,9 +84,8 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
-                  <td><select class="form-control btn-primary dropdown-toggle">
-                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
-                  </select></td>
+				  <td><?php print_stars(2) ?></td>
+                  <td><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -91,9 +94,7 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Removed from stock</td>
-                  <td><select class="form-control btn-primary dropdown-toggle">
-                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
-                  </select></td>
+                  <td><?php print_stars(2) ?></td>
 									<td><a href="" title="Revive item"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -102,9 +103,7 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
-                  <td><select class="form-control btn-primary dropdown-toggle">
-                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
-                  </select></td>
+                  <td><?php print_stars(4) ?></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -113,9 +112,7 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
-                  <td><select class="form-control btn-primary dropdown-toggle">
-                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
-                  </select></td>
+                  <td><?php print_stars(5) ?></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
                 <tr>
@@ -124,9 +121,7 @@
                   <td><a href="">Tools</a></td>
                   <td><a href="">Maintenance</a></td>
                   <td>Available</td>
-                  <td><select class="form-control btn-primary dropdown-toggle">
-                    <?php for($i = 1; $i<=5; $i++){echo "<option value=$i>$i</option>";}?>
-                  </select></td>
+                  <td><?php print_stars(2) ?></td>
 									<td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>                
               </tbody>
