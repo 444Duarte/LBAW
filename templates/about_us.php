@@ -25,7 +25,7 @@
 		          		<p><strong>Phone:</strong> 700 300 700</p>
 		          		<p><strong>Phone:</strong> 910 000 000</p>
 		          	</div>
-		          	<iframe id="maps" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3003.0186084020283!2d-8.59599967571716!3d41.17776133122331!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0x35e8037791644ddf!2sFaculdade+de+Engenharia+da+Universidade+do+Porto!5e0!3m2!1spt-PT!2spt!4v1457365502725" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+		          	<iframe id="maps" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3003.0186084020283!2d-8.59599967571716!3d41.17776133122331!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0000000000000000%3A0x35e8037791644ddf!2sFaculdade+de+Engenharia+da+Universidade+do+Porto!5e0!3m2!1spt-PT!2spt!4v1457365502725" width="600" height="450" frameborder="0" style="border:0; margin-bottom:50;" allowfullscreen></iframe>
 	          	</div>
           	</div>
 	   	</div>
