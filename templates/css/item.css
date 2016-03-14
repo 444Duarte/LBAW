@@ -11,3 +11,12 @@
 .transparent{
 	opacity: 0.5;
 }
+
+.panel-title{
+	display:inline;
+	font-size: 30px;
+}
+
+.panel-heading{
+	vertical-align: middle;
+}

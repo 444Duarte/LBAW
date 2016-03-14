@@ -12,15 +12,15 @@
 	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 	    		<ol class="breadcrumb">
 					  <li><a href="#">Home</a></li>
-					  <li><a href="#">Library</a></li>
-					  <li class="active">Data</li>
+					  <li><a href="#">Tools</a></li>
+					  <li class="active">Hand Tools</li>
 					</ol>
 
 					<div id="item-list">
 						<div class="col-xs-6 col-md-3">
-					    <a href="#" class="thumbnail">
+					    <a href="item.php" class="thumbnail">
 					      <img src="res/item_thumb_medium.png" alt="Item Exemplo 1">
-					      <h3>Item Exemplo 1</h3>
+					      <h3>Hammer</h3>
 					    </a>
 					  </div>
 					  <div class="col-xs-6 col-md-3">
@@ -51,6 +51,18 @@
 					    <a href="#" class="thumbnail">
 					      <img src="res/item_thumb_medium.png" alt="Item Exemplo 6">
 					      <h3>Item Exemplo 6</h3>
+					    </a>
+					  </div>
+					  <div class="col-xs-6 col-md-3">
+					    <a href="#" class="thumbnail">
+					      <img src="res/item_thumb_medium.png" alt="Item Exemplo 7">
+					      <h3>Item Exemplo 7</h3>
+					    </a>
+					  </div>
+					  <div class="col-xs-6 col-md-3">
+					    <a href="#" class="thumbnail">
+					      <img src="res/item_thumb_medium.png" alt="Item Exemplo 8">
+					      <h3>Item Exemplo 8</h3>
 					    </a>
 					  </div>
 		    	</div>
