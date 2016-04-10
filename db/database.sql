@@ -99,7 +99,6 @@ CREATE TABLE ItemHistoryRecord(
 	type 				RECORD_TYPE	NOT NULL,	
 	
 	PRIMARY KEY (id),
-	FOREIGN KEY (idClient)				REFERENCES Client(id),
 	FOREIGN KEY (idItem)				REFERENCES ItemInstance(id),
 	FOREIGN KEY (idInventoryManager)	REFERENCES InventoryManager(id)
 );
