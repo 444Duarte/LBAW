@@ -94,7 +94,7 @@ CREATE TABLE Reservation(
 CREATE TABLE ItemHistoryRecord(
 	id 					INTEGER 	NOT NULL,
 	date 				TIMESTAMP 	NOT NULL DEFAULT NOW,
-	idItem 				INTEGER		NOT NULL,
+	idItemInstance		INTEGER		NOT NULL,
 	idInventoryManager 	INTEGER		NOT NULL,
 	type 				RECORD_TYPE	NOT NULL,	
 	
