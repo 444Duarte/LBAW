@@ -94,7 +94,6 @@ CREATE TABLE Reservation(
 CREATE TABLE ItemHistoryRecord(
 	id 					INTEGER 	NOT NULL,
 	date 				TIMESTAMP 	NOT NULL DEFAULT NOW,
-	idClient			INTEGER 	NOT NULL,
 	idItem 				INTEGER		NOT NULL,
 	idInventoryManager 	INTEGER		NOT NULL,
 	type 				RECORD_TYPE	NOT NULL,	
@@ -131,7 +130,3 @@ CREATE TABLE Maintenance(
 	PRIMARY KEY (id),
 	FOREIGN KEY (id)	REFERENCES ItemHistoryRecord(id),
 );
-
-
-
-
