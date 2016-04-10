@@ -13,11 +13,11 @@ WHEN
 	)
 	OR
 	(
-		(NEW.type = 'Lend' OR NEW.type = 'Maintenace')
+		(NEW.type = 'Lend' OR NEW.type = 'Maintenace')			--SE O NOVO REGISTO FOR UM LEND OU UM MAINTENANCE, ENTÃO O ITEM INSTANCE TEM QUE ESTAR DISPONÍVEL
 		AND 
 		(
 			SELECT *
-			FROM(SELECT type, MAX(date) 						--
+			FROM(SELECT type, MAX(date) 						
 				FROM ItemHistoryRecord
 				WHERE idItemInstance = NEW.idItemInstance)
 			WHERE type = 'Add' OR type = 'Return' OR type ='Repaired'
@@ -25,11 +25,11 @@ WHEN
 	)
 	OR
 	(
-		NEW.type = 'Return'
+		NEW.type = 'Return'										--SÓ PODE FAZER RETURN SE O REGISTO FOR UM LEND 
 		AND 
 		(
 			SELECT *
-			FROM(SELECT type, MAX(date) 						--
+			FROM(SELECT type, MAX(date) 						
 				FROM ItemHistoryRecord
 				WHERE idItemInstance = NEW.idItemInstance)
 			WHERE type = 'Lend'
@@ -37,22 +37,31 @@ WHEN
 	)
 	OR
 	(
-		NEW.type = 'Repaired'
+		NEW.type = 'Repaired'									-- SÓ PODE DAR ENTRADA COMO REPARADO SE O REGISTO ANTERIOR FOR UM MAINTENACE
 		AND 
 		(
 			SELECT *
-			FROM(SELECT type, MAX(date) 						--
+			FROM(SELECT type, MAX(date) 						
 				FROM ItemHistoryRecord
 				WHERE idItemInstance = NEW.idItemInstance)
 			WHERE type = 'Maintenace'
 		) = 0
 	)
+	OR
+	(SELECT *
+	FROM(SELECT type, MAX(date) 						-- SE O ITEM TIVER SIDO REMOVIDO NÃO SE PODE ADICIONAR MAIS REGISTOS
+		FROM ItemHistoryRecord
+		WHERE idItemInstance = NEW.idItemInstance)
+	WHERE type = 'Removed') >=0
 BEGIN
 	SELECT RAISE (ABORT, "Can't perform this action");
 END
 ;
 
-CREATE TRIGGER clientMismatch
+/**
+ * NÃO DEIXA ADICIONAR UM RETURN RECORD SE O CLIENTE ID NAO FOR O MESMO
+ */
+CREATE TRIGGER clientMismatch					
 BEFORE INSERT ON ReturnRecord
 FOR EACH ROW 
 WHEN
