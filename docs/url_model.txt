@@ -1,0 +1,17 @@
+Login-				http://toolbox.com/login
+	Register-		http://toolbox.com/register
+
+HOMEPAGE/Inventory- http://toolbox.com
+	Category - 		http://toolbox.com/d_category
+	SubCategory - 	http://toolbox.com/d_category/d_subcategory
+	Item-			http://toolbox.com/d_category/d_subcategory/item
+
+Perfil-				http://toolbox.com/user/d_username
+	Settings- 		http://toolbox.com/user/d_username/settings
+
+
+About us- 			http://toolbox.com/about_us
+
+Gestão inventário	http://toolbox.com/inventory
+
+Gestão de contas 	http://toolbox.com/admin
