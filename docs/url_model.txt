@@ -2,9 +2,9 @@ Login-				http://toolbox.com/login
 	Register-		http://toolbox.com/register
 
 HOMEPAGE/Inventory- http://toolbox.com
-	Category - 		http://toolbox.com/d_category
-	SubCategory - 	http://toolbox.com/d_category/d_subcategory
-	Item-			http://toolbox.com/d_category/d_subcategory/item
+	Category - 		http://toolbox.com/items/d_category
+	SubCategory - 	http://toolbox.com/d_category/items/d_subcategory
+	Item-			http://toolbox.com/items/d_category/d_subcategory/item
 
 Perfil-				http://toolbox.com/user/d_username
 	Settings- 		http://toolbox.com/user/d_username/settings
