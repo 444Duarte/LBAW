@@ -1,3 +1,11 @@
+CREATE FUNCTION insertRecordError()
+RETURNS TRIGGER AS $$
+BEGIN
+	RAISE 'Can\'t perform this action');
+END
+;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER addRecord
 BEFORE INSERT ON ItemHistoryRecord
 FOR EACH ROW 
@@ -53,10 +61,15 @@ WHEN
 		FROM ItemHistoryRecord
 		WHERE idItemInstance = NEW.idItemInstance)
 	WHERE type = 'Removed') >=0
+EXECUTE PROCEDURE insertRecordError();
+
+
+CREATE FUNCTION clientMismatchError()
+RETURNS TRIGGER AS $$
 BEGIN
-	SELECT RAISE (ABORT, "Can't perform this action");
-END
-;
+	RAISE 'Client mismatch on ReturnRecord';
+END;
+$$ LANGUAGE plpgsql;
 
 /**
  * NÃO DEIXA ADICIONAR UM RETURN RECORD SE O CLIENTE ID NAO FOR O MESMO
@@ -74,10 +87,25 @@ WHEN
 		)
 	WHERE idClient = NEW.idClient	
 	) <= 0
-BEGIN
-	SELECT RAISE (ABORT, "Client mismatch on ReturnRecord");
-END
+EXECUTE PROCEDURE clientMismatchError()
 ;
+
+CREATE FUNCTION fulfillReservation(recordId INTEGER, idClient INTEGER)
+RETURNS TRIGGER AS $$
+BEGIN
+	CREATE VIEW Record AS 
+	SELECT idItemInstance, date
+	FROM (
+		(SELECT * FROM ItemHistoryRecord WHERE id = recordId)
+	);
+
+	UPDATE Reservation
+	SET fulfilled = TRUE,
+	WHERE 	Reservation.idItemInstance = Record.idItemInstance
+	AND 	DATEDIFF(day,Reservation.start,Record.date) = 0
+	AND 	Reservation.idClient = idClient;
+END
+;$$ LANGUAGE plpgsql;
 
 /**
  *	FAZER FULFILL AUTOMATICAMENTE DE UMA RESERVA QUANDO É INSERIDO NO SISTEMA UM LENDRECORD PELO MESMO CLIENTE, NO MESMO DIA DA RESERVA E PELO MESMO ITEMINSTANCE
@@ -85,50 +113,29 @@ END
 CREATE TRIGGER fulfillReservation
 BEFORE INSERT ON LendRecord
 FOR EACH ROW
-WHEN
-	(SELECT *
-	FROM Reservation,(SELECT idItemInstance,date, FROM ItemHistoryRecord WHERE id = NEW.id) AS Record
-	WHERE 	Reservation.idItemInstance = Record.idItemInstance
-	AND 	DATEDIFF(day,Reservation.start,Record.date) = 0
-	AND 	Reservation.idClient = NEW.idClient
-	) >= 1 
+EXECUTE PROCEDURE fulfillReservation(NEW.id, NEW.idClient)
+;
+
+CREATE FUNCTION deleteDiscardedReservation(recordId INTEGER, idClient INTEGER)
+RETURNS TRIGGER AS $$
 BEGIN
 	CREATE VIEW Record AS 
 	SELECT idItemInstance, date
 	FROM (
-		(SELECT * FROM ItemHistoryRecord WHERE id = NEW.id)
+		(SELECT * FROM ItemHistoryRecord WHERE id = recordId)
 	);
 
-	UPDATE Reservation
-	SET fulfilled = TRUE,
+	DELETE Reservation
+	USING	Record
 	WHERE 	Reservation.idItemInstance = Record.idItemInstance
 	AND 	DATEDIFF(day,Reservation.start,Record.date) = 0
-	AND 	Reservation.idClient = NEW.idClient;
+	AND 	Reservation.idClient != NEW.idClient;
 END
-;
+;$$ LANGUAGE plpgsql;
 
 
 CREATE TRIGGER deleteReservation
 BEFORE INSERT ON LendRecord
 FOR EACH ROW
-WHEN
-	(SELECT *
-	FROM Reservation,(SELECT idItemInstance,date, FROM ItemHistoryRecord WHERE id = NEW.id) AS Record
-	WHERE 	Reservation.idItemInstance = Record.idItemInstance
-	AND 	DATEDIFF(day,Reservation.start,Record.date) = 0
-	AND 	Reservation.idClient != NEW.idClient
-	) >= 1 
-BEGIN
-	CREATE VIEW Record AS 
-	SELECT idItemInstance, date
-	FROM (
-		(SELECT * FROM ItemHistoryRecord WHERE id = NEW.id)
-	);
-
-	UPDATE Reservation
-	SET fulfilled = TRUE,
-	WHERE 	Reservation.idItemInstance = Record.idItemInstance
-	AND 	DATEDIFF(day,Reservation.start,Record.date) = 0
-	AND 	Reservation.idClient != NEW.idClient;
-END
+EXECUTE PROCEDURE deleteDiscardedReservation(NEW.id, New.idClient)
 ;
