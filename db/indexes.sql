@@ -7,4 +7,6 @@ CREATE INDEX reservation_idx on Reservation(idClient);
 CLUSTER Reservation USING reservation_idx;
 
 CREATE INDEX item_history_idx on ItemHistoryRecord(idItemInstance);
-CLUSTER ItemHistoryRecord USING idItemInstance;
+CLUSTER ItemHistoryRecord USING item_history_idx;
+
+CREATE INDEX item_category on Item(idI,idSubCategory);
