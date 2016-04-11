@@ -1,5 +1,5 @@
-Login-				http://toolbox.com/login
-	Register-		http://toolbox.com/register
+Login-				http://toolbox.com/auth/login
+	Register-		http://toolbox.com/auth/register
 
 HOMEPAGE/Inventory- http://toolbox.com
 	Category - 		http://toolbox.com/items/d_category
