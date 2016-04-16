@@ -1,4 +1,4 @@
-CREATE FUNCTION insertRecordError()
+CREATE FUNCTION abort()
 RETURNS TRIGGER AS $$
 BEGIN
 	RAISE 'Can\'t perform this action');
@@ -21,7 +21,7 @@ WHEN
 	)
 	OR
 	(
-		(NEW.type = 'Lend' OR NEW.type = 'Maintenace')			--SE O NOVO REGISTO FOR UM LEND OU UM MAINTENANCE, ENTÃO O ITEM INSTANCE TEM QUE ESTAR DISPONÍVEL
+		(NEW.type = 'Lend' OR NEW.type = 'Maintenance')			--SE O NOVO REGISTO FOR UM LEND OU UM MAINTENANCE, ENTÃO O ITEM INSTANCE TEM QUE ESTAR DISPONÍVEL
 		AND 
 		(
 			SELECT *
@@ -45,14 +45,14 @@ WHEN
 	)
 	OR
 	(
-		NEW.type = 'Repaired'									-- SÓ PODE DAR ENTRADA COMO REPARADO SE O REGISTO ANTERIOR FOR UM MAINTENACE
+		NEW.type = 'Repaired'									-- SÓ PODE DAR ENTRADA COMO REPARADO SE O REGISTO ANTERIOR FOR UM MAINTENAnCE
 		AND 
 		(
 			SELECT *
 			FROM(SELECT type, MAX(date) 						
 				FROM ItemHistoryRecord
 				WHERE idItemInstance = NEW.idItemInstance)
-			WHERE type = 'Maintenace'
+			WHERE type = 'Maintenance'
 		) = 0
 	)
 	OR
@@ -61,7 +61,7 @@ WHEN
 		FROM ItemHistoryRecord
 		WHERE idItemInstance = NEW.idItemInstance)
 	WHERE type = 'Removed') >=0
-EXECUTE PROCEDURE insertRecordError();
+EXECUTE PROCEDURE abort();
 
 
 CREATE FUNCTION clientMismatchError()
@@ -113,6 +113,13 @@ END
 CREATE TRIGGER fulfillReservation
 BEFORE INSERT ON LendRecord
 FOR EACH ROW
+WHEN
+ 	(SELECT *
+ 	FROM Reservation,(SELECT idItemInstance,date, FROM ItemHistoryRecord WHERE id = NEW.id) AS Record
+ 	WHERE 	Reservation.idItemInstance = Record.idItemInstance
+ 	AND 	DATEDIFF(day,Reservation.start,Record.date) = 0
+ 	AND 	Reservation.idClient = NEW.idClient
+ 	) >= 1 
 EXECUTE PROCEDURE fulfillReservation(NEW.id, NEW.idClient)
 ;
 
@@ -137,5 +144,56 @@ END
 CREATE TRIGGER deleteReservation
 BEFORE INSERT ON LendRecord
 FOR EACH ROW
+WHEN
+ 	(SELECT *
+ 	FROM Reservation,(SELECT idItemInstance,date, FROM ItemHistoryRecord WHERE id = NEW.id) AS Record
+ 	WHERE 	Reservation.idItemInstance = Record.idItemInstance
+ 	AND 	DATEDIFF(day,Reservation.start,Record.date) = 0
+ 	AND 	Reservation.idClient != NEW.idClient
+ 	) >= 1 
 EXECUTE PROCEDURE deleteDiscardedReservation(NEW.id, New.idClient)
 ;
+
+CREATE TRIGGER checkMaintenance
+BEFORE INSERT ON maintenance_records
+FOR EACH ROW
+WHEN
+	(SELECT id
+	FROM item_history_records
+	WHERE 	id = NEW.id 
+	AND 	type = 'Maintenance'	
+	) >= 1
+EXECUTE PROCEDURE abort();
+
+CREATE TRIGGER checkReturn
+BEFORE INSERT ON return_records
+FOR EACH ROW
+WHEN
+	(SELECT id
+	FROM item_history_records
+	WHERE 	id = NEW.id 
+	AND 	type = 'Return'	
+	) >= 1
+EXECUTE PROCEDURE abort();
+
+CREATE TRIGGER checkLend
+BEFORE INSERT ON lend_record
+FOR EACH ROW
+WHEN
+	(SELECT id
+	FROM item_history_records
+	WHERE 	id = NEW.id 
+	AND 	type = 'Lend'	
+	) >= 1
+EXECUTE PROCEDURE abort();
+
+CREATE TRIGGER checkUser
+BEFORE INSERT ON clients
+FOR EACH ROW
+WHEN
+	(SELECT id
+	FROM users
+	WHERE 	id = NEW.id 
+	AND 	type = 'Client'	
+	) >= 1
+EXECUTE PROCEDURE abort();
