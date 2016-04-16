@@ -1,131 +1,213 @@
+-------------------- TYPES --------------------
 
-CREATE TYPE CONDITION AS ENUM
-	('1','2','3','4','5');
-CREATE TYPE RECORD_TYPE AS ENUM
-	('Add','Remove','Lend','Return','Maintenance','Repaired');
-CREATE TYPE USER_TYPE AS ENUM
-	('Client','InventoryManager', 'SystemManager');
+DROP TYPE IF EXISTS condition;
+CREATE TYPE condition AS ENUM (
+    '1',
+    '2',
+    '3',
+    '4',
+    '5'
+);
 
+DROP TYPE IF EXISTS record_type;
+CREATE TYPE record_type AS ENUM (
+    'Add',
+    'Remove',
+    'Lend',
+    'Return',
+    'Maintenance',
+    'Repaired'
+);
+
+DROP TYPE IF EXISTS user_type;
+CREATE TYPE user_type AS ENUM (
+    'Client',
+    'InventoryManager',
+    'SystemManager'
+);
+
+
+-------------------- TABLES --------------------
+
+DROP TABLE IF EXISTS blocked_users;
+CREATE TABLE blocked_users (
+    id integer NOT NULL,
+    date timestamp without time zone DEFAULT now() NOT NULL,
+    note text
+);	
+
+DROP TABLE IF EXISTS categories;
+CREATE TABLE categories (
+    id serial NOT NULL,
+    name text NOT NULL
+);
+
+DROP TABLE IF EXISTS clients;
+CREATE TABLE clients (
+    id integer NOT NULL,
+    id_card text NOT NULL,
+    address text NOT NULL,
+    phone_number text NOT NULL,
+    picture text
+);
 	
-CREATE TABLE User(
-	id			INTEGER 	NOT NULL,
-	username 	TEXT 		UNIQUE	NOT NULL,
-	email 		TEXT 		UNIQUE 	NOT NULL,
-	password 	TEXT 		NOT NULL,
-	type 		USER_TYPE 	NOT NULL,
+DROP TABLE IF EXISTS item_history_records;
+CREATE TABLE item_history_records (
+    id serial NOT NULL,
+    date timestamp without time zone DEFAULT now() NOT NULL,
+    id_item_instance integer NOT NULL,
+    id_inventory_manager integer NOT NULL,
+    type record_type NOT NULL
+);	
 
-	PRIMARY KEY (id),
-	CHECK (LEN(password) >6)
+DROP TABLE IF EXISTS item_instances;
+CREATE TABLE item_instances (
+    id serial NOT NULL,
+    id_item integer NOT NULL,
+    condition condition NOT NULL
 );
-
-CREATE TABLE UserBlocked(
-	id 		INTEGER 	NOT NULL,
-	date 	TIMESTAMP 	NOT NULL DEFAULT NOW,
-	note 	TEXT,
-
-	PRIMARY KEY (id),
-	FOREIGN KEY (id) 	REFERENCES User(id)
-);
-
-CREATE TABLE Client(
-	id INTEGER 			NOT NULL,
-	idCard INTEGER 		UNIQUE NOT NULL,
-	address TEXT 		NOT NULL,
-	phoneNumber TEXT 	NOT NULL,
-	picture 	TEXT,
 	
-	PRIMARY KEY (id),
-	FOREIGN KEY (id) 	REFERENCES User(id),
-	CHECK (LEN(phoneNumber) = 9)
+DROP TABLE IF EXISTS items;
+CREATE TABLE items (
+    id serial NOT NULL,
+    name text NOT NULL,
+    id_subcategory integer NOT NULL,
+    description text NOT NULL,
+    picture text
 );
 
-CREATE TABLE Category(
-	id 	INTEGER NOT NULL,
-	name 	TEXT 	NOT NULL,
-	
-	PRIMARY KEY (id)
+DROP TABLE IF EXISTS lend_records;
+CREATE TABLE lend_records (
+    id integer NOT NULL,
+    id_client integer NOT NULL
 );
 
-CREATE TABLE SubCategory(
-	id 			INTEGER 		NOT NULL,
-	name 		TEXT			NOT NULL,
-	idCategory	INTEGER 		NOT NULL,
-	
-	PRIMARY KEY (id),
-	FOREIGN KEY (idCategory) 	REFERENCES Category(id),
-	UNIQUE (name, idCategory)
+DROP TABLE IF EXISTS maintenance_records;
+CREATE TABLE maintenance_records (
+    id integer NOT NULL,
+    repairer text NOT NULL,
+    expected_end timestamp without time zone NOT NULL
 );
 
-CREATE TABLE Item(
-	id 	INTEGER 				NOT NULL,
-	name 	TEXT 				NOT NULL,
-	idSubCategory INTEGER		NOT NULL,
-	description TEXT 			NOT NULL,
-	picture 	TEXT,
-	
-	PRIMARY KEY (id),
-	FOREIGN KEY (idSubCategory)	REFERENCES SubCategory(id),
-	CHECK (LEN(description) > 20)
+DROP TABLE IF EXISTS reservations;
+CREATE TABLE reservations (
+    id serial NOT NULL,
+    start_time timestamp without time zone NOT NULL,
+    end_time timestamp without time zone NOT NULL,
+    id_client integer NOT NULL,
+    id_item_instance integer NOT NULL,
+    fulfilled boolean DEFAULT false NOT NULL
 );
 
-CREATE TABLE ItemInstance(
-	id 	INTEGER 			NOT NULL,
-	idItem INTEGER			NOT NULL,
-	condition 	CONDITION 	NOT NULL,
+DROP TABLE IF EXISTS return_records;
+CREATE TABLE return_records (
+    id integer NOT NULL,
+    id_client integer NOT NULL
+);
 	
-	PRIMARY KEY (id),
-	FOREIGN KEY (idItem)	REFERENCES Item(id)
+DROP TABLE IF EXISTS subcategories;
+CREATE TABLE subcategories (
+    id serial NOT NULL,
+    name text NOT NULL,
+    id_category integer NOT NULL
 );
 
-CREATE TABLE Reservation(
-	id 				INTEGER 	NOT NULL,
-	start 			TIMESTAMP 	NOT NULL,
-	end 			TIMESTAMP 	NOT NULL,
-	idClient		INTEGER 	NOT NULL,
-	idItemInstance 	INTEGER		NOT NULL,
-	fulfilled 		BOOLEAN 	DEFAULT FALSE,
-	
-	PRIMARY KEY (id),
-	FOREIGN KEY (idClient)	REFERENCES Client(id),
-	FOREIGN KEY (idItem)	REFERENCES ItemInstance(id),
-	CHECK(end > start)
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
+    id serial NOT NULL,
+    username text NOT NULL,
+    email text NOT NULL,
+    password text NOT NULL,
+    type user_type NOT NULL
 );
 
-CREATE TABLE ItemHistoryRecord(
-	id 					INTEGER 	NOT NULL,
-	date 				TIMESTAMP 	NOT NULL DEFAULT NOW,
-	idItemInstance		INTEGER		NOT NULL,
-	idInventoryManager 	INTEGER		NOT NULL,
-	type 				RECORD_TYPE	NOT NULL,	
-	
-	PRIMARY KEY (id),
-	FOREIGN KEY (idItem)				REFERENCES ItemInstance(id),
-	FOREIGN KEY (idInventoryManager)	REFERENCES InventoryManager(id)
-);
+-------------------- KEYS --------------------
 
-CREATE TABLE LendRecord(
-	id 	INTEGER 			NOT NULL,
-	idClient	INTEGER 	NOT NULL,
-	
-	PRIMARY KEY (id),
-	FOREIGN KEY (id)		REFERENCES ItemHistoryRecord(id),
-	FOREIGN KEY (idClient)	REFERENCES Client(id)
-);
+ALTER TABLE ONLY blocked_users
+    ADD CONSTRAINT blocked_users_pkey PRIMARY KEY (id);
 
-CREATE TABLE ReturnRecord(
-	id 	INTEGER 			NOT NULL,
-	idClient 	INTEGER		NOT NULL,
+ALTER TABLE ONLY categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY categories
+    ADD CONSTRAINT categories_name_key UNIQUE (name);	
 	
-	PRIMARY KEY (id),
-	FOREIGN KEY (id)		REFERENCES ItemHistoryRecord(id),
-	FOREIGN KEY (idClient)	REFERENCES Client(id)
-);
+ALTER TABLE ONLY clients
+    ADD CONSTRAINT clients_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY clients
+    ADD CONSTRAINT clients_idcard_key UNIQUE (id_card);
+	
+ALTER TABLE ONLY item_history_records
+    ADD CONSTRAINT item_history_records_pkey PRIMARY KEY (id);
+	
+ALTER TABLE ONLY item_instances
+    ADD CONSTRAINT item_instances_pkey PRIMARY KEY (id);
 
-CREATE TABLE Maintenance(
-	id 	INTEGER 		NOT NULL,
-	repairer	TEXT	NOT NULL,
-	expectedEnd DATE 	NOT NULL,
+ALTER TABLE ONLY items
+    ADD CONSTRAINT items_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY items
+    ADD CONSTRAINT uk_name_subcategory UNIQUE (name, id_subcategory);
 	
-	PRIMARY KEY (id),
-	FOREIGN KEY (id)	REFERENCES ItemHistoryRecord(id),
-);
+ALTER TABLE ONLY lend_records
+    ADD CONSTRAINT lend_records_pkey PRIMARY KEY (id);
+	
+ALTER TABLE ONLY maintenance_records
+    ADD CONSTRAINT maintenance_records_pkey PRIMARY KEY (id);
+	
+ALTER TABLE ONLY reservations
+    ADD CONSTRAINT reservations_pkey PRIMARY KEY (id);
+
+ALTER TABLE ONLY return_records
+    ADD CONSTRAINT return_records_pkey PRIMARY KEY (id);
+	
+ALTER TABLE ONLY subcategories
+	ADD CONSTRAINT subcategories_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY subcategories
+	ADD CONSTRAINT subcategories_name_id_category_key UNIQUE (name, id_category);
+	
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_username_key UNIQUE (username);
+	
+
+-------------------- FOREIGN KEYS --------------------
+
+ALTER TABLE ONLY blocked_users
+    ADD CONSTRAINT blocked_users_id_fkey FOREIGN KEY (id) REFERENCES users(id);
+	
+ALTER TABLE ONLY clients
+    ADD CONSTRAINT clients_id_fkey FOREIGN KEY (id) REFERENCES users(id);
+	
+ALTER TABLE ONLY item_history_records
+    ADD CONSTRAINT item_history_records_id_inventory_manager_fkey FOREIGN KEY (id_inventory_manager) REFERENCES users(id);
+ALTER TABLE ONLY item_history_records
+    ADD CONSTRAINT item_history_records_id_item_instance_fkey FOREIGN KEY (id_item_instance) REFERENCES item_instances(id);
+
+ALTER TABLE ONLY item_instances
+    ADD CONSTRAINT item_instances_id_item_fkey FOREIGN KEY (id_item) REFERENCES items(id);
+	
+ALTER TABLE ONLY items
+    ADD CONSTRAINT items_id_subcategory_fkey FOREIGN KEY (id_subcategory) REFERENCES subcategories(id);
+	
+ALTER TABLE ONLY lend_records
+    ADD CONSTRAINT lend_records_id_client_fkey FOREIGN KEY (id_client) REFERENCES clients(id);
+ALTER TABLE ONLY lend_records
+    ADD CONSTRAINT lend_records_id_fkey FOREIGN KEY (id) REFERENCES item_history_records(id);
+	
+ALTER TABLE ONLY maintenance_records
+    ADD CONSTRAINT maintenance_records_id_fkey FOREIGN KEY (id) REFERENCES item_history_records(id);
+	
+ALTER TABLE ONLY reservations
+    ADD CONSTRAINT reservations_id_client_fkey FOREIGN KEY (id_client) REFERENCES clients(id);
+ALTER TABLE ONLY reservations
+    ADD CONSTRAINT reservations_id_item_instance_fkey FOREIGN KEY (id_item_instance) REFERENCES item_instances(id);
+	
+ALTER TABLE ONLY return_records
+    ADD CONSTRAINT return_records_id_client_fkey FOREIGN KEY (id_client) REFERENCES clients(id);
+ALTER TABLE ONLY return_records
+    ADD CONSTRAINT return_records_id_fkey FOREIGN KEY (id) REFERENCES item_history_records(id);
+	
+ALTER TABLE ONLY subcategories
+	ADD CONSTRAINT subcategories_id_category_fkey FOREIGN KEY (id_category) REFERENCES categories(id);
