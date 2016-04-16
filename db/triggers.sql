@@ -1,7 +1,7 @@
 CREATE FUNCTION abort()
 RETURNS TRIGGER AS $$
 BEGIN
-	RAISE 'Can\'t perform this action';
+	RAISE 'Can''t perform this action';
 END
 ;
 $$ LANGUAGE plpgsql;
@@ -10,7 +10,7 @@ CREATE TRIGGER addRecord
 BEFORE INSERT ON item_history_records
 FOR EACH ROW 
 WHEN
-	(
+	((
 		NEW.type = 'Add'
 		AND
 		(	SELECT type, MAX(date) 						--VER SE NÃO EXISTE NENHUM REGISTO ANTERIOR ANTES DE ADICIONAR UM ADD RECORD
@@ -27,7 +27,7 @@ WHEN
 			SELECT *
 			FROM(SELECT type, MAX(date) 						
 				FROM item_history_records
-				WHERE id_item_instance = NEW.id_item_instance)
+				WHERE id_item_instance = NEW.id_item_instance) AS records
 			WHERE type = 'Add' OR type = 'Return' OR type ='Repaired'
 		) = 0	
 	)
@@ -39,7 +39,7 @@ WHEN
 			SELECT *
 			FROM(SELECT type, MAX(date) 						
 				FROM item_history_records
-				WHERE id_item_instance = NEW.id_item_instance)
+				WHERE id_item_instance = NEW.id_item_instance) AS records
 			WHERE type = 'Lend'
 		) = 0
 	)
@@ -51,7 +51,7 @@ WHEN
 			SELECT *
 			FROM(SELECT type, MAX(date) 						
 				FROM item_history_records
-				WHERE id_item_instance = NEW.id_item_instance)
+				WHERE id_item_instance = NEW.id_item_instance) AS records
 			WHERE type = 'Maintenance'
 		) = 0
 	)
@@ -59,8 +59,9 @@ WHEN
 	(SELECT *
 	FROM(SELECT type, MAX(date) 						-- SE O ITEM TIVER SIDO REMOVIDO NÃO SE PODE ADICIONAR MAIS REGISTOS
 		FROM item_history_records
-		WHERE id_item_instance = NEW.id_item_instance)
+		WHERE id_item_instance = NEW.id_item_instance) AS records
 	WHERE type = 'Removed') >=0
+	)
 EXECUTE PROCEDURE abort();
 
 
@@ -78,17 +79,18 @@ CREATE TRIGGER clientMismatch
 BEFORE INSERT ON return_records
 FOR EACH ROW 
 WHEN
+	(
 	(SELECT *
 	FROM(SELECT *, MAX(date) 						--
 		FROM item_history_records
 		NATURAL JOIN lend_records, (SELECT id_item_instance FROM item_history_records WHERE id = NEW.id) AS record
 		WHERE id_item_instance = record.id_item_instance
 			AND id != NEW.id
-		)
+		) AS recent
 	WHERE idClient = NEW.idClient	
-	) <= 0
-EXECUTE PROCEDURE clientMismatchError()
-;
+	) <= 0 
+	)
+EXECUTE PROCEDURE clientMismatchError();
 
 CREATE FUNCTION fulfillreservations(recordId INTEGER, idClient INTEGER)
 RETURNS TRIGGER AS $$
