@@ -3,8 +3,8 @@ Login-				http://toolbox.com/auth/login
 
 HOMEPAGE/Inventory- http://toolbox.com
 	Category - 		http://toolbox.com/items/d_category
-	SubCategory - 	http://toolbox.com/d_category/items/d_subcategory
-	Item-			http://toolbox.com/items/d_category/d_subcategory/item
+	SubCategory - 	http://toolbox.com/items/d_category/d_subcategory
+	Item-			http://toolbox.com/items/d_category/d_subcategory/d_item
 
 Perfil-				http://toolbox.com/user/d_username
 	Settings- 		http://toolbox.com/user/d_username/settings
