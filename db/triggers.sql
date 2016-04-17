@@ -1,4 +1,4 @@
-CREATE FUNCTION abort()
+CREATE OR REPLACE FUNCTION abort()
 RETURNS TRIGGER AS $$
 BEGIN
 	RAISE 'Can''t perform this action';
@@ -6,6 +6,7 @@ END
 ;
 $$ LANGUAGE plpgsql;
 
+<<<<<<< HEAD
 CREATE OR REPLACE FUNCTION non_editable()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -20,100 +21,172 @@ FOR EACH ROW
 WHEN
 	((
 		NEW.type = 'Add'
+=======
+/**
+ * VER SE NÃO EXISTE NENHUM REGISTO ANTERIOR ANTES DE ADICIONAR UM ADD RECORD
+ */
+CREATE OR REPLACE FUNCTION check_reg_not_exists(type record_type,id_item_inst Integer)
+RETURNS BOOLEAN AS $$
+BEGIN
+	RETURN
+		type = 'Add'
+>>>>>>> b46dd54423283bbb1b40a0dbbf8c84e8be77b4bb
 		AND
-		(	SELECT type, MAX(date) 						--VER SE NÃO EXISTE NENHUM REGISTO ANTERIOR ANTES DE ADICIONAR UM ADD RECORD
+		EXISTS(	SELECT type, date
 			FROM item_history_records
-			WHERE id_item_instance = NEW.id_item_instance
-		)>0
-		 
-	)
-	OR
-	(
-		(NEW.type = 'Lend' OR NEW.type = 'Maintenance')			--SE O NOVO REGISTO FOR UM LEND OU UM MAINTENANCE, ENTÃO O ITEM INSTANCE TEM QUE ESTAR DISPONÍVEL
-		AND 
-		(
+			WHERE item_history_records.id_item_instance = id_item_inst
+			ORDER BY date DESC LIMIT 1
+		);
+END
+;
+$$ LANGUAGE plpgsql;
+
+/**
+ * --SE O NOVO REGISTO FOR UM LEND OU UM MAINTENANCE, ENTÃO O ITEM INSTANCE TEM QUE ESTAR DISPONÍVEL
+ */
+CREATE OR REPLACE FUNCTION check_available(id_item_inst Integer)
+RETURNS BOOLEAN AS $$
+BEGIN
+	RETURN
+		EXISTS(	SELECT 1
+				FROM (SELECT type, date					
+					FROM item_history_records
+					WHERE id_item_instance = id_item_inst
+					ORDER BY date DESC LIMIT 1) AS records
+				WHERE type = 'Add' OR type = 'Return' OR type ='Repaired'
+		);
+END
+;
+$$ LANGUAGE plpgsql;
+
+/**
+ * SÓ PODE FAZER RETURN SE O REGISTO FOR UM LEND 
+ */
+CREATE OR REPLACE FUNCTION check_can_return(type record_type, id_item_inst Integer)
+RETURNS BOOLEAN AS $$
+BEGIN
+	RETURN 
+		type = 'Return'
+		AND
+		EXISTS(SELECT 1
+				FROM(SELECT type, date 						
+					FROM item_history_records
+					WHERE id_item_instance = id_item_inst
+					ORDER BY date DESC LIMIT 1
+					) AS records
+				WHERE type = 'Lend'
+			);
+END;
+$$ LANGUAGE plpgsql;
+
+/**
+ * VERIFICA SE UM ITEM ESTÁ EM REPARAÇÃO
+ */
+CREATE OR REPLACE FUNCTION check_in_maintenance(id_item_inst Integer)
+RETURNS BOOLEAN AS $$
+BEGIN
+	RETURN  
+		EXISTS(
 			SELECT *
-			FROM(SELECT type, MAX(date) 						
+			FROM(SELECT type, date 						
 				FROM item_history_records
-				WHERE id_item_instance = NEW.id_item_instance) AS records
-			WHERE type = 'Add' OR type = 'Return' OR type ='Repaired'
-		) = 0	
-	)
-	OR
-	(
-		NEW.type = 'Return'										--SÓ PODE FAZER RETURN SE O REGISTO FOR UM LEND 
-		AND 
-		(
-			SELECT *
-			FROM(SELECT type, MAX(date) 						
-				FROM item_history_records
-				WHERE id_item_instance = NEW.id_item_instance) AS records
-			WHERE type = 'Lend'
-		) = 0
-	)
-	OR
-	(
-		NEW.type = 'Repaired'									-- SÓ PODE DAR ENTRADA COMO REPARADO SE O REGISTO ANTERIOR FOR UM MAINTENAnCE
-		AND 
-		(
-			SELECT *
-			FROM(SELECT type, MAX(date) 						
-				FROM item_history_records
-				WHERE id_item_instance = NEW.id_item_instance) AS records
+				WHERE id_item_instance = id_item_inst
+				ORDER BY date DESC LIMIT 1
+				) AS records
 			WHERE type = 'Maintenance'
-		) = 0
-	)
-	OR
-	(SELECT *
-	FROM(SELECT type, MAX(date) 						-- SE O ITEM TIVER SIDO REMOVIDO NÃO SE PODE ADICIONAR MAIS REGISTOS
-		FROM item_history_records
-		WHERE id_item_instance = NEW.id_item_instance) AS records
-	WHERE type = 'Removed') >=0
-	)
-EXECUTE PROCEDURE abort();
+		);
+END;
+$$ LANGUAGE plpgsql;
 
 
-CREATE FUNCTION clientMismatchError()
+/**
+ * Verifica se o ultimo registo de um item instance é um REMOVED
+ */
+CREATE OR REPLACE FUNCTION check_was_removed(id_item_inst Integer)
+RETURNS BOOLEAN AS $$
+BEGIN
+	RETURN  
+		EXISTS(SELECT *
+				FROM(SELECT type, date
+					FROM item_history_records
+					WHERE id_item_instance = id_item_inst
+					ORDER BY date DESC LIMIT 1) AS records
+				WHERE type = 'Removed')
+	;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION check_add_record()
 RETURNS TRIGGER AS $$
 BEGIN
-	RAISE 'Client mismatch on return_records';
+	IF 	(check_reg_not_exists(NEW.type, NEW.id_item_instance)) 
+		OR 	(	NEW.type = 'Lend' OR NEW.type = 'Maintenance'
+			 AND check_available(NEW.id_item_instance))
+		OR 	(check_can_return(NEW.type, NEW.id_item_instance))
+		OR 	(	NEW.type = 'Repaired'
+			AND check_in_maintenance(NEW.id_item_instance))
+		OR 	(check_was_removed(NEW.id_item_instance) )
+	THEN
+		RAISE 'Can''t perform this action';
+	END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER add_record
+BEFORE INSERT ON item_history_records
+FOR EACH ROW 
+EXECUTE PROCEDURE check_add_record();
+
+
+CREATE OR REPLACE FUNCTION return_records_insert()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF EXISTS (	SELECT *
+				FROM(SELECT *, MAX(date) 						--
+					FROM item_history_records
+					NATURAL JOIN lend_records, (SELECT id_item_instance FROM item_history_records WHERE item_history_records.id = id) AS record
+					WHERE id_item_instance = record.id_item_instance
+						AND lend_records.id != NEW.id
+					) AS recent
+				WHERE lend_records.idClient = NEW.idClient	
+				) 
+
+	THEN RAISE 'Client mismatch on return_records';
 END;
 $$ LANGUAGE plpgsql;
 
 /**
  * NÃO DEIXA ADICIONAR UM RETURN RECORD SE O CLIENTE ID NAO FOR O MESMO
  */
-CREATE TRIGGER clientMismatch					
+CREATE TRIGGER client_mismatch					
 BEFORE INSERT ON return_records
-FOR EACH ROW 
-WHEN
-	(
-	(SELECT *
-	FROM(SELECT *, MAX(date) 						--
-		FROM item_history_records
-		NATURAL JOIN lend_records, (SELECT id_item_instance FROM item_history_records WHERE id = NEW.id) AS record
-		WHERE id_item_instance = record.id_item_instance
-			AND id != NEW.id
-		) AS recent
-	WHERE idClient = NEW.idClient	
-	) <= 0 
-	)
-EXECUTE PROCEDURE clientMismatchError();
+FOR EACH ROW	
+EXECUTE PROCEDURE return_records_insert();
 
-CREATE FUNCTION fulfillreservations(recordId INTEGER, idClient INTEGER)
+CREATE OR REPLACE FUNCTION fulfill_reservations()
 RETURNS TRIGGER AS $$
 BEGIN
-	CREATE VIEW record AS 
+	CREATE TEMP VIEW record AS 
 	SELECT id_item_instance, date
-	FROM (
-		(SELECT * FROM item_history_records WHERE id = recordId)
-	);
+	FROM  item_history_records 
+	WHERE id = NEW.id;
 
-	UPDATE reservations
-	SET fulfilled = TRUE,
-	WHERE 	reservations.id_item_instance = record.id_item_instance
-	AND 	DATEDIFF(day,reservations.start,record.date) = 0
-	AND 	reservations.idClient = idClient;
+	IF EXISTS (SELECT 1
+			 	FROM reservations,record
+			 	WHERE 	reservations.id_item_instance = record.id_item_instance
+			 	AND 	reservations.fulfilled = 'false'
+			 	AND 	record.date >= reservations.start_time
+			 	AND 	record.date < reservations.end_time
+			 	AND 	reservations.idClient = NEW.idClient
+			 	)
+	THEN
+		UPDATE reservations
+		SET fulfilled = TRUE
+		WHERE 	reservations.id_item_instance = record.id_item_instance
+		AND 	record.date >= reservations.start_time
+		AND 	record.date < reservations.end_time
+		AND 	reservations.idClient = NEW.idClient;
+	END IF;
 END
 ;$$ LANGUAGE plpgsql;
 
@@ -123,87 +196,121 @@ END
 CREATE TRIGGER fulfillreservations
 AFTER INSERT ON lend_records
 FOR EACH ROW
-WHEN
- 	(SELECT *
- 	FROM reservations,(SELECT id_item_instance,date, FROM item_history_records WHERE id = NEW.id) AS record
- 	WHERE 	reservations.id_item_instance = record.id_item_instance
- 	AND 	DATEDIFF(day,reservations.start,record.date) = 0
- 	AND 	reservations.idClient = NEW.idClient
- 	) >= 1 
-EXECUTE PROCEDURE fulfillreservations(NEW.id, NEW.idClient)
+EXECUTE PROCEDURE fulfillreservations()
 ;
 
-CREATE FUNCTION deleteDiscardedreservations(recordId INTEGER, idClient INTEGER)
+CREATE OR REPLACE FUNCTION deleteDiscardedreservations()
 RETURNS TRIGGER AS $$
 BEGIN
-	CREATE VIEW Record AS 
+	CREATE TEMP VIEW record AS 
 	SELECT id_item_instance, date
-	FROM (
-		(SELECT * FROM item_history_records WHERE id = recordId)
-	);
+	FROM item_history_records 
+	WHERE id = NEW.id;
 
-	DELETE reservations
-	USING	record
-	WHERE 	reservations.id_item_instance = record.id_item_instance
-	AND 	reservations.fulfilled = 'false'
-	AND 	reservations.idClient != NEW.idClient;
+	IF EXISTS (SELECT 1
+			 	FROM reservations, record
+			 	WHERE 	reservations.id_item_instance = record.id_item_instance
+			 	AND 	reservations.fulfilled = 'false'
+			 	AND 	record.date >= reservations.start_time
+			 	AND 	record.date < reservations.end_time
+			 	AND 	reservations.idClient != NEW.idClient
+			 	)
+ 	THEN
+		
+
+		DELETE 
+		FROM reservations
+		USING	record
+		WHERE 	reservations.id_item_instance = record.id_item_instance
+		AND 	reservations.fulfilled = 'false'
+		AND 	record.date >= reservations.start_time
+	 	AND 	record.date < reservations.end_time
+		AND 	reservations.idClient != NEW.idClient;
+	END IF;
 END
 ;$$ LANGUAGE plpgsql;
 
 
 CREATE TRIGGER deletereservations
 AFTER INSERT ON lend_records
-FOR EACH ROW
-WHEN
- 	(SELECT *
- 	FROM reservations,(SELECT id_item_instance,date, FROM item_history_records WHERE id = NEW.id) AS record
- 	WHERE 	reservations.id_item_instance = record.id_item_instance
- 	AND 	reservations.fulfilled = 'false'
- 	AND 	reservations.idClient != NEW.idClient
- 	) >= 1 
-EXECUTE PROCEDURE deleteDiscardedreservations(NEW.id, New.idClient)
+FOR EACH ROW 
+EXECUTE PROCEDURE deleteDiscardedreservations()
 ;
+
+CREATE OR REPLACE FUNCTION check_maintenance_abort()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF EXISTS (	SELECT id
+				FROM item_history_records
+				WHERE 	id = NEW.id 
+				AND 	type = 'Maintenance'	
+				)
+
+	THEN RAISE 'Can''t perform this action';
+	END IF;
+END;
+$$ LANGUAGE plpgsql;
 
 CREATE TRIGGER checkMaintenance
 BEFORE INSERT ON maintenance_records
 FOR EACH ROW
-WHEN
-	(SELECT id
-	FROM item_history_records
-	WHERE 	id = NEW.id 
-	AND 	type = 'Maintenance'	
-	) >= 1
-EXECUTE PROCEDURE abort();
+EXECUTE PROCEDURE check_maintenance_abort();
+
+CREATE OR REPLACE FUNCTION check_return_abort()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF EXISTS (SELECT id
+				FROM item_history_records
+				WHERE 	id = NEW.id 
+				AND 	type = 'Return'	
+				)
+
+	THEN RAISE 'Can''t perform this action';
+	END IF;
+END;
+$$ LANGUAGE plpgsql;
 
 CREATE TRIGGER checkReturn
 BEFORE INSERT ON return_records
 FOR EACH ROW
-WHEN
-	(SELECT id
-	FROM item_history_records
-	WHERE 	id = NEW.id 
-	AND 	type = 'Return'	
-	) >= 1
-EXECUTE PROCEDURE abort();
+EXECUTE PROCEDURE check_return_abort();
 
-CREATE TRIGGER checkLend
+
+CREATE OR REPLACE FUNCTION check_lend_abort()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF EXISTS (SELECT id
+				FROM item_history_records
+				WHERE 	id = NEW.id 
+				AND 	type = 'Lend'	
+				)
+
+	THEN RAISE 'Can''t perform this action';
+	END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_lend
 BEFORE INSERT ON lend_records
 FOR EACH ROW
-WHEN
-	(SELECT id
-	FROM item_history_records
-	WHERE 	id = NEW.id 
-	AND 	type = 'Lend'	
-	) >= 1
-EXECUTE PROCEDURE abort();
+EXECUTE PROCEDURE check_lend_abort();
 
-CREATE TRIGGER checkUser
+
+CREATE OR REPLACE FUNCTION check_user_abort()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF EXISTS(	SELECT id
+				FROM users
+				WHERE 	id = NEW.id 
+				AND 	type = 'Client'	
+				)
+
+	THEN RAISE 'Can''t perform this action';
+	END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_user
 BEFORE INSERT ON clients
 FOR EACH ROW
-WHEN
-	(SELECT id
-	FROM users
-	WHERE 	id = NEW.id 
-	AND 	type = 'Client'	
-	) >= 1
-EXECUTE PROCEDURE abort();
+EXECUTE PROCEDURE check_user_abort();
