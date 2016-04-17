@@ -297,3 +297,50 @@ CREATE TRIGGER check_user
 BEFORE INSERT ON clients
 FOR EACH ROW
 EXECUTE PROCEDURE check_user_abort();
+
+/**
+ * Verifica se já existe uma reserva para uma instancia de um item durante aquele período
+ */
+CREATE OR REPLACE FUNCTION check_instance_free(id_reservation Integer, id_item_instance Integer, start_time TIMESTAMP, end_time TIMESTAMP)
+RETURNS BOOLEAN AS $$
+BEGIN
+	RETURN  
+		EXISTS(SELECT *
+				FROM reservations 
+				WHERE	reservations.id != id_reservation
+				AND 	reservations.id_item_instance = id_item_instance
+				AND (	
+						(start_time >=reservations.start_time 
+						AND 
+						start_time <= reservations.end_time)
+					OR
+						(end_time >=reservations.start_time 
+						AND 
+						end_time <= reservations.end_time)
+					)	
+				)	
+	;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION cancel_reservation()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF 														--IMPEDE UMA RESERVA SE O ITEM TIVER SIDO
+		check_was_removed(NEW.id_item_instance)
+	THEN
+		RAISE 'Cant'' reservate an removed instance';
+	END IF;
+	
+	IF 	
+		check_instance_free(NEW.id, NEW.id_item_instance, NEW.start_time, NEW.end_time)			---
+	THEN	
+		RAISE 'Item isntance already booked during parts of this period';
+	END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_reservation_if_removed
+BEFORE INSERT ON reservations
+FOR EACH ROW
+EXECUTE PROCEDURE cancel_reservation();
