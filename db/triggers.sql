@@ -1,3 +1,13 @@
+DROP TRIGGER IF EXISTS add_record ON item_history_records;
+DROP TRIGGER IF EXISTS client_mismatch ON return_records;
+DROP TRIGGER IF EXISTS automatic_fulfill_reservations ON lend_records;
+DROP TRIGGER IF EXISTS delete_reservations ON lend_records;
+DROP TRIGGER IF EXISTS check_maintenance ON maintenance_records;
+DROP TRIGGER IF EXISTS check_return ON return_records;
+DROP TRIGGER IF EXISTS check_lend ON lend_records;
+DROP TRIGGER IF EXISTS check_user ON clients;
+DROP TRIGGER IF EXISTS check_valid_reservation ON reservations;
+
 CREATE OR REPLACE FUNCTION abort()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -143,6 +153,7 @@ BEGIN
 				) 
 
 	THEN RAISE 'Client mismatch on return_records';
+	END IF;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -184,13 +195,13 @@ END
 /**
  *	FAZER FULFILL AUTOMATICAMENTE DE UMA RESERVA QUANDO É INSERIDO NO SISTEMA UM LENDRECORD PELO MESMO CLIENTE, NO MESMO DIA DA RESERVA E PELO MESMO ITEMINSTANCE
  */
-CREATE TRIGGER fulfillreservations
+CREATE TRIGGER automatic_fulfill_reservations
 AFTER INSERT ON lend_records
 FOR EACH ROW
-EXECUTE PROCEDURE fulfillreservations()
+EXECUTE PROCEDURE fulfill_reservations()
 ;
 
-CREATE OR REPLACE FUNCTION deleteDiscardedreservations()
+CREATE OR REPLACE FUNCTION delete_discarded_reservations()
 RETURNS TRIGGER AS $$
 BEGIN
 	CREATE TEMP VIEW record AS 
@@ -222,10 +233,10 @@ END
 ;$$ LANGUAGE plpgsql;
 
 
-CREATE TRIGGER deletereservations
+CREATE TRIGGER delete_reservations
 AFTER INSERT ON lend_records
 FOR EACH ROW 
-EXECUTE PROCEDURE deleteDiscardedreservations()
+EXECUTE PROCEDURE delete_discarded_reservations()
 ;
 
 CREATE OR REPLACE FUNCTION check_maintenance_abort()
@@ -242,7 +253,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER checkMaintenance
+CREATE TRIGGER check_maintenance
 BEFORE INSERT ON maintenance_records
 FOR EACH ROW
 EXECUTE PROCEDURE check_maintenance_abort();
@@ -261,7 +272,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER checkReturn
+CREATE TRIGGER check_return
 BEFORE INSERT ON return_records
 FOR EACH ROW
 EXECUTE PROCEDURE check_return_abort();
@@ -348,7 +359,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER check_reservation_if_removed
+CREATE TRIGGER check_valid_reservation
 BEFORE INSERT ON reservations
 FOR EACH ROW
 EXECUTE PROCEDURE cancel_reservation();
