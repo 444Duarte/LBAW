@@ -6,7 +6,6 @@ END
 ;
 $$ LANGUAGE plpgsql;
 
-<<<<<<< HEAD
 CREATE OR REPLACE FUNCTION non_editable()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -15,13 +14,6 @@ END
 ;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER addRecord
-BEFORE INSERT ON item_history_records
-FOR EACH ROW 
-WHEN
-	((
-		NEW.type = 'Add'
-=======
 /**
  * VER SE NÃO EXISTE NENHUM REGISTO ANTERIOR ANTES DE ADICIONAR UM ADD RECORD
  */
@@ -30,7 +22,6 @@ RETURNS BOOLEAN AS $$
 BEGIN
 	RETURN
 		type = 'Add'
->>>>>>> b46dd54423283bbb1b40a0dbbf8c84e8be77b4bb
 		AND
 		EXISTS(	SELECT type, date
 			FROM item_history_records
