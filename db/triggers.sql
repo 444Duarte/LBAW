@@ -12,6 +12,7 @@ CREATE OR REPLACE FUNCTION abort()
 RETURNS TRIGGER AS $$
 BEGIN
 	RAISE 'Can''t perform this action';
+	RETURN NEW;
 END
 ;
 $$ LANGUAGE plpgsql;
@@ -20,6 +21,7 @@ CREATE OR REPLACE FUNCTION non_editable()
 RETURNS TRIGGER AS $$
 BEGIN
 	RAISE 'Editing disabled on table %', TG_TABLE_NAME;
+	RETURN NEW;
 END
 ;
 $$ LANGUAGE plpgsql;
@@ -33,7 +35,7 @@ BEGIN
 	RETURN
 		type = 'Add'
 		AND
-		EXISTS(	SELECT type, date
+		EXISTS(	SELECT item_history_records.type, date
 			FROM item_history_records
 			WHERE item_history_records.id_item_instance = id_item_inst
 			ORDER BY date DESC LIMIT 1
@@ -54,7 +56,7 @@ BEGIN
 					FROM item_history_records
 					WHERE id_item_instance = id_item_inst
 					ORDER BY date DESC LIMIT 1) AS records
-				WHERE type = 'Add' OR type = 'Return' OR type ='Repaired'
+				WHERE records.type = 'Add' OR records.type = 'Return' OR records.type ='Repaired'
 		);
 END
 ;
@@ -70,12 +72,12 @@ BEGIN
 		type = 'Return'
 		AND
 		EXISTS(SELECT 1
-				FROM(SELECT type, date 						
+				FROM(SELECT item_history_records.type, date 						
 					FROM item_history_records
 					WHERE id_item_instance = id_item_inst
 					ORDER BY date DESC LIMIT 1
 					) AS records
-				WHERE type = 'Lend'
+				WHERE records.type = 'Lend'
 			);
 END;
 $$ LANGUAGE plpgsql;
@@ -94,7 +96,7 @@ BEGIN
 				WHERE id_item_instance = id_item_inst
 				ORDER BY date DESC LIMIT 1
 				) AS records
-			WHERE type = 'Maintenance'
+			WHERE records.type = 'Maintenance'
 		);
 END;
 $$ LANGUAGE plpgsql;
@@ -112,7 +114,7 @@ BEGIN
 					FROM item_history_records
 					WHERE id_item_instance = id_item_inst
 					ORDER BY date DESC LIMIT 1) AS records
-				WHERE type = 'Removed')
+				WHERE records.type = 'Remove')
 	;
 END;
 $$ LANGUAGE plpgsql;
@@ -130,6 +132,7 @@ BEGIN
 	THEN
 		RAISE 'Can''t perform this action';
 	END IF;
+	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -154,6 +157,7 @@ BEGIN
 
 	THEN RAISE 'Client mismatch on return_records';
 	END IF;
+	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -189,6 +193,7 @@ BEGIN
 		AND 	record.date < reservations.end_time
 		AND 	reservations.idClient = NEW.idClient;
 	END IF;
+	RETURN NEW;
 END
 ;$$ LANGUAGE plpgsql;
 
@@ -229,8 +234,9 @@ BEGIN
 	 	AND 	record.date < reservations.end_time
 		AND 	reservations.idClient != NEW.idClient;
 	END IF;
-END
-;$$ LANGUAGE plpgsql;
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
 
 CREATE TRIGGER delete_reservations
@@ -242,7 +248,7 @@ EXECUTE PROCEDURE delete_discarded_reservations()
 CREATE OR REPLACE FUNCTION check_maintenance_abort()
 RETURNS TRIGGER AS $$
 BEGIN
-	IF EXISTS (	SELECT id
+	IF NOT EXISTS (	SELECT id
 				FROM item_history_records
 				WHERE 	id = NEW.id 
 				AND 	type = 'Maintenance'	
@@ -250,6 +256,7 @@ BEGIN
 
 	THEN RAISE 'Can''t perform this action';
 	END IF;
+RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -261,7 +268,7 @@ EXECUTE PROCEDURE check_maintenance_abort();
 CREATE OR REPLACE FUNCTION check_return_abort()
 RETURNS TRIGGER AS $$
 BEGIN
-	IF EXISTS (SELECT id
+	IF NOT EXISTS (SELECT id
 				FROM item_history_records
 				WHERE 	id = NEW.id 
 				AND 	type = 'Return'	
@@ -269,9 +276,13 @@ BEGIN
 
 	THEN RAISE 'Can''t perform this action';
 	END IF;
+RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
+/**
+ * Verifica se o item_history_record associado ao return tem type = "Return"
+ */
 CREATE TRIGGER check_return
 BEFORE INSERT ON return_records
 FOR EACH ROW
@@ -281,7 +292,7 @@ EXECUTE PROCEDURE check_return_abort();
 CREATE OR REPLACE FUNCTION check_lend_abort()
 RETURNS TRIGGER AS $$
 BEGIN
-	IF EXISTS (SELECT id
+	IF NOT EXISTS (SELECT id
 				FROM item_history_records
 				WHERE 	id = NEW.id 
 				AND 	type = 'Lend'	
@@ -289,29 +300,36 @@ BEGIN
 
 	THEN RAISE 'Can''t perform this action';
 	END IF;
+RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
+/**
+ * Verifica se o item_history_record associado ao lend tem type = "Lend"
+ */
 CREATE TRIGGER check_lend
 BEFORE INSERT ON lend_records
 FOR EACH ROW
 EXECUTE PROCEDURE check_lend_abort();
 
-
 CREATE OR REPLACE FUNCTION check_user_abort()
 RETURNS TRIGGER AS $$
 BEGIN
-	IF EXISTS(	SELECT id
-				FROM users
-				WHERE 	id = NEW.id 
-				AND 	type = 'Client'	
-				)
+	IF NOT EXISTS(	SELECT id
+					FROM users
+					WHERE 	id = NEW.id 
+					AND 	type = 'Client'	
+					)
 
 	THEN RAISE 'Can''t perform this action';
 	END IF;
+RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
+/**
+ * Verifica se o user associado ao client tem type = "Client"
+ */
 CREATE TRIGGER check_user
 BEFORE INSERT ON clients
 FOR EACH ROW
@@ -320,22 +338,22 @@ EXECUTE PROCEDURE check_user_abort();
 /**
  * Verifica se já existe uma reserva para uma instancia de um item durante aquele período
  */
-CREATE OR REPLACE FUNCTION check_instance_free(id_reservation Integer, id_item_instance Integer, start_time TIMESTAMP, end_time TIMESTAMP)
+CREATE OR REPLACE FUNCTION check_instance_free(id_reservation Integer, id_item_inst Integer, start_t TIMESTAMP, end_t TIMESTAMP)
 RETURNS BOOLEAN AS $$
 BEGIN
 	RETURN  
 		EXISTS(SELECT *
 				FROM reservations 
 				WHERE	reservations.id != id_reservation
-				AND 	reservations.id_item_instance = id_item_instance
+				AND 	reservations.id_item_instance = id_item_inst
 				AND (	
-						(start_time >=reservations.start_time 
+						(start_t >=reservations.start_time 
 						AND 
-						start_time <= reservations.end_time)
+						start_t <= reservations.end_time)
 					OR
-						(end_time >=reservations.start_time 
+						(end_t >=reservations.start_time 
 						AND 
-						end_time <= reservations.end_time)
+						end_t <= reservations.end_time)
 					)	
 				)	
 	;
@@ -356,6 +374,7 @@ BEGIN
 	THEN	
 		RAISE 'Item isntance already booked during parts of this period';
 	END IF;
+RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -363,3 +382,41 @@ CREATE TRIGGER check_valid_reservation
 BEFORE INSERT ON reservations
 FOR EACH ROW
 EXECUTE PROCEDURE cancel_reservation();
+
+CREATE OR REPLACE FUNCTION valid_expected_end()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF EXISTS ( SELECT 1
+				FROM item_history_records
+				WHERE 	item_history_records.id = NEW.id 
+				AND 	item_history_records.date > NEW.expected_end
+			)
+	THEN
+		RAISE 'Expected end smaller then record date';
+	END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_expected_end
+BEFORE INSERT ON maintenance_records
+FOR EACH ROW
+EXECUTE PROCEDURE valid_expected_end();
+
+CREATE OR REPLACE FUNCTION is_inventory_manager()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF 	NEW.id_inventory_manager 
+		NOT IN (SELECT id
+				FROM users
+				WHERE 	type = 'InventoryManager'
+			)
+	THEN
+		RAISE 'Given InventoryManager user is not listed as an InventoryManager';
+	END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_id_inventory_manager
+BEFORE INSERT ON item_history_records
+FOR EACH ROW
+EXECUTE PROCEDURE is_inventory_manager();
