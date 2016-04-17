@@ -6,6 +6,14 @@ END
 ;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION non_editable()
+RETURNS TRIGGER AS $$
+BEGIN
+	RAISE 'Editing disabled on table %', TG_TABLE_NAME;
+END
+;
+$$ LANGUAGE plpgsql;
+
 CREATE TRIGGER addRecord
 BEFORE INSERT ON item_history_records
 FOR EACH ROW 
