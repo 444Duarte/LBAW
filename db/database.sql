@@ -138,7 +138,7 @@ ALTER TABLE ONLY categories
 ALTER TABLE ONLY clients
     ADD CONSTRAINT clients_pkey PRIMARY KEY (id);
 ALTER TABLE ONLY clients
-    ADD CONSTRAINT clients_idcard_key UNIQUE (id_card);
+    ADD CONSTRAINT clients_id_card_key UNIQUE (id_card);
 	
 ALTER TABLE ONLY item_history_records
     ADD CONSTRAINT item_history_records_pkey PRIMARY KEY (id);
