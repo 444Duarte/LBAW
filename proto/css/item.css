@@ -1,0 +1,22 @@
+#item-pane {
+	padding: 2rem;
+}
+
+.form-control{
+	width: 60px;
+	height: 28px;
+	font-size: 	small;
+}
+
+.transparent{
+	opacity: 0.5;
+}
+
+.panel-title{
+	display:inline;
+	font-size: 30px;
+}
+
+.panel-heading{
+	vertical-align: middle;
+}
