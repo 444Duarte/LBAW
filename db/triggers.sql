@@ -370,7 +370,7 @@ BEGIN
 	IF 														--IMPEDE UMA RESERVA SE O ITEM TIVER SIDO
 		check_was_removed(NEW.id_item_instance)
 	THEN
-		RAISE 'Can''t reservate a removed instance';
+		RAISE 'Can''t book a removed instance';
 	END IF;
 	
 	IF 	
