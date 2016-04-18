@@ -238,7 +238,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
 CREATE TRIGGER delete_reservations
 AFTER INSERT ON lend_records
 FOR EACH ROW 
@@ -262,7 +261,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 /**
- * 
+ * Verifica se a um maintenace está associado um item_history_record listado como Maintenace
  */
 CREATE TRIGGER check_maintenance
 BEFORE INSERT ON maintenance_records
@@ -367,7 +366,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION cancel_reservation()
 RETURNS TRIGGER AS $$
 BEGIN
-	IF 														--IMPEDE UMA RESERVA SE O ITEM TIVER SIDO
+	IF 												
 		check_was_removed(NEW.id_item_instance)
 	THEN
 		RAISE 'Can''t book a removed instance';
@@ -376,7 +375,7 @@ BEGIN
 	IF 	
 		check_instance_free(NEW.id, NEW.id_item_instance, NEW.start_time, NEW.end_time)			---
 	THEN	
-		RAISE 'Item isntance already booked during parts of this period';
+		RAISE 'Item instance already booked during parts of this period';
 	END IF;
 RETURN NEW;
 END;
@@ -387,6 +386,9 @@ BEFORE INSERT ON reservations
 FOR EACH ROW
 EXECUTE PROCEDURE cancel_reservation();
 
+/**
+ * Verifica se o expected end é maior que a date em que o record foi 
+ */
 CREATE OR REPLACE FUNCTION valid_expected_end()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -407,6 +409,10 @@ BEFORE INSERT ON maintenance_records
 FOR EACH ROW
 EXECUTE PROCEDURE valid_expected_end();
 
+
+/**
+ * Verifica se o User introduzido como inventory manager está listado como inventory manager
+ */
 CREATE OR REPLACE FUNCTION is_inventory_manager()
 RETURNS TRIGGER AS $$
 BEGIN
