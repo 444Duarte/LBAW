@@ -48,7 +48,8 @@ CREATE TABLE clients (
     id_card text NOT NULL,
     address text NOT NULL,
     phone_number text NOT NULL,
-    picture text
+    picture text,
+	CONSTRAINT phone_number_length_check CHECK ((char_length(phone_number) = 9))
 );
 	
 DROP TABLE IF EXISTS item_history_records;
@@ -73,7 +74,8 @@ CREATE TABLE items (
     name text NOT NULL,
     id_subcategory integer NOT NULL,
     description text NOT NULL,
-    picture text
+    picture text,
+	CONSTRAINT description_length_check CHECK ((char_length(description) > 20))
 );
 
 DROP TABLE IF EXISTS lend_records;
@@ -96,7 +98,8 @@ CREATE TABLE reservations (
     end_time timestamp without time zone NOT NULL,
     id_client integer NOT NULL,
     id_item_instance integer NOT NULL,
-    fulfilled boolean DEFAULT false NOT NULL
+    fulfilled boolean DEFAULT false NOT NULL,
+	CONSTRAINT time_interval_check CHECK ((start_time < end_time))
 );
 
 DROP TABLE IF EXISTS return_records;
@@ -118,7 +121,8 @@ CREATE TABLE users (
     username text NOT NULL,
     email text NOT NULL,
     password text NOT NULL,
-    type user_type NOT NULL
+    type user_type NOT NULL,
+	CONSTRAINT password_length_check CHECK ((char_length(password) > 6))
 );
 
 -------------------- KEYS --------------------
