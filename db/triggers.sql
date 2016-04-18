@@ -7,6 +7,9 @@ DROP TRIGGER IF EXISTS check_return ON return_records;
 DROP TRIGGER IF EXISTS check_lend ON lend_records;
 DROP TRIGGER IF EXISTS check_user ON clients;
 DROP TRIGGER IF EXISTS check_valid_reservation ON reservations;
+DROP TRIGGER IF EXISTS check_expected_end ON maintenance_records;
+DROP TRIGGER IF EXISTS check_id_inventory_manager ON item_history_records;
+
 
 CREATE OR REPLACE FUNCTION abort()
 RETURNS TRIGGER AS $$
@@ -29,13 +32,11 @@ $$ LANGUAGE plpgsql;
 /**
  * VER SE NÃO EXISTE NENHUM REGISTO ANTERIOR ANTES DE ADICIONAR UM ADD RECORD
  */
-CREATE OR REPLACE FUNCTION check_reg_not_exists(type record_type,id_item_inst Integer)
+CREATE OR REPLACE FUNCTION check_reg_not_exists(id_item_inst Integer)
 RETURNS BOOLEAN AS $$
 BEGIN
 	RETURN
-		type = 'Add'
-		AND
-		EXISTS(	SELECT item_history_records.type, date
+		NOT EXISTS(	SELECT item_history_records.type, date
 			FROM item_history_records
 			WHERE item_history_records.id_item_instance = id_item_inst
 			ORDER BY date DESC LIMIT 1
@@ -65,12 +66,10 @@ $$ LANGUAGE plpgsql;
 /**
  * SÓ PODE FAZER RETURN SE O REGISTO FOR UM LEND 
  */
-CREATE OR REPLACE FUNCTION check_can_return(type record_type, id_item_inst Integer)
+CREATE OR REPLACE FUNCTION check_can_return(id_item_inst Integer)
 RETURNS BOOLEAN AS $$
 BEGIN
 	RETURN 
-		type = 'Return'
-		AND
 		EXISTS(SELECT 1
 				FROM(SELECT item_history_records.type, date 						
 					FROM item_history_records
@@ -122,13 +121,11 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION check_add_record()
 RETURNS TRIGGER AS $$
 BEGIN
-	IF 	(check_reg_not_exists(NEW.type, NEW.id_item_instance)) 
-		OR 	(	NEW.type = 'Lend' OR NEW.type = 'Maintenance'
-			 AND check_available(NEW.id_item_instance))
-		OR 	(check_can_return(NEW.type, NEW.id_item_instance))
-		OR 	(	NEW.type = 'Repaired'
-			AND check_in_maintenance(NEW.id_item_instance))
-		OR 	(check_was_removed(NEW.id_item_instance) )
+	IF 	(	(NEW.type = 'Add'									AND NOT check_reg_not_exists(NEW.id_item_instance)) 
+		OR 	((NEW.type = 'Lend' OR NEW.type = 'Maintenance') 	AND NOT check_available(NEW.id_item_instance))
+		OR 	(NEW.type = 'Return' 								AND NOT check_can_return(NEW.id_item_instance))
+		OR 	(NEW.type = 'Repaired'								AND NOT check_in_maintenance(NEW.id_item_instance))
+		OR 	(check_was_removed(NEW.id_item_instance) ) )
 	THEN
 		RAISE 'Can''t perform this action';
 	END IF;
@@ -145,14 +142,14 @@ EXECUTE PROCEDURE check_add_record();
 CREATE OR REPLACE FUNCTION return_records_insert()
 RETURNS TRIGGER AS $$
 BEGIN
-	IF EXISTS (	SELECT *
-				FROM(SELECT *, MAX(date) 						--
-					FROM item_history_records
-					NATURAL JOIN lend_records, (SELECT id_item_instance FROM item_history_records WHERE item_history_records.id = id) AS record
-					WHERE id_item_instance = record.id_item_instance
-						AND lend_records.id != NEW.id
+	IF EXISTS (	SELECT 1
+				FROM(SELECT lend_complete.id_client as id_client 						--
+					FROM (item_history_records NATURAL JOIN lend_records) AS lend_complete, (SELECT id_item_instance FROM item_history_records WHERE item_history_records.id = NEW.id) AS record
+					WHERE lend_complete.id_item_instance = record.id_item_instance
+						AND lend_complete.id != NEW.id
+					ORDER BY date DESC LIMIT 1
 					) AS recent
-				WHERE lend_records.idClient = NEW.idClient	
+				WHERE recent.id_client != NEW.id_client	
 				) 
 
 	THEN RAISE 'Client mismatch on return_records';
@@ -169,13 +166,15 @@ BEFORE INSERT ON return_records
 FOR EACH ROW	
 EXECUTE PROCEDURE return_records_insert();
 
+/*
 CREATE OR REPLACE FUNCTION fulfill_reservations()
 RETURNS TRIGGER AS $$
 BEGIN
-	CREATE TEMP VIEW record AS 
+	WITH record AS( 
 	SELECT id_item_instance, date
 	FROM  item_history_records 
-	WHERE id = NEW.id;
+	WHERE id = NEW.id
+	)
 
 	IF EXISTS (SELECT 1
 			 	FROM reservations,record
@@ -209,10 +208,11 @@ EXECUTE PROCEDURE fulfill_reservations()
 CREATE OR REPLACE FUNCTION delete_discarded_reservations()
 RETURNS TRIGGER AS $$
 BEGIN
-	CREATE TEMP VIEW record AS 
+	WITH record AS( 
 	SELECT id_item_instance, date
 	FROM item_history_records 
-	WHERE id = NEW.id;
+	WHERE id = NEW.id
+	)
 
 	IF EXISTS (SELECT 1
 			 	FROM reservations, record
@@ -244,6 +244,7 @@ AFTER INSERT ON lend_records
 FOR EACH ROW 
 EXECUTE PROCEDURE delete_discarded_reservations()
 ;
+*/
 
 CREATE OR REPLACE FUNCTION check_maintenance_abort()
 RETURNS TRIGGER AS $$
@@ -260,6 +261,9 @@ RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
+/**
+ * 
+ */
 CREATE TRIGGER check_maintenance
 BEFORE INSERT ON maintenance_records
 FOR EACH ROW
@@ -366,7 +370,7 @@ BEGIN
 	IF 														--IMPEDE UMA RESERVA SE O ITEM TIVER SIDO
 		check_was_removed(NEW.id_item_instance)
 	THEN
-		RAISE 'Cant'' reservate an removed instance';
+		RAISE 'Can''t reservate a removed instance';
 	END IF;
 	
 	IF 	
@@ -394,6 +398,7 @@ BEGIN
 	THEN
 		RAISE 'Expected end smaller then record date';
 	END IF;
+	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -413,6 +418,7 @@ BEGIN
 	THEN
 		RAISE 'Given InventoryManager user is not listed as an InventoryManager';
 	END IF;
+	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
