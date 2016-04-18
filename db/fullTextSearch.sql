@@ -1,1 +1,1 @@
-CREATE INDEX fts_item_idx ON Item USING gin(to_tsvector('english', name || ' ' || description));
+CREATE INDEX fts_item_idx ON items USING gin(to_tsvector('english', name || ' ' || description));
