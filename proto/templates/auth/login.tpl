@@ -23,7 +23,7 @@
 				<br>
 				<div id="login_options">
 					<a href="">Forgot your password?</a>
-					<a href="signup.html">Not a member?</a>
+					<a href="{$BASE_URL}pages/auth/signup.php">Not a member?</a>
 				</div>
 
 				<input type="submit" value="Login">
