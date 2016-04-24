@@ -7,13 +7,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">ToolBox</a>
+      <a class="navbar-brand" href="{$BASE_URL}index.html">ToolBox</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul id="loginButton" class="nav navbar-nav navbar-right">
-        <li><a href="login.html">Login</a></li>
+        <li><a href="{$BASE_URL}pages/auth/login.php">Login</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
@@ -24,7 +24,7 @@
             <li><a href="#">My Reservations</a></li>
             <li><a href="#">Item History</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="settings.php">Account Settings</a></li>
+            <li><a href="{$BASE_URL}user/settings.php">Account Settings</a></li>
             <li><a href="">Logout</a></li>
           </ul>
         </li>

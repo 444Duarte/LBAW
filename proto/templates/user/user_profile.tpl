@@ -1,14 +1,14 @@
 <html>
-<?php include_once 'header.html';?>
-<link rel="stylesheet" type="text/css" href="css/item.css">
+<?php include_once '{$BASE_URL}templates/common/header.tpl';?>
+<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/inventory/item.css">
 
 
 <body>
-	<?php include_once 'topbar.html';?>
+	<?php include_once '{$BASE_URL}templates/common/topbar.tpl';?>
 	
 	<div class="container-fluid">
 	    <div class="row">
-	      	<?php include_once 'sidebar.html';?>
+	      	<?php include_once '{$BASE_URL}templates/common/sidebar.tpl';?>
 	    	
 	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 	    		<ol class="breadcrumb">
@@ -72,7 +72,7 @@
 					              </thead>
 					              <tbody>
 					                <tr>
-					                  <td><a href="item.php">Hammer</a></td>
+					                  <td><a href="{$BASE_URL}pages/inventory/item.php">Hammer</a></td>
 					                  <td><a href="#">Tools</a></td>
 					                  <td><a href="#">Hand Tools</a></td>
 					                  <td>12/03/2016</td>
@@ -117,7 +117,7 @@
 					              </thead>
 					              <tbody>
 					                <tr>
-					                  <td><a href="item.php">Hammer</a></td>
+					                  <td><a href="{$BASE_URL}pages/inventory/item.php">Hammer</a></td>
 					                  <td><a href="#">Tools</a></td>
 					                  <td><a href="#">Hand Tools</a></td>
 					                  <td>10/03/2016</td>
@@ -147,9 +147,10 @@
 			</div>
 		</div>
 	</div>
-	<script src="../lib/jquery-1.12.1.min.js"></script>
-	<script src="../lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-	<script src="../lib/moment.min.js"></script>
+	<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
+	<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+	<script src="{$BASE_URL}lib/moment.min.js"></script>
+	
 	<script type="text/javascript">
 	  $(document).ready( function() {
 		  $(".username").hide();

@@ -1,13 +1,13 @@
 <html>
-<?php include_once 'header.html';?>
-<link rel="stylesheet" type="text/css" href="css/admin_user_list.css">
+<?php include_once '{$BASE_URL}templates/common/header.tpl';?>
+<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/admin/admin_user_list.css">
 
 <body>
-	<?php include_once 'topbar.html';?>
+	<?php include_once '{$BASE_URL}templates/common/topbar.tpl';?>
 
 	<div class="container-fluid">
     <div class="row">
-      <?php include_once 'sidebar.html';?>
+      <?php include_once '{$BASE_URL}templates/common/sidebar.html';?>
       <div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
         <div class="generic-element">
           <div class="table-top-header">
@@ -157,9 +157,9 @@
     </div>
   </div>
 
-<script src="../lib/jquery-1.12.1.min.js"></script>
-<script src="../lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-<script src="js/admin_user_list.js"></script>
+<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
+<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+<script src="{$BASE_URL}javascript/admin/admin_user_list.js"></script>
 <script type="text/javascript">
   $(".username").html('admin<span class="caret"></span>');
   $("#loginButton").hide();
