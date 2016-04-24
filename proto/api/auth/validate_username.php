@@ -7,11 +7,11 @@
   try {
     $user = usernameExists($_POST['username']);
     if ($user === false){
-      $response = array("false", "username does not exist");
+      $response = array("valid" => false, "message" => "username does not exist");
       echo json_encode($response);
     }
     else if ($user === true){
-      $response = array("true", "username exists");
+      $response = array("valid" => true, "message" => "username exists");
       echo json_encode($response);
     }
   } catch (PDOException $e) {
