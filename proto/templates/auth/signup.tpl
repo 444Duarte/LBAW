@@ -10,12 +10,12 @@
 
 	<body>
 		<div>
-			<form id="signup_form" class="generic-element" action="{$BASE_URL}actions/auth/validate_login.php" method="post">
+			<form id="signup_form" class="generic-element" action="{$BASE_URL}actions/auth/validate_register.php" method="post">
 				<h1 class="form_name">Register</h1>
 				<br>Username<br>
 				<input type="text" name="username" required>	
 				<br>Email<br>
-				<input type="email" required>
+				<input type="email" name="email" required>
 
 				<br><br>Password<br>
 				<input type="password" name="password" required>

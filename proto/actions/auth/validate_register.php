@@ -1,13 +1,17 @@
 <?php 
+	echo "Entrou";
 	include_once('../../config/init.php');
+	echo "Included init";
 	include_once($BASE_DIR .'database/users.php');
-
+	echo "Incluced database";
 	if(!$_POST['email'] ||!$_POST['username'] || !$_POST['password']) {
 		$_SESSION['error_messages'][] = 'Invalid registration';
 		$_SESSION['form_values'] = $_POST;
+		
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 		exit;
 	}
+
 
 	$email = $_POST['email'];
 	$username = $_POST['username'];

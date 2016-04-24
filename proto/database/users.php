@@ -12,11 +12,17 @@
     $stmt = $conn->prepare("SELECT * 
                             FROM users 
                             WHERE username = ? AND password = ?");
-    $stmt->execute(array($username, $password));
+    $stmt->execute(array($username, sha1($password)));
     return $stmt->fetch() == true;
   }
 
-  public function usernameExists($username){
+  function usernameExists($username){
     
+  }
+
+  function console_log( $data ){
+    echo '<script>';
+    echo 'console.log('. json_encode( $data ) .')';
+    echo '</script>';
   }
 ?>

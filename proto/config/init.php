@@ -2,8 +2,9 @@
   session_set_cookie_params(3600, '/~lbaw1533'); //FIXME
   session_start();
 
-  error_reporting(E_ERROR | E_WARNING); // E_NOTICE by default
-
+  //error_reporting(E_ERROR | E_WARNING); // E_NOTICE by default
+  error_reporting(E_ALL);
+  
   $BASE_DIR = '/opt/lbaw/lbaw1533/public_html/proto/'; //FIXME
   $BASE_URL = '/~lbaw1533/proto/'; //FIXME
 
