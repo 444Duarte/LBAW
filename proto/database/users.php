@@ -3,7 +3,7 @@
   function createClient($email, $username, $password) {
     global $conn;
     $stmt = $conn->prepare("INSERT INTO users(email,username,password,type) VALUES (?, ?, ?,'Client')");
-    $stmt->execute(array($username, $email, sha1($password)));
+    $stmt->execute(array($email, $username, sha1($password)));
     return true;
   }
 
