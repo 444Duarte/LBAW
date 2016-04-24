@@ -6,13 +6,12 @@
 
   try {
     $user = usernameExists($_POST['username']);
-    global $response
     if ($user === false){
-      $response = {false, "username does not exist"};
+      $response = array("false", "username does not exist");
       echo json_encode($response);
     }
     else if ($user === true){
-      $response = {true, "username exists"};
+      $response = array("true", "username exists");
       echo json_encode($response);
     }
   } catch (PDOException $e) {
