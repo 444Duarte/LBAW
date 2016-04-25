@@ -17,8 +17,8 @@
   }
 
   function usernameExists($username){
-    global $db;
-    $stmt = $db->prepare('SELECT * FROM users WHERE username = :user');
+    global $conn;
+    $stmt = $conn->prepare('SELECT * FROM users WHERE username = :user');
     $stmt->bindParam(':user', $username, PDO::PARAM_STR);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
