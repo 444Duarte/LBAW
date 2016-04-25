@@ -13,7 +13,7 @@
 			<form id="signup_form" class="generic-element" action="{$BASE_URL}actions/auth/validate_register.php" method="post">
 				<h1 class="form_name">Register</h1>
 				<br>Username<br>
-				<input type="text" name="username" required>	
+				<input type="text" name="username" id="username" required>	
 				<br>Email<br>
 				<input type="email" name="email" required>
 
@@ -28,6 +28,7 @@
 		</div>
 		<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
 		<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="{$BASE_URL}javascript/signup.js"></script>
 	</body>	
 
 </html>
