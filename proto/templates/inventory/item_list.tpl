@@ -1,13 +1,13 @@
 <html>
-<?php include_once 'header.html';?>
-<link rel="stylesheet" type="text/css" href="css/item_list.css">
+<?php include_once '{$BASE_URL}templates/common/header.html';?>
+<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/inventory/item_list.css">
 
 <body>
-	<?php include_once 'topbar.html';?>
+	<?php include_once '{$BASE_URL}templates/common/topbar.tpl';?>
 
 	<div class="container-fluid">
 	    <div class="row">
-	      	<?php include_once 'sidebar.html';?>
+	      	<?php include_once '{$BASE_URL}templates/common/sidebar.tpl';?>
 	    	
 	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 	    		<ol class="breadcrumb">
@@ -18,7 +18,7 @@
 
 					<div id="item-list">
 						<div class="col-xs-6 col-md-3">
-					    <a href="item.php" class="thumbnail">
+					    <a href="{$BASE_URL}pages/inventory/item.php" class="thumbnail">
 					      <img src="res/item_thumb_medium.png" alt="Item Exemplo 1">
 					      <h3>Hammer</h3>
 					    </a>
@@ -90,8 +90,8 @@
 	    </div>
 	</div>
 	
-<script src="../lib/jquery-1.12.1.min.js"></script>
-<script src="../lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
+<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   $(".username").hide();
   $("#loginButton");

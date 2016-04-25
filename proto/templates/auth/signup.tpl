@@ -28,7 +28,7 @@
 		</div>
 		<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
 		<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="{$BASE_URL}javascript/signup.js"></script>
+		<script type="text/javascript" src="{$BASE_URL}javascript/auth/signup.js"></script>
 	</body>	
 
 </html>
