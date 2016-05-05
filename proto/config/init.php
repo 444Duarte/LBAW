@@ -2,8 +2,8 @@
   session_set_cookie_params(3600, '/~lbaw1533'); //FIXME
   session_start();
 
-  //error_reporting(E_ERROR | E_WARNING); // E_NOTICE by default
-  error_reporting(E_ALL);
+  error_reporting(E_ERROR | E_WARNING); // E_NOTICE by default
+  #error_reporting(E_ALL);
   
   $BASE_DIR = '/opt/lbaw/lbaw1533/public_html/proto/'; //FIXME
   $BASE_URL = '/~lbaw1533/proto/'; //FIXME
@@ -20,6 +20,10 @@
   $smarty->template_dir = $BASE_DIR . 'templates/';
   $smarty->compile_dir = $BASE_DIR . 'templates_c/';
   $smarty->assign('BASE_URL', $BASE_URL);
+
+  $existing = $smarty->getPluginsDir();
+  $existing[] = getcwd() . '/plugins';
+  $smarty->setPluginsDir($existing);
   
   $smarty->assign('ERROR_MESSAGES', $_SESSION['error_messages']);  
   $smarty->assign('FIELD_ERRORS', $_SESSION['field_errors']);

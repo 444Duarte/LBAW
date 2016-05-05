@@ -1,13 +1,44 @@
-<html>
-{include file='common/header.tpl' }
-<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/management/inventory_management.css">
+<?php /* Smarty version Smarty-3.1.15, created on 2016-04-25 04:54:40
+         compiled from "/opt/lbaw/lbaw1533/public_html/proto/templates/management/inventory_management.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:824525396571d769c866022-93793115%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_valid = $_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    '2a9b279314c6a9a2e00cd994727ad7b15bffd0aa' => 
+    array (
+      0 => '/opt/lbaw/lbaw1533/public_html/proto/templates/management/inventory_management.tpl',
+      1 => 1461552878,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '824525396571d769c866022-93793115',
+  'function' => 
+  array (
+  ),
+  'version' => 'Smarty-3.1.15',
+  'unifunc' => 'content_571d769c958357_13450921',
+  'variables' => 
+  array (
+    'BASE_URL' => 0,
+    'items' => 0,
+    'item' => 0,
+  ),
+  'has_nocache_code' => false,
+),false); /*/%%SmartyHeaderCode%%*/?>
+<?php if ($_valid && !is_callable('content_571d769c958357_13450921')) {function content_571d769c958357_13450921($_smarty_tpl) {?><html>
+<?php echo $_smarty_tpl->getSubTemplate ('common/header.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
+
+<link rel="stylesheet" type="text/css" href="<?php echo $_smarty_tpl->tpl_vars['BASE_URL']->value;?>
+css/management/inventory_management.css">
 
 <body>
-	{include file='common/topbar.tpl'}
+	<?php echo $_smarty_tpl->getSubTemplate ('common/topbar.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
+
 
 	<div class="container-fluid">
     <div class="row">
-      {include file='common/sidebar.tpl' }
+      <?php echo $_smarty_tpl->getSubTemplate ('common/sidebar.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, null, array(), 0);?>
+
       <div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
       	<div class="generic-element">
           <div class="table-top-header">
@@ -29,16 +60,24 @@
                   </tr>
               </thead>
               <tbody>
-                {foreach $items as $item}
+                <?php  $_smarty_tpl->tpl_vars['item'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['item']->_loop = false;
+ $_from = $_smarty_tpl->tpl_vars['items']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
+foreach ($_from as $_smarty_tpl->tpl_vars['item']->key => $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->_loop = true;
+?>
                   <tr>
-                    <td><a href="{$BASE_URL}pages/inventory/item.php">{$item.name}</a></td>
-                    <td><a href="#">{$item.category}</a></td>
-                    <td><a href="#">{$item.subcategory}</a></td>
+                    <td><a href="<?php echo $_smarty_tpl->tpl_vars['BASE_URL']->value;?>
+pages/inventory/item.php"><?php echo $_smarty_tpl->tpl_vars['item']->value['name'];?>
+</a></td>
+                    <td><a href="#"><?php echo $_smarty_tpl->tpl_vars['item']->value['category'];?>
+</a></td>
+                    <td><a href="#"><?php echo $_smarty_tpl->tpl_vars['item']->value['subcategory'];?>
+</a></td>
                     <td>Available</td>
-                    <td> {* {print_stars nStars = 3} *} </td>
+                    <td>  </td>
                     <td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                   </tr>
-                {/foreach}                
+                <?php } ?>                
               </tbody>
             </table>
           </div>
@@ -89,13 +128,16 @@
     </div>
   </div>
 
-<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
-<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-<script src="{$BASE_URL}javascript/admin/admin_user_list.js"></script>
+<script src="<?php echo $_smarty_tpl->tpl_vars['BASE_URL']->value;?>
+lib/jquery-1.12.1.min.js"></script>
+<script src="<?php echo $_smarty_tpl->tpl_vars['BASE_URL']->value;?>
+lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+<script src="<?php echo $_smarty_tpl->tpl_vars['BASE_URL']->value;?>
+javascript/admin/admin_user_list.js"></script>
 <script type="text/javascript">
   $(".username").html('manager001<span class="caret"></span>');
   $("#loginButton").hide();
 </script>
 </body>
 </html>
-  
+  <?php }} ?>

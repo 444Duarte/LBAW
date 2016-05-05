@@ -13,12 +13,12 @@
                             FROM users 
                             WHERE username = ? AND password = ?");
     $stmt->execute(array($username, sha1($password)));
-    return $stmt->fetch() == true;
+    return $stmt->fetch();
   }
 
   function usernameExists($username){
-    global $conn;
-    $stmt = $conn->prepare('SELECT * FROM users WHERE username = :user');
+    global $db;
+    $stmt = $db->prepare('SELECT * FROM users WHERE username = :user');
     $stmt->bindParam(':user', $username, PDO::PARAM_STR);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -29,9 +29,27 @@
     return true;
   }
 
-  function console_log( $data ){
-    echo '<script>';
-    echo 'console.log('. json_encode( $data ) .')';
-    echo '</script>';
+  function isInventoryManager($username){
+    global $conn;
+    $user = getUserByUsername($username);
+    if($user === false)
+      return false;
+    if($user['type'] == 'InventoryManager'){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  function getUserByUsername($username){
+    global $conn;
+    $stmt = $conn->prepare("SELECT * FROM users where username = :username");
+    $stmt->bindParam(":username", $username,PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    if(count($restult) ===0){
+      return false;
+    }
+    return $result[0];
   }
 ?>
