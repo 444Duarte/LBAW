@@ -59,7 +59,7 @@
                 Name:<br>
                 <input type="text" name="name" required>
                 <br>Category<br>
-                <select name="category">
+                <select name="category" required>
 								  <option value="inf">Informatics</option>
 								  <option value="video">Video</option>
 								  <option value="audio">Audi</option>
@@ -67,7 +67,7 @@
 								  <option value="cleaning">Cleaning</option>
 								</select>
                	<br>Sub-Category<br>
-                <select name="sub_category">
+                <select name="sub_category" required>
 								  <option value="peripheral">Peripheral</option>
 								  <option value="computers">Computers</option>
 								  <option value="adapters">Adapters</option>

@@ -13,12 +13,12 @@
 			<form id="login_form" class="generic-element" action="{$BASE_URL}actions/auth/validate_login.php" method="post">
 				<div>
 					<img class="login_entity" src="{$BASE_URL}images/res/User_Avatar-64.png">
-					<input class="login_entity" class= type="text" name="username" placeholder="Username ex: up203012345">
+					<input class="login_entity" class= type="text" name="username" placeholder="Username ex: up203012345" required>
 				</div>
 				<br>
 				<div>
 					<img class="login_entity" src="{$BASE_URL}images/res/Key_icon_64.png">
-					<input class="login_entity" type="password" name="password" placeholder="Password">
+					<input class="login_entity" type="password" name="password" placeholder="Password" required>
 				</div>
 				<br>
 				<div id="login_options">
