@@ -1,10 +1,23 @@
 <?php
   
-  function createClient($email, $username, $password) {
+  function createClientUser($email, $username, $password) {
     global $conn;
     $stmt = $conn->prepare("INSERT INTO users(email,username,password,type) VALUES (?, ?, ?,'Client')");
-    $stmt->execute(array($email, $username, sha1($password)));
-    return true;
+    $result = $stmt->execute(array($email, $username, sha1($password)));
+    return $result;
+  }
+
+  function createClient($username,$id_card,$address,$phone){
+    $id = getUserByUsername($username).['id'];
+
+    if($id == false){
+      return false;
+    }
+
+    global $conn;
+    $stmt = $conn->prepare("INSERT INTO users(id,id_card,address,phone_number) VALUES (?, ?, ?, ?)");
+    $result = $stmt->execute(array($id, $id_card,$address,$phone));
+    return $result;    
   }
 
   function isLoginCorrect($username, $password) {

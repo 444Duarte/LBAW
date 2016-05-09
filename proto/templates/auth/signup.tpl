@@ -16,12 +16,16 @@
 				<input type="text" name="username" id="username" required>	
 				<br>Email<br>
 				<input type="email" name="email" required>
-
-				<br><br>Password<br>
+				<br>Password<br>
 				<input type="password" name="password" required>
 				<br>Confirm Password<br>
 				<input type="password" name="confirm_password" required>
-
+				<br><br>Identification Card<br>
+				<input type="text" name="id_card" required>
+				<br>Address<br>
+				<input type="text" name="address" required>
+				<br>Phone Number<br>
+				<input type="number" name="phone" required>
 
 				<input type="submit" value="Register">
 			</form>
