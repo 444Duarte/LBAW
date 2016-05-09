@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+{include file='common/header.tpl'}
+<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/inventory/item_list.css">
   <head>
   	<meta charset="utf-8">
     <title>ToolBox Signup</title>
   	<link href="{$BASE_URL}lib/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/lavish-bootstrap.css">
-  	<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/signup.css">
+  	<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/auth/signup.css">
 	</head>
 
 	<body>
 		<div>
-			<form id="signup_form" class="generic-element" action="{$BASE_URL}actions/auth/validate_register.php" method="post">
+			<form id="signup_form" class="generic-element" action="{$BASE_URL}actions/auth/register.php" method="post">
 				<h1 class="form_name">Register</h1>
 				<br>Username<br>
 				<input type="text" name="username" id="username" required>	

@@ -19,7 +19,7 @@ function checkPasswords(e){
 function validUsername(e) {
 	var input = $('#username').val();
 	$.post(
-		"../../api/auth/validate_username.php",
+		"api/auth/validate_username.php",
 		{
 			username: input
 		},

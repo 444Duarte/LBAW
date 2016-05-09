@@ -8,15 +8,17 @@
   }
 
   function createClient($username,$id_card,$address,$phone){
-    $id = getUserByUsername($username).['id'];
+    $id = getUserByUsername($username)['id'];
 
     if($id == false){
       return false;
     }
 
+    var_dump($id);
+
     global $conn;
-    $stmt = $conn->prepare("INSERT INTO users(id,id_card,address,phone_number) VALUES (?, ?, ?, ?)");
-    $result = $stmt->execute(array($id, $id_card,$address,$phone));
+    $stmt = $conn->prepare("INSERT INTO clients(id,id_card,address,phone_number) VALUES (?, ?, ?, ?)");
+    $result = $stmt->execute(array($id, $id_card,$address,strval($phone)));
     return $result;    
   }
 

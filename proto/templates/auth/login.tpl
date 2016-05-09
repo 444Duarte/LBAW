@@ -5,12 +5,12 @@
     <title>ToolBox Login</title>
   	<link href="{$BASE_URL}lib/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/lavish-bootstrap.css">
-  	<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/login.css">
+  	<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/auth/login.css">
 	</head>
 
 	<body>
 		<div>
-			<form id="login_form" class="generic-element" action="{$BASE_URL}actions/auth/validate_login.php" method="post">
+			<form id="login_form" class="generic-element" action="{$BASE_URL}actions/auth/login.php" method="post">
 				<div>
 					<img class="login_entity" src="{$BASE_URL}images/res/User_Avatar-64.png">
 					<input class="login_entity" class= type="text" name="username" placeholder="Username ex: up203012345" required>
