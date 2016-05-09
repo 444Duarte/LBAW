@@ -27,6 +27,8 @@ function validUsername(e) {
 			console.log(response);
 			if (response['valid'] == true){
 				$('#username').css('border', 'solid 2px red');
+			}else{
+				$('#username').css('border', 'groove 1px grey');
 			}
 	 	},
 	 	'json'
