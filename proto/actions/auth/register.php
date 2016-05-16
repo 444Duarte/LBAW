@@ -21,7 +21,7 @@
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
 
-	if (createClientUser($email, $username, $password)) {
+	if (createUser($email, $username, $password,'Client')) {
 		if(createClient($username,$id_card,$address,$phone)){
 			$_SESSION['success_messages'][] = 'Registration successful';
 		}else{
