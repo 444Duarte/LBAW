@@ -1,25 +1,50 @@
 <?php
   
-  function createClientUser($email, $username, $password) {
+  function createUser($email, $username, $password,$type) {
     global $conn;
-    $stmt = $conn->prepare("INSERT INTO users(email,username,password,type) VALUES (?, ?, ?,'Client')");
-    $result = $stmt->execute(array($email, $username, sha1($password)));
+    $stmt = $conn->prepare("INSERT INTO users(email,username,password,type) VALUES (?, ?, ?,?)");
+    $result = $stmt->execute(array($email, $username, crypt($password),$type));
     return $result;
   }
 
-  function createClient($username,$id_card,$address,$phone){
-    $id = getUserByUsername($username)['id'];
-
-    if($id == false){
-      return false;
-    }
-
-    var_dump($id);
+  function createClient($email, $username, $password,$id_card,$address,$phone){
 
     global $conn;
-    $stmt = $conn->prepare("INSERT INTO clients(id,id_card,address,phone_number) VALUES (?, ?, ?, ?)");
-    $result = $stmt->execute(array($id, $id_card,$address,strval($phone)));
-    return $result;    
+    try{
+      $conn->beginTransaction();
+      $stmt = $conn->prepare(
+        'SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;');
+      
+      if(!$stmt)
+        return false;
+      $stmt1->execute();
+      
+      $stmt2 = $conn->prepare("INSERT INTO users(email,username,password,type) VALUES (?, ?, ?,?) RETURNING id");
+
+      if(!$stmt2)
+        return false;
+
+      $stmt2->execute(array($email, $username, crypt($password),$type));
+
+      $result2 = $stmt2->fetch();
+      $id = $result2['id'];
+
+      $stmt3 = $conn->prepare("INSERT INTO clients(id,id_card,address,phone_number) VALUES (?, ?, ?, ?)");
+
+      if (!$stmt3)
+        return false;
+
+      $stmt3->execute(array($id, $id_card,$address,strval($phone)));
+
+      $conn->commit();
+
+      return true; 
+    }catch(PDOException $e) {
+      $conn->rollback();
+      echo $e->$getMessage();
+      exit();
+    }
+       
   }
 
   function isLoginCorrect($username, $password) {
@@ -27,7 +52,7 @@
     $stmt = $conn->prepare("SELECT * 
                             FROM users 
                             WHERE username = ? AND password = ?");
-    $stmt->execute(array($username, sha1($password)));
+    $stmt->execute(array($username, crypt($password)));
     return $stmt->fetch();
   }
 
