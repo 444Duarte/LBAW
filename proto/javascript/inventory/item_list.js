@@ -12,7 +12,7 @@ function initItemList(){
 }
 
 function displayItems(data){
-	console.log(data);
+	console.log('Data: ' + data);
 	var items = data['items'];
 	var $itemlist = $('#item-list');
 	$itemlist.html('');
