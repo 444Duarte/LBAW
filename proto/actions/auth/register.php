@@ -21,17 +21,14 @@
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
 
-	if (createUser($email, $username, $password,'Client')) {
-		if(createClient($username,$id_card,$address,$phone)){
-			$_SESSION['success_messages'][] = 'Registration successful';
-		}else{
-			$_SESSION['error_messages'][] = 'Registration failed';  
-			header('Location: ' . $_SERVER['HTTP_REFERER']);
-		}
-		  
-	} else {
+	
+	if(createClient($email,$username,$password,$id_card,$address,$phone)){
+		$_SESSION['success_messages'][] = 'Registration successful';
+	}else{
 		$_SESSION['error_messages'][] = 'Registration failed';  
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
+		  
+	
 	header('Location: ' . $BASE_URL);
 ?>

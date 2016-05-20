@@ -12,19 +12,19 @@
     global $conn;
     try{
       $conn->beginTransaction();
-      $stmt = $conn->prepare(
+      $stmt1 = $conn->prepare(
         'SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;');
       
-      if(!$stmt)
+      if(!$stmt1)
         return false;
       $stmt1->execute();
       
-      $stmt2 = $conn->prepare("INSERT INTO users(email,username,password,type) VALUES (?, ?, ?,?) RETURNING id");
+      $stmt2 = $conn->prepare("INSERT INTO users(email,username,password,type) VALUES (?, ?, ?, 'Client') RETURNING id");
 
       if(!$stmt2)
         return false;
 
-      $stmt2->execute(array($email, $username, crypt($password),$type));
+      $stmt2->execute(array($email, $username, crypt($password)));
 
       $result2 = $stmt2->fetch();
       $id = $result2['id'];
@@ -41,7 +41,7 @@
       return true; 
     }catch(PDOException $e) {
       $conn->rollback();
-      echo $e->$getMessage();
+      echo $e->getMessage();
       exit();
     }
        
@@ -49,11 +49,18 @@
 
   function isLoginCorrect($username, $password) {
     global $conn;
-    $stmt = $conn->prepare("SELECT * 
+    $stmt = $conn->prepare("SELECT password
                             FROM users 
-                            WHERE username = ? AND password = ?");
-    $stmt->execute(array($username, crypt($password)));
-    return $stmt->fetch();
+                            WHERE username = ?");
+    $stmt->execute(array($username));
+    $pass = $stmt->fetch()['password'];
+
+    if ($pass == NULL){
+      return false;
+    }
+    
+    return crypt($password, $pass);
+
   }
 
   function usernameExists($username){
@@ -87,7 +94,33 @@
     $stmt->bindParam(":username", $username,PDO::PARAM_STR);
     $stmt->execute();
     $result = $stmt->fetchAll();
-    if(count($restult) ===0){
+    if(count($result) ===0){
+      return false;
+    }
+    return $result[0];
+  }
+
+  function changeEmail($username, $newEmail){
+    global $conn;
+    $stmt = $conn->prepare("UPDATE users SET email = :email where username = :username");
+    $stmt->bindParam(":username", $username,PDO::PARAM_STR);
+    $stmt->bindParam(":email", $newEmail,PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    if(count($result) ===0){
+      return false;
+    }
+    return $result[0];
+  }
+
+  function changePassword($newPassword){
+    global $conn;
+    $stmt = $conn->prepare("UPDATE users SET password = :password where username = :username");
+    $stmt->bindParam(":username", $username,PDO::PARAM_STR);
+    $stmt->bindParam(":password", $newPassword,PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    if(count($result) ===0){
       return false;
     }
     return $result[0];

@@ -1,36 +1,36 @@
 <html>
-<?php include_once 'header.html';?>
+{include file='common/header.tpl'}
 <link rel="stylesheet" type="text/css" href="{$BASE_URL}css/user/settings.css">
 
 
 <body>
-	<?php include_once '{$BASE_URL}templates/common/topbar.tpl';?>
+	{include file='common/topbar.tpl'}
 
 	<div class="container-fluid">
 	    <div class="row">
-	      	<?php include_once '{$BASE_URL}templates/common/sidebar.tpl';?>
+	      	{include file='common/sidebar.tpl'}
 
 	      	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 	      		<div class="editTable generic-element">
 		      		<div class="editLine" >
 		      			<div class="preview-field">
 			      			<span class="EditTitle"><strong>E-mail:</strong></span>
-		      				<span class="EditInfo">banana@gmail.com</span>	      				
+		      				<span class="EditInfo">{$EMAIL}</span>	      				
 		      			</div>
 
 		      			<div class="edit-field">
-			      			<form class="email_form" action="" method="post">
-			      				<br>Email<br>
+			      			<form class="email_form" action="actions/user/change_email.php" method="post">
+			      				<br>New Email<br>
 								<input type="email" name="email"required>
 								<br>Confirm Email<br>
 								<input type="email" name="confirm_email" required>
 								<br>Password<br>
 								<input type="password" name="password" required>
 								<br><br>
-								<input type="submit" value="Change Email">
+								<input type="submit" value="Change Email" >
 							</form>
 						</div>
-		      			<a href="#" class="edit-button" id="editEmail">Edit</a>
+		      			<a class="edit-button" id="editEmail">Edit</a>
 		      		</div>
 		      		<div class="editLine" >
 		      			<div class="preview-field">
@@ -38,7 +38,7 @@
 			      			<span>***********</span>
 		      			</div>
 		      			<div class="edit-field">
-							<form id="password_form" action="" method="post">
+							<form id="password_form" action="actions/user/change_password.php" method="post">
 								<br><br>Password<br>
 								<input type="password" name="password" required>
 								<br>New Password<br>
@@ -49,7 +49,7 @@
 								<input type="submit" value="Change Password">
 							</form>
 			      		</div>
-		      			<a href="#" class="edit-button" id="editPassword">Edit</a>
+		      			<a class="edit-button" id="editPassword">Edit</a>
 		      		</div>
 	      		</div>
 	      		
