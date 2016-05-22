@@ -1,27 +1,22 @@
-<?php
-	function print_stars($nStars){
-		$i = 0;		
-		for (; $i < $nStars; $i++){
-			echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>' ;
-		}
-		for (; $i < 5; $i++){
-			echo '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>' ;
-		}
-	}
-?>
+{function print_stars}
+	{for $i = 1 to $n_stars}
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	{/for}
+	{for $i = $n_stars + 1 to 5}
+		<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+	{/for}
+{/function}
 
 <html>
-<?php include_once '{$BASE_URL}templates/common/header.tpl';?>
+{include file='common/header.tpl'}
 <link rel="stylesheet" type="text/css" href="{$BASE_URL}css/inventory/item.css">
 
 
 <body>
-	<?php include_once '{$BASE_URL}templates/common/topbar.tpl';?>
-	
+	{include file='common/topbar.tpl'}
 	<div class="container-fluid">
 	    <div class="row">
-	      	<?php include_once '{$BASE_URL}templates/common/sidebar.html';?>
-	    	
+	      	{include file='common/sidebar.tpl'}	
 	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 	    		<ol class="breadcrumb">
 					<li><a href="#">Home</a></li>
@@ -212,7 +207,7 @@
             </div> 
             <div class="modal-body">
               <form id="remove-instance-form" action="" method="post">
-                Condition: <?php print_stars(0)?>
+                Condition: {print_stars n_stars = }
               </form>
             </div>
             <div class="modal-footer">
@@ -261,5 +256,4 @@
 			});
 	  });
 	</script>
-</body>
-</html>
+{include file='common/footer.tpl'}

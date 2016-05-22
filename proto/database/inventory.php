@@ -25,4 +25,32 @@
 		$result = $stmt->fetch();
 		return $result['count'];
 	}
+
+	function getItem($category, $subcategory, $name){
+		global $conn;
+		try {
+			$conn->beginTransaction();
+			$stmt1 = $conn->prepare(
+				'SET TRANSACTION ISOLATION LEVEL READ COMMITTED READ ONLY;');
+			if ($stmt1) {
+				$stmt1->execute();
+				$stmt2 = $conn->prepare(
+					'SELECT items.id AS id, items.name AS name, items.description AS description FROM items, subcategories, categories WHERE items.name = :item AND items.id_subcategory = subcategories.id AND subcategories.name = :subcategory AND subcategories.id_category = categories.id AND categories.name = :category');
+				$stmt2->bindValue(':category', $category, PDO::PARAM_STR);
+				$stmt2->bindValue(':subcategory', $subcategory, PDO::PARAM_STR);
+				$stmt2->bindValue(':item', $name, PDO::PARAM_STR);
+				if($stmt2) {
+					$stmt2->execute();
+					$res = $stmt2->fetch();
+					$conn->commit();
+				}
+				return $res;
+			}
+		} catch(PDOException $e) {
+			$conn->rollback();
+			echo $e->$getMessage();
+			exit();
+		}
+
+	}
 ?>

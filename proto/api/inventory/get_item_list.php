@@ -24,4 +24,5 @@
 	}
 
 	$response = array('items' => $items, 'max' => $max);
+	header('Content-Type: application/json');
 	echo json_encode($response);

@@ -1,19 +1,37 @@
+var currentPage = 1;
+var itemsPerPage = 8;
+
 $("document").ready(function(){
 	initItemList();
 });
 
+function onPageClick(event){
+	event.preventDefault();
+	currentPage = $(this).attr('number');
+	initItemList();
+}
+
 function initItemList(){
 	$.getJSON("api/inventory/get_item_list.php",
 	{
-		nItems : 8
+		nItems : itemsPerPage
 	},
-	displayItems
+	updatePage
 	);
 }
 
-function displayItems(data){
-	console.log(data);
+function updatePage(data) {
+	console.log('Data: ' + data);
+
 	var items = data['items'];
+	var maxItems = data['max'];
+
+	updateItems(items);
+	updatePages(maxItems);
+}
+
+function updateItems(items){
+	
 	var $itemlist = $('#item-list');
 	$itemlist.html('');
 
@@ -29,5 +47,32 @@ function displayItems(data){
 
 		$itemlist.append($itemrow);
 	}
+}
 
+function updatePages(maxItems){
+	console.log(maxItems);
+	var items = maxItems;
+
+	var $pageList = $("#pagination");
+	$pageList.html("<li class=\"disabled\"><a href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
+
+	console.log(Math.ceil(maxItems/itemsPerPage));
+
+	for(var i = 1; i <= Math.ceil(maxItems/itemsPerPage); ++i){
+		$page = $("<li>");
+		$page.html("<a href=\"#\">" + i + "</a>");
+		$page.click(onPageClick);
+		$page.attr('number', i);
+		if(i == currentPage){
+			$page.addClass("active");
+		}
+		$pageList.append($page);
+	}
+
+	$nextButton = $("<li>");
+	$nextButton.html("<a href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>");
+	if(maxItems > 1){
+		$nextButton.addClass("disabled");
+	}
+	$pageList.append($nextButton);
 }
