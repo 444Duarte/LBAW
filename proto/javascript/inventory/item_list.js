@@ -11,10 +11,23 @@ function onPageClick(event){
 	initItemList();
 }
 
+function onPreviousButtonClick(event){
+	event.preventDefault();
+	--currentPage;
+	initItemList();
+}
+
+function onNextButtonClick(event){
+	event.preventDefault();
+	++currentPage;
+	initItemList();
+}
+
 function initItemList(){
 	$.getJSON("api/inventory/get_item_list.php",
 	{
-		nItems : itemsPerPage
+		nItems : itemsPerPage,
+		start : (currentPage-1) * itemsPerPage
 	},
 	updatePage
 	);
@@ -48,18 +61,38 @@ function updateItems(items){
 	}
 }
 
+function pageNumberAppears(number){
+	if(number > currentPage-2 && number < currentPage+2)
+		return true;
+	if(number == 1 || number == Math.ceil(maxItems/itemsPerPage))
+		return true;
+	else
+		return false;
+}
+
 function updatePages(maxItems){
 	console.log(maxItems);
 	var items = maxItems;
 
 	var $pageList = $("#pagination");
-	$pageList.html("<li class=\"disabled\"><a href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
+	$pageList.html("");
+	var $previousButton = $("<li>");
+	if(currentPage == 1){
+		$previousButton.addClass("disabled");
+	}
+	else {
+		$previousButton.click(onPreviousButtonClick);
+	}
+	$previousButton.html("<a aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a>");
+	$pageList.append($previousButton);
 
 	console.log(Math.ceil(maxItems/itemsPerPage));
 
 	for(var i = 1; i <= Math.ceil(maxItems/itemsPerPage); ++i){
+		if (!pageNumberAppears(i))
+			continue;
 		$page = $("<li>");
-		$page.html("<a href=\"#\">" + i + "</a>");
+		$page.html("<a>" + i + "</a>");
 		$page.click(onPageClick);
 		$page.attr('number', i);
 		if(i == currentPage){
@@ -69,9 +102,12 @@ function updatePages(maxItems){
 	}
 
 	$nextButton = $("<li>");
-	$nextButton.html("<a href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>");
-	if(maxItems > 1){
+	$nextButton.html("<a aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>");
+	if(currentPage == Math.ceil(maxItems/itemsPerPage)){
 		$nextButton.addClass("disabled");
+	}
+	else {
+		$nextButton.click(onNextButtonClick);
 	}
 	$pageList.append($nextButton);
 }
