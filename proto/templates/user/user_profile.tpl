@@ -51,7 +51,7 @@
 														<p><strong>Phone: </strong>{$PHONE}</p>
 														<p><strong>E-mail: </strong>   {mailto address=$EMAIL}</a></p>
 														<p><strong>CIVIL ID No: </strong>{$IDCARD}</p>
- 
+  
 													</div>
 												</div>
 											</div>
