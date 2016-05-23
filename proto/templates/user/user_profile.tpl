@@ -1,20 +1,20 @@
 <html>
-<?php include_once '{$BASE_URL}templates/common/header.tpl';?>
+{include file='common/header.tpl'}
 <link rel="stylesheet" type="text/css" href="{$BASE_URL}css/inventory/item.css">
 
 
 <body>
-	<?php include_once '{$BASE_URL}templates/common/topbar.tpl';?>
+	{include file='common/topbar.tpl'}
 	
 	<div class="container-fluid">
 	    <div class="row">
-	      	<?php include_once '{$BASE_URL}templates/common/sidebar.tpl';?>
+	      	{include file='common/sidebar.tpl'}
 	    	
 	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 	    		<ol class="breadcrumb">
 					<li><a href="#">Home</a></li>
 					<li><a href="#">Users</a></li>
-					<li class="active">Marcelo Rebelo de Sousa</li>
+					<li class="active">{$USERNAME}</li>
 				</ol>
 				<div>
 					<!-- Nav tabs -->
@@ -34,21 +34,24 @@
 										<div class="row">
 											<div class="col-sm-4">
 												<a href="#" class="thumbnail">
-													<img src="res/Marcelo.jpg" alt="User_Photo" class="img-thumbnail">
+													{if $PICTURE == NULL}
+													<img src="proto/images/users/teste.png" alt="User_Photo" class="img-thumbnail">
+													{else}
+													<img src='{$PICTURE}' alt="User_Photo" class="img-thumbnail">
+													{/if}
 												</a>
 											</div>
 											<div class="col-sm-4">
 												<div class="panel panel-default">
 													<div class="panel-heading">
-														<h3 class="panel-title">Marcelo Rebelo de Sousa</h3>
+														<h3 class="panel-title">{$USERNAME}</h3>
 													</div>
 													<div class="panel-body">
-														<p><strong>Age: </strong>67	</p>
-														<p><strong>Address: </strong>Palacio de Belem</p>
-														<p><strong>Phone: </strong>800 000 000	</p>
-														<p><strong>E-mail: </strong><a href="mailto:mrs@gov.pt">mrs@gov.pt</a></p>
-														<p><strong>CIVIL ID No: </strong>144 012 98	</p>
-
+														<p><strong>Address: </strong>{$ADDRESS}</p>
+														<p><strong>Phone: </strong>{$PHONE}</p>
+														<p><strong>E-mail: </strong>   {mailto address=$EMAIL}</a></p>
+														<p><strong>CIVIL ID No: </strong>{$IDCARD}</p>
+  
 													</div>
 												</div>
 											</div>
