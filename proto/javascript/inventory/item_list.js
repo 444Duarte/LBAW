@@ -1,5 +1,7 @@
 var currentPage = 1;
 var itemsPerPage = 8;
+var rows = 2;
+var totalPageNumber = 1; 
 
 $("document").ready(function(){
 	initItemList();
@@ -47,10 +49,10 @@ function updateItems(items){
 	var $itemlist = $('#item-list');
 	$itemlist.html('');
 
-	for (var i = 0; i < items.length; i += 4) {
+	for (var i = 0; i < items.length; i += itemsPerPage/rows) {
 		$itemrow = $('<row>');
 
-		for(var j = i; j < items.length && (j < (i + 4)); ++j){
+		for(var j = i; j < items.length && (j < (i + itemsPerPage/rows)); ++j){
 			$item = $('<div class="col-xs-6 col-md-3">');
 			$item.html("<a class=\"thumbnail\">" + "<img src=\"images/res/" + items[j]['picture'] + "\"alt=\"" +items[j]['name'] + "\"> <div class=\"caption\"><h3>"+items[j]['name']+"</h3></div></a></div>");
 			
@@ -62,16 +64,17 @@ function updateItems(items){
 }
 
 function pageNumberAppears(number){
-	if(number > currentPage-2 && number < currentPage+2)
+	console.log(number);
+	if(number <= (currentPage+2) && (number >= (currentPage-2)))
 		return true;
-	if(number == 1 || number == Math.ceil(maxItems/itemsPerPage))
+	if((number == 1) || (number == totalPageNumber))
 		return true;
 	else
 		return false;
 }
 
 function updatePages(maxItems){
-	console.log(maxItems);
+	totalPageNumber = Math.ceil(maxItems/itemsPerPage)
 	var items = maxItems;
 
 	var $pageList = $("#pagination");
@@ -86,9 +89,7 @@ function updatePages(maxItems){
 	$previousButton.html("<a aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a>");
 	$pageList.append($previousButton);
 
-	console.log(Math.ceil(maxItems/itemsPerPage));
-
-	for(var i = 1; i <= Math.ceil(maxItems/itemsPerPage); ++i){
+	for(var i = 1; i <= totalPageNumber; ++i){
 		if (!pageNumberAppears(i))
 			continue;
 		$page = $("<li>");
@@ -103,7 +104,7 @@ function updatePages(maxItems){
 
 	$nextButton = $("<li>");
 	$nextButton.html("<a aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>");
-	if(currentPage == Math.ceil(maxItems/itemsPerPage)){
+	if(currentPage == totalPageNumber){
 		$nextButton.addClass("disabled");
 	}
 	else {
