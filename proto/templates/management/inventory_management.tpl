@@ -55,7 +55,7 @@
               <h4 class="modal-title">Add Item</h4>
             </div> 
             <div class="modal-body">
-              <form id="add-item-form" action="" method="post">
+              <form id="add-item-form" action="api/management/create_item.php" method="post" enctype="multipart/form-data">
                 Name:<br>
                 <input type="text" name="name" required>
                 <br>Category<br>
@@ -67,15 +67,17 @@
 								  <option value="cleaning">Cleaning</option>
 								</select>
                	<br>Sub-Category<br>
-                <select name="sub_category" required>
+                <select name="subcategory" required>
 								  <option value="peripheral">Peripheral</option>
 								  <option value="computers">Computers</option>
 								  <option value="adapters">Adapters</option>
 								  <option value="cables">Cables</option>
 								  <option value="cd">CDs</option>
 								</select>
+                <br>Description:<br>
+                <input type="text" name="description" required>
 								<br>Image<br>
-								<input type="file" name="pic" accept="image/*">
+								<input type="file" name="picture" accept="image/*">
               </form>
             </div>
             <div class="modal-footer">

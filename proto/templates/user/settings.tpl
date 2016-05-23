@@ -15,7 +15,7 @@
 		      		<div class="editLine" >
 		      			<div class="preview-field">
 			      			<span class="EditTitle"><strong>E-mail:</strong></span>
-		      				<span class="EditInfo">{$EMAIL}</span>	      				
+		      				<span class="EditInfo">{$EMAIL|escape:html}</span>	      				
 		      			</div>
 
 		      			<div class="edit-field">

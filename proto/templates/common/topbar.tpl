@@ -21,7 +21,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle username" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{$USERNAME}<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Profile</a></li>
+            <li><a href="pages/user/user.php">Profile</a></li>
             <li><a href="#">My Reservations</a></li>
             <li><a href="#">Item History</a></li>
             <li role="separator" class="divider"></li>

@@ -1,5 +1,7 @@
 var currentPage = 1;
 var itemsPerPage = 8;
+var rows = 2;
+var totalPageNumber = 1; 
 
 $("document").ready(function(){
 	initItemList();
@@ -11,10 +13,23 @@ function onPageClick(event){
 	initItemList();
 }
 
+function onPreviousButtonClick(event){
+	event.preventDefault();
+	--currentPage;
+	initItemList();
+}
+
+function onNextButtonClick(event){
+	event.preventDefault();
+	++currentPage;
+	initItemList();
+}
+
 function initItemList(){
 	$.getJSON("api/inventory/get_item_list.php",
 	{
-		nItems : itemsPerPage
+		nItems : itemsPerPage,
+		start : (currentPage-1) * itemsPerPage
 	},
 	updatePage
 	);
@@ -34,10 +49,10 @@ function updateItems(items){
 	var $itemlist = $('#item-list');
 	$itemlist.html('');
 
-	for (var i = 0; i < items.length; i += 4) {
+	for (var i = 0; i < items.length; i += itemsPerPage/rows) {
 		$itemrow = $('<row>');
 
-		for(var j = i; j < items.length && (j < (i + 4)); ++j){
+		for(var j = i; j < items.length && (j < (i + itemsPerPage/rows)); ++j){
 			$item = $('<div class="col-xs-6 col-md-3">');
 			$item.html("<a class=\"thumbnail\">" + "<img src=\"images/res/" + items[j]['picture'] + "\"alt=\"" +items[j]['name'] + "\"> <div class=\"caption\"><h3>"+items[j]['name']+"</h3></div></a></div>");
 			
@@ -48,18 +63,37 @@ function updateItems(items){
 	}
 }
 
+function pageNumberAppears(number){
+	console.log(number);
+	if(number <= (currentPage+2) && (number >= (currentPage-2)))
+		return true;
+	if((number == 1) || (number == totalPageNumber))
+		return true;
+	else
+		return false;
+}
+
 function updatePages(maxItems){
-	console.log(maxItems);
+	totalPageNumber = Math.ceil(maxItems/itemsPerPage)
 	var items = maxItems;
 
 	var $pageList = $("#pagination");
-	$pageList.html("<li class=\"disabled\"><a href=\"#\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>");
+	$pageList.html("");
+	var $previousButton = $("<li>");
+	if(currentPage == 1){
+		$previousButton.addClass("disabled");
+	}
+	else {
+		$previousButton.click(onPreviousButtonClick);
+	}
+	$previousButton.html("<a aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a>");
+	$pageList.append($previousButton);
 
-	console.log(Math.ceil(maxItems/itemsPerPage));
-
-	for(var i = 1; i <= Math.ceil(maxItems/itemsPerPage); ++i){
+	for(var i = 1; i <= totalPageNumber; ++i){
+		if (!pageNumberAppears(i))
+			continue;
 		$page = $("<li>");
-		$page.html("<a href=\"#\">" + i + "</a>");
+		$page.html("<a>" + i + "</a>");
 		$page.click(onPageClick);
 		$page.attr('number', i);
 		if(i == currentPage){
@@ -69,9 +103,12 @@ function updatePages(maxItems){
 	}
 
 	$nextButton = $("<li>");
-	$nextButton.html("<a href=\"#\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>");
-	if(maxItems > 1){
+	$nextButton.html("<a aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>");
+	if(currentPage == totalPageNumber){
 		$nextButton.addClass("disabled");
+	}
+	else {
+		$nextButton.click(onNextButtonClick);
 	}
 	$pageList.append($nextButton);
 }

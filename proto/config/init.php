@@ -5,8 +5,8 @@
   error_reporting(E_ALL); 
 
   
-  $BASE_DIR = '/usr/users2/mieic2013/up201305195/public_html/lbaw/proto/'; 
-  $BASE_URL = '/~up201305195/lbaw/proto/'; 
+  $BASE_DIR = '/usr/users2/mieic2013/up201304205/public_html/proto/'; 
+  $BASE_URL = '/~up201304205/proto/'; 
 
   $conn = new PDO('pgsql:host=dbm;dbname=lbaw1533', 'lbaw1533', 'VN12B1N7'); 
   $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
