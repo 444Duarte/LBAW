@@ -1,3 +1,3 @@
 <?php
-  header('Location: pages/auth/login.php');
+  header('Location: pages/inventory/item_list.php');
 ?>

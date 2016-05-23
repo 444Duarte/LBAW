@@ -22,7 +22,6 @@ function initItemList(){
 
 function updatePage(data) {
 	console.log('Data: ' + data);
-
 	var items = data['items'];
 	var maxItems = data['max'];
 
