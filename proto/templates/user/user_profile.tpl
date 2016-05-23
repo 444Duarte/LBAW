@@ -35,9 +35,9 @@
 											<div class="col-sm-4">
 												<a href="#" class="thumbnail">
 													{if $PICTURE == NULL}
-													<img src="proto/images/users/teste.png" alt="User_Photo" class="img-thumbnail">
+													<img src="images/users/teste.png" alt="User_Photo" class="img-thumbnail">
 													{else}
-													<img src='{$PICTURE}' alt="User_Photo" class="img-thumbnail">
+													<img src="images/users/{$PICTURE}" alt="User_Photo" class="img-thumbnail">
 													{/if}
 												</a>
 											</div>
@@ -152,19 +152,6 @@
 	</div>
 	<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
 	<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-	<script src="{$BASE_URL}lib/moment.min.js"></script>
 	
-	<script type="text/javascript">
-	  $(document).ready( function() {
-		  $(".username").hide();
-		  $("#loginButton");
-		   $(function () {
-				$('#datetimepicker12').datetimepicker({
-					inline: true,
-					sideBySide: true
-				});
-			});
-	  });
-	</script>
 </body>
 </html>

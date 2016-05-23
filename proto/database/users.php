@@ -110,14 +110,12 @@
       return 'user does not exist';
     }
     $id = $result[0]['id'];
-
-    echo "id of ".$username." = ".$id;
-
+    
     $stmt2 = $conn->prepare("SELECT * FROM clients where id = :id");
-    $stmt2->bindParam(":id", $id,PDO::PARAM_STR);
+    $stmt2->bindParam(":id", $id,PDO::PARAM_INT);
     $stmt2->execute();
-    $client = $stmt->fetchAll();
-    if(count($client) ===0){
+    $client = $stmt2->fetchAll();
+    if(count($client) === 0){
       return 'client does not exist';
     }
     return $client[0];
