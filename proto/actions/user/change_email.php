@@ -11,7 +11,7 @@
 	}
 
 	if ($username == NULL){
-		echo 'User not loged';
+		echo 'User not logged';
 		exit;
 	}
 
