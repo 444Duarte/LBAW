@@ -18,7 +18,7 @@
 
 			
 	    	<nav>
-				  <ul class="pagination">
+				  <ul id="pagination" class="pagination">
 				    <li class="disabled">
 				      <a href="#" aria-label="Previous">
 				        <span aria-hidden="true">&laquo;</span>
