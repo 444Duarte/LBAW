@@ -24,7 +24,10 @@
       if(!$stmt2)
         return false;
 
-      $stmt2->execute(array($email, $username, crypt($password)));
+      $result2 = $stmt2->execute(array($email, $username, crypt($password)));
+      
+      if(!$result2)
+        return false;
 
       $result2 = $stmt2->fetch();
       $id = $result2['id'];
@@ -34,7 +37,9 @@
       if (!$stmt3)
         return false;
 
-      $stmt3->execute(array($id, $id_card,$address,strval($phone)));
+      $result3 = $stmt3->execute(array($id, $id_card,$address,strval($phone)));
+      if(!$result3)
+        return false;
 
       $conn->commit();
 
@@ -42,7 +47,7 @@
     }catch(PDOException $e) {
       $conn->rollback();
       echo $e->getMessage();
-      exit();
+      return false;
     }
        
   }

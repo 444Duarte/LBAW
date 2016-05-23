@@ -31,6 +31,9 @@
 				<input type="submit" value="Register">
 			</form>
 		</div>
+		{if $ERROR_MESSAGES != NULL}
+			<script>alert('{$ERROR_MESSAGES[0]}');</script>
+		{/if}
 		<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
 		<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="{$BASE_URL}javascript/auth/signup.js"></script>

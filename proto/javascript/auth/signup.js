@@ -1,15 +1,21 @@
+var usernameIsValid;
+
 $("document").ready(function(){
 	$('#username').focusout(validUsername);
-	$('#signup_form input[type="submit"]').click(checkPasswords);
+	$('#signup_form input[type="submit"]').click(validateRegister);
 
 });
 
-function checkPasswords(e){
+function validateRegister(e){
 	var pass = $('#signup_form input[name="password"]').val();  
 	var confirmPassword = $('#signup_form input[name="confirm_password"]').val();
+	validUsername($('#username'));
 	if(pass != confirmPassword){
 		$('#signup_form input[name="confirm_password"]').css('border', 'solid 2px red');
 		alert("Passwords don't match");
+		e.preventDefault();
+	}else if (usernameIsValid===false) {
+		alert("Username already exists");
 		e.preventDefault();
 	}else{
 		return true;
@@ -26,8 +32,11 @@ function validUsername(e) {
 		function(response){
 			console.log(response);
 			if (response['valid'] == true){
+				usernameIsValid = false;
 				$('#username').css('border', 'solid 2px red');
+
 			}else{
+				usernameIsValid = true;
 				$('#username').css('border', 'groove 1px grey');
 			}
 	 	},
