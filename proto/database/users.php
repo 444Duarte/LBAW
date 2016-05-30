@@ -151,4 +151,16 @@
     }
     return $result[0];
   }
+
+  function getUserType($username){
+    global $conn;
+    $stmt = $conn->prepare("SELECT type FROM users where username = :username");
+    $stmt->bindParam(":username", $username,PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    if(count($result) ===0){
+      throw new Exception('user does not exist', 1);
+    }
+    $id = $result[0];
+  }
 ?>

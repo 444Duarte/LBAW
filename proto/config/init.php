@@ -5,8 +5,8 @@
   error_reporting(E_ALL); 
 
   
-  $BASE_DIR = '/usr/users2/mieic2013/up201304205/public_html/proto/'; 
-  $BASE_URL = '/~up201304205/proto/'; 
+  $BASE_DIR = '/usr/users2/mieic2013/201304777/public_html/proto/'; 
+  $BASE_URL = '/~201304777/proto/'; 
 
   $conn = new PDO('pgsql:host=dbm;dbname=lbaw1533', 'lbaw1533', 'VN12B1N7'); 
   $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -32,6 +32,7 @@
   $smarty->assign('SUCCESS_MESSAGES', isset($_SESSION['success_messages']) ? $_SESSION['success_messages'] : NULL);
   $smarty->assign('FORM_VALUES', isset($_SESSION['form_values']) ? $_SESSION['form_values'] : NULL);
   $smarty->assign('USERNAME', $username);
+  $smarty->assign('USER_TYPE', isset($_SESSION['user_type']) ? $_SESSION['user_type'] : NULL)
   
   unset($_SESSION['success_messages']);
   unset($_SESSION['error_messages']);  
