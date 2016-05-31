@@ -35,7 +35,11 @@
 			if ($stmt1) {
 				$stmt1->execute();
 				$stmt2 = $conn->prepare(
-					'SELECT items.id AS id, items.name AS name, items.description AS description FROM items, subcategories, categories WHERE items.name = :item AND items.id_subcategory = subcategories.id AND subcategories.name = :subcategory AND subcategories.id_category = categories.id AND categories.name = :category');
+					'SELECT items.id AS id, items.name AS name, subcategories.name AS subcategory, categories.name AS category,
+					items.description AS description, items.picture AS picture
+					FROM items INNER JOIN subcategories ON items.id_subcategory = subcategories.id
+					INNER JOIN categories ON subcategories.id_category = categories.id
+					WHERE items.name = :item AND subcategories.name = :subcategory AND categories.name = :category;');
 				$stmt2->bindValue(':category', $category, PDO::PARAM_STR);
 				$stmt2->bindValue(':subcategory', $subcategory, PDO::PARAM_STR);
 				$stmt2->bindValue(':item', $name, PDO::PARAM_STR);
