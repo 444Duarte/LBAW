@@ -14,7 +14,7 @@
 
 	include_once '../../config/init.php';
  	include_once('../../database/users.php'); 
- 	include_once('../../database/util.php'); 
+ 	include_once('../../database/util.php');  
 
 
  	if(!$_POST['email']) {
@@ -34,11 +34,11 @@
       	echo json_encode($response);
 		exit();
 	}
-
+	$link = $BASE_URL.'pages/auth/signup_inventory_manager.php?=';
 	$hashCode = inventoryManagerRequest($email);
 	// $hashCode = 'ABCDEFGHIJKLMN';
 
-	email($email, "Inventory Manager Request", 'Please follow the following link to create an Inventory Manager account: '.$hashCode);
+	email($email, "Inventory Manager Request", 'Please follow the following link to create an Inventory Manager account: ' . $link . $hashCode);
 
 	$response = array("result" => true, "message" => "Email sent");
 	header('Content-Type: application/json');

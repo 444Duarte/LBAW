@@ -140,7 +140,7 @@
               <h4 class="modal-title">Add Inventory Manager</h4>
             </div> 
             <div class="modal-body">
-              <form id="add-user-form" action="" method="post">
+              <form id="add-user-form" action="{$BASE_URL}api/admin/create_inventory_manager.php" method="post">
                 <p>Email:</p>
                 <input type="email" name="email" required>
               </form>
