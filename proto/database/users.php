@@ -16,18 +16,19 @@
         'SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;');
       
       if(!$stmt1)
-        return false;
+        throw new PDOException("Error Processing Request", 1);
+        
       $stmt1->execute();
       
       $stmt2 = $conn->prepare("INSERT INTO users(email,username,password,type) VALUES (?, ?, ?, 'Client') RETURNING id");
 
       if(!$stmt2)
-        return false;
+        throw new PDOException("Error Processing Request", 1);
 
       $result2 = $stmt2->execute(array($email, $username, crypt($password)));
       
       if(!$result2)
-        return false;
+        throw new PDOException("Error Processing Request", 1);
 
       $result2 = $stmt2->fetch();
       $id = $result2['id'];
@@ -35,11 +36,11 @@
       $stmt3 = $conn->prepare("INSERT INTO clients(id,id_card,address,phone_number) VALUES (?, ?, ?, ?)");
 
       if (!$stmt3)
-        return false;
+        throw new PDOException("Error Processing Request", 1);
 
       $result3 = $stmt3->execute(array($id, $id_card,$address,strval($phone)));
       if(!$result3)
-        return false;
+        throw new PDOException("Error Processing Request", 1);
 
       $conn->commit();
 
