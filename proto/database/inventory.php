@@ -57,4 +57,21 @@
 		}
 
 	}
+
+	function addItem($category, $subcategory, $name, $description, $picture){
+		global $conn;
+		try {
+			$stmt = $conn->prepare(
+				'INSERT INTO items(name, subcategory, description, picture) SELECT :name, subcategory.id, :description, :picture FROM subcategory, category WHERE category.name = :category AND category.id = subcategory.id_category AND subcategory.name = :subcategory;');
+			$stmt->bindValue(':category', $category, PDO::PARAM_STR);
+			$stmt->bindValue(':description', $description, PDO::PARAM_STR);
+			$stmt->bindValue(':subcategory', $category, PDO::PARAM_STR);
+			$stmt->bindValue(':item', $category, PDO::PARAM_STR);
+			$stmt->bindValue(':picture', $picture, PDO::PARAM_STR);
+			$stmt->execute();
+		} catch(PDOException $e) {
+			echo $e->getMessage();
+			exit();
+		}
+	}
 ?>

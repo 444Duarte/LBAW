@@ -1,12 +1,12 @@
 <?php
-  session_set_cookie_params(3600, '/~up201305195');
+  session_set_cookie_params(3600, '/~up201304777');
   session_start();
 
   error_reporting(E_ALL); 
 
   
-  $BASE_DIR = '/usr/users2/mieic2013/up201305195/public_html/lbaw/proto/'; 
-  $BASE_URL = '/~up201305195/lbaw/proto/'; 
+  $BASE_DIR = '/usr/users2/mieic2013/up201304777/public_html/proto/'; 
+  $BASE_URL = '/~up201304777/proto/'; 
 
   $conn = new PDO('pgsql:host=dbm;dbname=lbaw1533', 'lbaw1533', 'VN12B1N7'); 
   $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -26,15 +26,17 @@
   $smarty->setPluginsDir($existing);
 
   $username = isset($_SESSION['username']) ? $_SESSION['username'] : NULL;
+  $userType = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : NULL;
   
   $smarty->assign('ERROR_MESSAGES', isset($_SESSION['error_messages']) ? $_SESSION['error_messages'] : NULL);  
   $smarty->assign('FIELD_ERRORS', isset($_SESSION['field_errors']) ? $_SESSION['field_errors'] : NULL);
   $smarty->assign('SUCCESS_MESSAGES', isset($_SESSION['success_messages']) ? $_SESSION['success_messages'] : NULL);
   $smarty->assign('FORM_VALUES', isset($_SESSION['form_values']) ? $_SESSION['form_values'] : NULL);
   $smarty->assign('USERNAME', $username);
+  $smarty->assign('USER_TYPE', $userType);
   
   unset($_SESSION['success_messages']);
   unset($_SESSION['error_messages']);  
   unset($_SESSION['field_errors']);
   unset($_SESSION['form_values']);
-?>
+?> 
