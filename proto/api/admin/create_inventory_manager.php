@@ -34,9 +34,17 @@
       	echo json_encode($response);
 		exit();
 	}
-	$link = $BASE_URL.'pages/auth/signup_inventory_manager.php?=';
-	$hashCode = inventoryManagerRequest($email);
-	// $hashCode = 'ABCDEFGHIJKLMN';
+	$link = $BASE_URL.'pages/auth/signup_inventory_manager.php?h=';
+	try {
+		$hashCode = inventoryManagerPreRegister($email);
+
+	} catch (Exception $e) {
+		$response = array("result" => false, "message" => e->getMessage());
+      	header('Content-Type: application/json');
+      	echo json_encode($response);
+		exit();
+	}
+
 
 	email($email, "Inventory Manager Request", 'Please follow the following link to create an Inventory Manager account: ' . $link . $hashCode);
 

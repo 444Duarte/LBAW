@@ -179,4 +179,22 @@
     $id = $result[0];
   }
 
+  function inventoryManagerPreRegister($email){
+    global $conn;
+    $hash = sha1($email);
+    $type = 'InventoryManager';
+
+    $stmt = $conn->prepare("INSERT INTO pre_register(email,type,hash) VALUES (:email, :type, :hash)");
+    $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+    $stmt->bindParam(":user", $type, PDO::PARAM_STR);
+    $stmt->bindParam(":user", $hash, PDO::PARAM_STR);
+    $result = $stmt->execute();
+    
+    if(!$result){
+      return throw new Exception("Error Processing Request", 1);
+    }
+
+    return $hash;
+  }
+
 ?>
