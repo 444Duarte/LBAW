@@ -156,7 +156,7 @@
   function getUserBookings($username){
     global $conn;
     
-    $stmt = $conn->prepare("SELECT items.name AS name, categories.name AS category, subcategories.name AS subcategory,reservations.start_time AS start_date, reservations.end_time AS end_date
+    $stmt = $conn->prepare("SELECT items.name AS name, categories.name AS category, subcategories.name AS subcategory,reservations.start_time AS start_date, reservations.end_time AS end_date,  reservations.id AS id
         FROM categories, subcategories, items, item_instances, reservations, users
         WHERE users.username = :user AND users.id = reservations.id_client AND 
               reservations.id_item_instance = item_instances.id AND item_instances.id_item = items.id AND
@@ -170,6 +170,39 @@
     }
     return $result;  
   }
+
+  function getUserHistory($username){
+    global $conn;
+    
+    $stmt = $conn->prepare("BEGIN;
+      SET TRANSACTION ISOLATION LEVEL READ COMMITTED READ ONLY;
+      SELECT items.name AS name, categories.name AS category, subcategories.name AS subcategory, item_history_records.date AS DATE, 
+      item_history_records.type AS TYPE
+      FROM items, item_instances, item_history_records, categories, subcategories, users, lend_records, return_records
+      WHERE users.username = :USER AND users.id = lend_records.id_client AND lend_records.id = item_history_records.id
+      AND item_history_records.id_item_instance = item_instances.id AND
+      item_instances.id_item = items.id AND items.id_subcategory = subcategories.id AND subcategories.id_category = categories.id
+      UNION
+      SELECT items.name AS name, categories.name AS category, subcategories.name AS subcategory, item_history_records.date AS DATE, 
+      item_history_records.type AS TYPE
+      FROM items, item_instances, item_history_records, categories, subcategories, users, lend_records, return_records
+      WHERE users.username = :USER AND users.id = return_records.id_client AND return_records.id = item_history_records.id
+      AND item_history_records.id_item_instance = item_instances.id AND
+      item_instances.id_item = items.id AND items.id_subcategory = subcategories.id AND subcategories.id_category = categories.id
+      ORDER BY DATE DESC
+      LIMIT :LIMIT
+      OFFSET :offset;
+      COMMIT;");
+    $stmt->bindParam(":USER", $username,PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    
+    if(count($result) ===0){
+      return false;
+    }
+    return $result; 
+  }
+
   function getUserType($username){
     global $conn;
     $stmt = $conn->prepare("SELECT type FROM users where username = :username");
@@ -199,5 +232,27 @@
 
     return $hash;
   }
+
+  function removeBooking($username, $id){
+
+    global $conn;
+    $stmt = $conn->prepare("SELECT id FROM users where username = :username");
+    $stmt->bindParam(":username", $username,PDO::PARAM_STR);
+    $stmt->execute();
+    $idL = $stmt->fetchAll();
+    if(count($idL) ===0){
+      return false;
+    }
+    $idC = $idL[0]['id'];
+
+    $stmt2 = $conn->prepare("DELETE FROM reservations WHERE id = :id AND id_client = :idC ");
+    $stmt2->bindParam(":id", $id,PDO::PARAM_INT);
+    $stmt2->bindParam(":idC", $idC,PDO::PARAM_INT);
+    $stmt2->execute();
+    $result = $stmt2->fetchAll();
+
+    return $result;
+  }
+
 
 ?>

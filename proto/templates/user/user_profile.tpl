@@ -118,7 +118,7 @@
 					                    <th>Due Date</th>
 					                  </tr>
 					              </thead>
-					              <tbody>
+					              <tbody id="history-body">
 					                <tr>
 					                  <td><a href="{$BASE_URL}pages/inventory/item.php">Hammer</a></td>
 					                  <td><a href="#">Tools</a></td>
