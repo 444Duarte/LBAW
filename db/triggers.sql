@@ -9,7 +9,8 @@ DROP TRIGGER IF EXISTS check_user ON clients;
 DROP TRIGGER IF EXISTS check_valid_reservation ON reservations;
 DROP TRIGGER IF EXISTS check_expected_end ON maintenance_records;
 DROP TRIGGER IF EXISTS check_id_inventory_manager ON item_history_records;
-
+DROP TRIGGER IF EXISTS check_email_pre_register ON pre_registers;
+DROP TRIGGER IF EXISTS delete_pre_register ON users;
 
 CREATE OR REPLACE FUNCTION abort()
 RETURNS TRIGGER AS $$
@@ -432,3 +433,42 @@ CREATE TRIGGER check_id_inventory_manager
 BEFORE INSERT ON item_history_records
 FOR EACH ROW
 EXECUTE PROCEDURE is_inventory_manager();
+
+
+/**
+ *	Checks if there is already an user with the email
+ */
+CREATE OR REPLACE FUNCTION email_exists()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF 	NEW.email 
+		IN (SELECT email
+			FROM users)
+	THEN
+		RAISE 'Given email already in the database ';
+	END IF;
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+/**
+ *	Deletes all pre_registers with the same email as the new user
+ */
+CREATE TRIGGER check_email_pre_register
+BEFORE INSERT ON pre_registers 
+FOR EACH ROW 
+EXECUTE PROCEDURE email_exists();
+
+CREATE OR REPLACE FUNCTION delete_pre_register()
+RETURNS TRIGGER AS $$
+BEGIN
+	DELETE FROM pre_registers
+	WHERE email = NEW.email;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_pre_register
+AFTER INSERT ON users 
+FOR EACH ROW 
+EXECUTE PROCEDURE email_exists();
