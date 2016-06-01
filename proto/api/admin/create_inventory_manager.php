@@ -32,7 +32,7 @@
 		$link = $BASE_LINK . $BASE_URL . 'pages/auth/signup_inventory_manager.php?h=';
 		$hashCode = inventoryManagerPreRegister($email);
 	} catch (Exception $e) {
-		$response = array("result" => false, "message" => $e->getMessage());
+		$response = array("result" => false, "message" => "Request failed");
       	header('Content-Type: application/json');
       	echo json_encode($response);
 		exit();

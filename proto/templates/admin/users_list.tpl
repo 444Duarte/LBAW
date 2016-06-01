@@ -158,6 +158,7 @@
   </div>
 
 <script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
+<script src="{$BASE_URL}lib/jquery.validate.js"></script>
 <script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
 <script src="{$BASE_URL}javascript/admin/users_list.js"></script>

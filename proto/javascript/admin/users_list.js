@@ -11,7 +11,7 @@ $(document).ready(function(){
 
 	var form = $('.modal form');
 	form.submit(sendPreRegisterForm);
-
+	form.validate();
 	$('#submit_form_button').click(function(){
 		form.submit();
 	});
@@ -20,12 +20,18 @@ $(document).ready(function(){
 
 function sendPreRegisterForm(e) {
 	var dom = $(this);
+	var inputs = dom.find('input');
+	for (var i = 0; i < inputs.length; i++) {
+		if(!inputs[i].checkValidity()){
+			return false;
+		}
+	}
 	var action = dom.attr("action");
 	var data = dom.serialize();
-	console.log(dom);
 	console.log(action);
 	console.log(data);
 	$.ajax({url: action, 
+		type: 'post',
 		data: data, 
 		success: function(response){
 			var result = response['result'];
