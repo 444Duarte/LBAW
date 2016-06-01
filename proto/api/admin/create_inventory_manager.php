@@ -29,7 +29,7 @@
 
 	try {
 		validateEmail($email);
-		$link = $BASE_LINK . $BASE_URL . 'pages/auth/signup_inventory_manager.php?h=';
+		$link = $BASE_LINK . $BASE_URL . 'pages/auth/admin_signup.php?h=';
 		$hashCode = inventoryManagerPreRegister($email);
 	} catch (Exception $e) {
 		$response = array("result" => false, "message" => "Request failed");

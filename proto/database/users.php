@@ -254,5 +254,16 @@
     return $result;
   }
 
+  function isValidHashPreRegister($hash){
+    global $conn;
+    $stmt = $conn->prepare("SELECT email FROM pre_registers where hash = :hash");
+    $stmt->bindParam(":hash", $hash, PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    if(count($result) ===0){
+      return false;
+    }
+    return $result[0]['email'];
+  }
 
 ?>
