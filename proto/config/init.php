@@ -4,7 +4,7 @@
 
   error_reporting(E_ALL); 
 
-  
+  $BASE_LINK = 'https://gnomo.fe.up.pt';
   $BASE_DIR = '/usr/users2/mieic2013/up201304777/public_html/proto/'; 
   $BASE_URL = '/~up201304777/proto/'; 
 

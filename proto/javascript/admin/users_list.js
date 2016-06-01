@@ -10,7 +10,7 @@ $(document).ready(function(){
 
 
 	var form = $('.modal form');
-	form.submit(sendPreRegisterForm());
+	form.submit(sendPreRegisterForm);
 
 	$('#submit_form_button').click(function(){
 		form.submit();
@@ -18,20 +18,28 @@ $(document).ready(function(){
 
 });
 
-function sendPreRegisterForm(dom) {
+function sendPreRegisterForm(e) {
+	var dom = $(this);
 	var action = dom.attr("action");
-	var data = $dom.serialize();
-	$.ajax({url: action, dataType: "json", data: data, 
+	var data = dom.serialize();
+	console.log(dom);
+	console.log(action);
+	console.log(data);
+	$.ajax({url: action, 
+		data: data, 
 		success: function(response){
 			var result = response['result'];
-			var messaeg = responde['message'];
-			alertify.logPosition("bottom right");
+			var message = response['message'];
+			alertify.logPosition("bottom center");
 	    	alertify.log(message);
 	    },
 	    error: function(response){
-			alertify.logPosition("bottom right");
-	    	alertify.log("Request failed");	    
+			alertify.logPosition("bottom center");
+	    	alertify.log("Request failed");
+	    	console.log(response);
+	    	//$('body').append(response['responseText']);	    
 	    }
 	});
-	$('#add-user-modal').hide();
+	e.preventDefault();
+	$('#add-user-modal').modal('toggle');
 };

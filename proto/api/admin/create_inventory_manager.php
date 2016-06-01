@@ -1,7 +1,8 @@
 <?php
 	if($_SERVER["REQUEST_METHOD"] != "POST"){
-		$_SESSION['error_messages'][] = 'Invalid request';
-		header('Location: '. $_SERVER['HTTP_REFERER']);
+		$response = array("result" => false, "message" => "Invalid request");
+      	header('Content-Type: application/json');
+      	echo json_encode($response);
 		exit();
 	}
 
@@ -28,7 +29,7 @@
 
 	try {
 		validateEmail($email);
-		$link = $BASE_URL.'pages/auth/signup_inventory_manager.php?h=';
+		$link = $BASE_LINK . $BASE_URL . 'pages/auth/signup_inventory_manager.php?h=';
 		$hashCode = inventoryManagerPreRegister($email);
 	} catch (Exception $e) {
 		$response = array("result" => false, "message" => $e->getMessage());
