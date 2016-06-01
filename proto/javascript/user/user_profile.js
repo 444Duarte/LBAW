@@ -6,23 +6,36 @@ $(document).ready(function(){
 	
 });
 
-function initBookings(username){
+function initBookings(name){
 
-	alert("cenas");
-
-	$.getJSON("api/user/get_user_bookings.php",
-	{
-		username : username
-	},
-		updatePage 
-	);
-
-	alert("cenas2");
+	$.get( "api/user/get_user_bookings.php", 
+		{ 
+			username : name
+		})
+		.done(function( data ) {
+			updateBookings(data);
+	});
 }
 
-function updatePage(data){
-	alert(data);
+function updateBookings(data){
+	var $bookingsBody = $('#bookings-body');
+	$bookingsBody.html('');
+
+
+	for (var i = 0; i < data.length; i++) {
+		//alert(data[i]['name']);
+		$line = $("<tr>");
+		$line.html("<td><a href=\"#\">" + data[i]['name']+ "</a></td>" +
+			"<td><a href=\"#\">" + data[i]['category'] + "</a></td>" +
+			"<td><a href=\"#\">" + data[i]['subcategory'] + "</a></td>" +
+			"<td>" + data[i]['start_date'] + "</td>" +
+			"<td>" + data[i]['end_date'] + "</td>" +
+			"<td>Edit</td>" + 
+			"<td><a href=\"\" title=\"Remove Booking\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></td></tr>");
+		$bookingsBody.append($line);
+	}
 }
+
 
 function updateItems(items){
 	

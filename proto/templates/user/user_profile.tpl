@@ -73,7 +73,7 @@
 					                    <th>Action</th>
 					                  </tr>
 					              </thead>
-					              <tbody>
+					              <tbody id="bookings-body">
 					                <tr>
 					                  <td><a href="{$BASE_URL}pages/inventory/item.php">Hammer</a></td>
 					                  <td><a href="#">Tools</a></td>

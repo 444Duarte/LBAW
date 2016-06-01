@@ -155,13 +155,16 @@
 
   function getUserBookings($username){
     global $conn;
+    
     $stmt = $conn->prepare("SELECT items.name AS name, categories.name AS category, subcategories.name AS subcategory,reservations.start_time AS start_date, reservations.end_time AS end_date
         FROM categories, subcategories, items, item_instances, reservations, users
         WHERE users.username = :user AND users.id = reservations.id_client AND 
               reservations.id_item_instance = item_instances.id AND item_instances.id_item = items.id AND
               items.id_subcategory = subcategories.id AND subcategories.id_category = categories.id");
-    $stmt->bindParam(":username", $username,PDO::PARAM_STR);
+    $stmt->bindParam(":user", $username,PDO::PARAM_STR);
+    $stmt->execute();
     $result = $stmt->fetchAll();
+    
     if(count($result) ===0){
       return false;
     }
@@ -191,7 +194,7 @@
     $result = $stmt->execute();
     
     if(!$result){
-      return throw new Exception("Error Processing Request", 1);
+      return new Exception("Error Processing Request", 1);
     }
 
     return $hash;
