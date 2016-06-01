@@ -266,4 +266,17 @@
     return $result[0]['email'];
   }
 
+  function editBooking($id, $start, $end){
+    global $conn;
+    $stmt = $conn->prepare("UPDATE reservations SET start_time = :start , end_time = :end WHERE id = :id");
+    $stmt->bindParam(":id", $id,PDO::PARAM_INT);
+    $stmt->bindParam(":start", $start,PDO::PARAM_STR);
+    $stmt->bindParam(":end", $end,PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+   
+    return $result;
+  }
+
+
 ?>
