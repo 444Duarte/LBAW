@@ -187,14 +187,14 @@
     $hash = sha1($email);
     $type = 'InventoryManager';
 
-    $stmt = $conn->prepare("INSERT INTO pre_register(email,type,hash) VALUES (:email, :type, :hash)");
+    $stmt = $conn->prepare("INSERT INTO pre_registers(email,type,hash) VALUES (:email, :type, :hash)");
     $stmt->bindParam(":email", $email, PDO::PARAM_STR);
-    $stmt->bindParam(":user", $type, PDO::PARAM_STR);
-    $stmt->bindParam(":user", $hash, PDO::PARAM_STR);
+    $stmt->bindParam(":type", $type, PDO::PARAM_STR);
+    $stmt->bindParam(":hash", $hash, PDO::PARAM_STR);
     $result = $stmt->execute();
     
     if(!$result){
-      return new Exception("Error Processing Request", 1);
+      throw new Exception("Error Processing Request", 1);
     }
 
     return $hash;

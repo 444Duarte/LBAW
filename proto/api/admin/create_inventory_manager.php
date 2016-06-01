@@ -5,12 +5,12 @@
 		exit();
 	}
 
-	if($_SESSION['USER_TYPE'] != 'SystemManager'){
+	/*if($_SESSION['USER_TYPE'] != 'SystemManager'){
 		$response = array("result" => false, "message" => "Invalid request");
       	header('Content-Type: application/json');
       	echo json_encode($response);
 		exit();
-	}
+	}*/
 
 	include_once '../../config/init.php';
  	include_once('../../database/users.php'); 
@@ -28,25 +28,16 @@
 
 	try {
 		validateEmail($email);
-	} catch (Exception $e) {
-		$response = array("result" => false, "message" => e->getMessage());
-      	header('Content-Type: application/json');
-      	echo json_encode($response);
-		exit();
-	}
-	$link = $BASE_URL.'pages/auth/signup_inventory_manager.php?h=';
-	try {
+		$link = $BASE_URL.'pages/auth/signup_inventory_manager.php?h=';
 		$hashCode = inventoryManagerPreRegister($email);
-
 	} catch (Exception $e) {
-		$response = array("result" => false, "message" => e->getMessage());
+		$response = array("result" => false, "message" => $e->getMessage());
       	header('Content-Type: application/json');
       	echo json_encode($response);
 		exit();
 	}
 
-
-	email($email, "Inventory Manager Request", 'Please follow the following link to create an Inventory Manager account: ' . $link . $hashCode);
+	mail($email, "Inventory Manager Request", 'Please follow the following link to create an Inventory Manager account: ' . $link . $hashCode);
 
 	$response = array("result" => true, "message" => "Email sent");
 	header('Content-Type: application/json');

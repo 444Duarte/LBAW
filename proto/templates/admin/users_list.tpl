@@ -1,13 +1,13 @@
 <html>
-<?php include_once '{$BASE_URL}templates/common/header.tpl';?>
+{include file='common/header.tpl'}
 <link rel="stylesheet" type="text/css" href="{$BASE_URL}css/admin/admin_user_list.css">
 
 <body>
-	<?php include_once '{$BASE_URL}templates/common/topbar.tpl';?>
+	{include file='common/topbar.tpl'}
 
 	<div class="container-fluid">
     <div class="row">
-      <?php include_once '{$BASE_URL}templates/common/sidebar.html';?>
+      {include file='common/sidebar.tpl'}
       <div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
         <div class="generic-element">
           <div class="table-top-header">
@@ -25,7 +25,7 @@
                     <th></th>
                   </tr>
               </thead>
-              <tbody>
+              <tbody>                
                 <tr>
                   <td>im01</td>
                   <td>Inventory Manager</td>
@@ -159,10 +159,11 @@
 
 <script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
 <script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-<script src="{$BASE_URL}javascript/admin/admin_user_list.js"></script>
-<script type="text/javascript">
+<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
+<script src="{$BASE_URL}javascript/admin/users_list.js"></script>
+<!--<script type="text/javascript">
   $(".username").html('admin<span class="caret"></span>');
   $("#loginButton").hide();
-</script>
+</script> -->
 </body>
 </html>
