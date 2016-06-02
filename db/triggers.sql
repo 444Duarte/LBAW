@@ -465,10 +465,11 @@ RETURNS TRIGGER AS $$
 BEGIN
 	DELETE FROM pre_registers
 	WHERE email = NEW.email;
+	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER delete_pre_register
 AFTER INSERT ON users 
 FOR EACH ROW 
-EXECUTE PROCEDURE email_exists();
+EXECUTE PROCEDURE delete_pre_register();

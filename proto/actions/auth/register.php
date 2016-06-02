@@ -12,8 +12,8 @@
 	}
 	$email = test_input($_POST['email']);
 	$username = test_input($_POST['username']);
-	$password = test_input($_POST['password']);
-	$confirm_pass = test_input($_POST['confirm_password']);
+	$password = $_POST['password'];
+	$confirm_pass = $_POST['confirm_password'];
 	$id_card = test_input($_POST['id_card']);
 	$address = test_input($_POST['address']);
 	$phone = test_input($_POST['phone']);

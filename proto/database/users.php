@@ -50,7 +50,10 @@
       echo $e->getMessage();
       return false;
     }
-       
+  }
+
+  function createInventoryManager($email, $username, $password){
+    return createUser($email, $username, $password,'InventoryManager');
   }
 
   function isLoginCorrect($username, $password) {
