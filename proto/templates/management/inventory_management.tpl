@@ -91,6 +91,7 @@
 
 <script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
 <script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
 <script type="text/javascript"> var subCategories = {$subCategories|@json_encode}; console.log(subCategories);</script>
 <script src="{$BASE_URL}javascript/management/inventory_management.js"></script>
 </body>

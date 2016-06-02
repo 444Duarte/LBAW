@@ -6,12 +6,12 @@
 		exit();
 	}
 
-	/*if($_SESSION['USER_TYPE'] != 'SystemManager'){
-		$response = array("result" => false, "message" => "Invalid request");
+	if($_SESSION['USER_TYPE'] != 'SystemManager'){
+		$response = array("result" => false, "message" => "Invalid permissions");
       	header('Content-Type: application/json');
       	echo json_encode($response);
 		exit();
-	}*/
+	}
 
 	include_once '../../config/init.php';
  	include_once('../../database/users.php'); 
