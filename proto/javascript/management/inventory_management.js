@@ -10,7 +10,7 @@ $(document).ready(function(){
 
 
 	var form = $('.modal form');
-	// form.submit(sendPreRegisterForm);
+	form.submit(createItem);
 	//form.validate();
 	$('#submit_form_button').click(function(){
 		form.submit();
@@ -32,3 +32,36 @@ function changeSubCategory(e, ndom){
 		}
 	}
 }
+
+function createItem(e) {
+	var dom = $(this);
+	var inputs = dom.find('input');
+	for (var i = 0; i < inputs.length; i++) {
+		if(!inputs[i].checkValidity()){
+			return false;
+		}
+	}
+	var action = dom.attr("action");
+	var data = dom.serialize();
+	console.log(action);
+	console.log(data);
+	$.ajax({url: action, 
+		type: 'post',
+		data: data, 
+		success: function(response){
+			var result = response['result'];
+			var message = response['message'];
+			alertify.logPosition("bottom left");
+	    	alertify.log(message);
+	    	console.log(response);
+	    },
+	    error: function(response){
+			alertify.logPosition("bottom left");
+	    	alertify.log("Request failed");
+	    	console.log(response);
+	    	//$('body').append(response['responseText']);	    
+	    }
+	});
+	e.preventDefault();
+	$('#add-item-modal').modal('toggle');
+};

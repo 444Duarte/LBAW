@@ -30,7 +30,7 @@
 		$target_file = $BASE_DIR . "images/assets/item_default.png";
 	}
 	else {
-		$target_dir = $BASE_DIR . "images/assets/";
+		$target_dir = $BASE_DIR . "images/res/";
 		$target_file = $target_dir . basename($_FILES["picture"]["name"]);
 		$uploadOk = 1;
 		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -77,7 +77,7 @@
 
 	
 
-	$item = test_input($_POST['name']);
+	$name = test_input($_POST['name']);
 	$category = test_input($_POST['category']);
 	$subcategory = test_input($_POST['subcategory']);
 	$description = test_input($_POST['description']);
@@ -86,13 +86,19 @@
 
 	
 	try {
-		addItem($category, $subcategory, $name, $description, $target_file);
-	} catch(PDOException $e){
-		$response = array("result" => false, "message" => "Request failed");
+		if(!addItem($category, $subcategory, $name, $description, $target_file)) {
+			$response = array("result" => false, "message" => "Request failed");
+	      	header('Content-Type: application/json');
+	      	echo json_encode($response);
+			exit();
+		}
+	} catch (Exception $e) {
+		$response = array("result" => false, "message" => $e->getMessage() );
       	header('Content-Type: application/json');
       	echo json_encode($response);
 		exit();
 	}
+	
 	
 
 	$response = array("result" => true, "message" => "Item created");
