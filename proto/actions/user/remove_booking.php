@@ -12,15 +12,19 @@
 	else{
 		$id = intval($_GET['id']);
 		try {
-			$response = removeBooking($username, $id);			
-		} catch(PDOException $e){
+			$response = removeBooking($username, $id);
+			if ($response){
+				$_SESSION['success_messages'][] = 'Booking removed';
+			}
+			else{
+				$_SESSION['error_messages'][] = 'Booking remove failed';  
+			}
+		}	
+		catch(PDOException $e){
 			die($e->getMessage());
 		}
 	}
 
 
-	
-
-	
 	header('Content-Type: application/json');
-	echo json_encode($response);
+ 	echo json_encode($response);

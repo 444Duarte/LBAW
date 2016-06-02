@@ -43,7 +43,11 @@ function initHistory(name){
 		})
 		.done(function( data ) {
 			updateHistory(data);
-	});
+		})
+		.fail(function(error){
+			var errorMessage = '<%= Session["error_messages"] %>';
+			alert(errorMessage);
+		});
 }
 
 function updateHistory(data){
@@ -66,16 +70,19 @@ function updateHistory(data){
 }
 
 function removeBooking(id){
-	$.get( "api/user/remove_booking.php", 
+	$.get( "actions/user/remove_booking.php", 
 		{ 
 			id : id
 		})
 		.done(function( data ) {
+			var successMessage = '<%= Session["success_messages"][] %>';
+			//alert(data);
 			location.reload();
 
 	})
 		.fail(function(error){
-			alert("error");
+			var errorMessage = '<%= Session["error_message"] %>';
+			alert(errorMessage);
 		});
 }
 
@@ -118,7 +125,7 @@ function submitEditDate(id){
 	startDate = document.getElementById('start'+id).value.replace("T", " ");
 	endDate = document.getElementById('end'+id).value.replace("T", " ");
 
-	$.get( "api/user/edit_booking.php", 
+	$.get( "actions/user/edit_booking.php", 
 		{ 
 			id : id,
 			start : startDate,

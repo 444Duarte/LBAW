@@ -12,15 +12,17 @@
 		$id = $_GET['id'];
 		try {
 			$response = editBooking($id, $start, $end);
-			
+			if($response){
+				$_SESSION['success_messages'][] = 'Booking edited';
+			}
+			else{
+				$_SESSION['error_messages'][] = 'Booking edit failed';  
+			}
 			
 		} catch(PDOException $e){
 			die($e->getMessage());
 		}
 	}
 
-	
-
-	
 	header('Content-Type: application/json');
-	echo json_encode($response);
+ 	echo json_encode($response);
