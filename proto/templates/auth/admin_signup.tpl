@@ -11,23 +11,17 @@
 
 	<body>
 		<div>
-			<form id="signup_form" class="generic-element" action="{$BASE_URL}actions/auth/register.php" method="post">
+			<form id="signup_form" class="generic-element" action="{$BASE_URL}actions/auth/register_non_clients.php" method="post" style="height: 26em; margin-top: -13em;">
 				<h1 class="form_name">Register</h1>
 				<br>Username<br>
+				<input id="hash" type="hidden" name="hash" value="{$HASH}" required>
 				<input type="text" name="username" id="username" required>	
 				<br>Email<br>
-				<input type="email" name="email" required>
+				<input type="email" name="email" value="{$EMAIL}" readonly required>
 				<br>Password<br>
 				<input type="password" name="password" required>
 				<br>Confirm Password<br>
 				<input type="password" name="confirm_password" required>
-				<br><br>Identification Card<br>
-				<input type="text" name="id_card" required>
-				<br>Address<br>
-				<input type="text" name="address" required>
-				<br>Phone Number<br>
-				<input type="number" name="phone" required>
-
 				<input type="submit" value="Register">
 			</form>
 		</div>

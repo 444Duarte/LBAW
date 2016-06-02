@@ -19,10 +19,10 @@
 	      	{include file='common/sidebar.tpl'}	
 	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 	    		<ol class="breadcrumb">
-					<li><a href="#">Home</a></li>
-					<li><a href="#">Tools</a></li>
-					<li><a href="#">Hand Tools</a></li>
-					<li class="active">Hammer</li>
+					<li><a href="">Home</a></li>
+					<li><a href="#">{$category}</a></li>
+					<li><a href="#">{$subcategory}</a></li>
+					<li class="active">{$name}</li>
 				</ol>
 				<div>
 					<!-- Nav tabs -->
@@ -41,17 +41,16 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<a href="#" class="thumbnail">
-											<img src="{$BASE_URL}images/item_thumb_medium.png" alt="Hammer" class="img-thumbnail">
+											<img src="images/res/{$picture}" alt="Hammer" class="img-thumbnail">
 										</a>
 									</div>
 									<div class="col-sm-6">
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h3 class="panel-title">Hammer</h3>
+												<h3 class="panel-title">{$name}</h3>
 											</div>
 											<div class="panel-body">
-												Exceptional tool for when those nails don't know how to stand down. <br>
-												Montstar Cross Pien Hammer With Wooden Handle 4oz (100 gms)
+												{$description}
 											</div>
 										</div>
 									</div>
@@ -95,7 +94,7 @@
 					                  <td>Return</td>
 					                  <td>12/03/2016</td>
 									  <td>Pedro Ferreira</td>
-									  <td><a href="{$BASE_URL}pages/user/user_profile.php">Marcelo Rebelo de Sousa</a></td>
+									  <td><a href="pages/user/user_profile.php">Marcelo Rebelo de Sousa</a></td>
 					                </tr>
 					                <tr>
 									  <td>000003</td>
@@ -151,7 +150,6 @@
 														<tr>
 															<td> 000001 </td>
 															<td> Available </td>
-															<td><?php print_stars(5) ?></td>
 										                    <td>
 															<a href="#" title="Lend"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
 															<a href="#" title="Maintenance"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
@@ -162,7 +160,6 @@
 														<tr>
 															<td> 000003 </td>
 															<td> Maintenance </td>
-															<td><?php print_stars(4) ?></td>
 										                    <td>
 															<a href="#" title="Lend"><span class="glyphicon glyphicon-log-out transparent" aria-hidden="true"></span></a>
 															<a href="#" title="Maintenance"><span class="glyphicon glyphicon-wrench transparent" aria-hidden="true"></span></a>
@@ -173,7 +170,6 @@
 														<tr>
 															<td> 000005 </td>
 															<td> Available </td>
-															<td><?php print_stars(3) ?></td>
 										                    <td>
 															<a href="#" title="Lend"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
 															<a href="#" title="Maintenance"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
@@ -207,7 +203,7 @@
             </div> 
             <div class="modal-body">
               <form id="remove-instance-form" action="" method="post">
-                Condition: {print_stars n_stars = }
+                Condition: {print_stars n_stars = 2}
               </form>
             </div>
             <div class="modal-footer">
@@ -229,7 +225,7 @@
             </div> 
             <div class="modal-body">
               <form id="add-instance-form" action="" method="post">
-                Condition: <?php print_stars(0)?>
+                Condition:
               </form>
             </div>
             <div class="modal-footer">
@@ -241,19 +237,6 @@
       </div><!-- /.modal -->
 	  
 	  
-	<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
-	<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-	<script src="{$BASE_URL}lib/moment.min.js"></script>
-	<script type="text/javascript">
-	  $(document).ready( function() {
-		  $(".username").hide();
-		  $("#loginButton");
-		   $(function () {
-				$('#datetimepicker12').datetimepicker({
-					inline: true,
-					sideBySide: true
-				});
-			});
-	  });
-	</script>
+	<script src="lib/jquery-1.12.1.min.js"></script>
+	<script src="lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 {include file='common/footer.tpl'}

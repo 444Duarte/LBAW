@@ -2,10 +2,6 @@
 	include_once('../../config/init.php');
 	include_once($BASE_DIR . 'database/inventory.php');
 
-	if(!isset($_SESSION['username'])){
-		header('Location: ' . $BASE_URL);
-	}
-
 	if(!isset($_GET['category'])){
 		echo 'Missing Category';
 		exit();
@@ -26,9 +22,13 @@
 
 	$category = $_GET['category'];
 	$subcategory = $_GET['subcategory'];
-	$item = $_GET['item'];
+	$name = $_GET['item'];
 
-	$item = getItem($category, $subcategory, $item);
-
-	var_dum!p($item);
-//	$smarty->display('inventory/item.tpl');
+	$item = getItem($category, $subcategory, $name);
+	
+	$smarty->assign('category', $category);
+	$smarty->assign('subcategory', $subcategory);
+	$smarty->assign('name', $name);
+	$smarty->assign('description', $item['description']);
+	$smarty->assign('picture', $item['picture']);
+	$smarty->display('inventory/item.tpl');

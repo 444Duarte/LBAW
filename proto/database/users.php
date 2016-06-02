@@ -16,15 +16,19 @@
         'SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;');
       
       if(!$stmt1)
-        return false;
+        throw new PDOException("Error Processing Request", 1);
+        
       $stmt1->execute();
       
       $stmt2 = $conn->prepare("INSERT INTO users(email,username,password,type) VALUES (?, ?, ?, 'Client') RETURNING id");
 
       if(!$stmt2)
-        return false;
+        throw new PDOException("Error Processing Request", 1);
 
-      $stmt2->execute(array($email, $username, crypt($password)));
+      $result2 = $stmt2->execute(array($email, $username, crypt($password)));
+      
+      if(!$result2)
+        throw new PDOException("Error Processing Request", 1);
 
       $result2 = $stmt2->fetch();
       $id = $result2['id'];
@@ -32,9 +36,11 @@
       $stmt3 = $conn->prepare("INSERT INTO clients(id,id_card,address,phone_number) VALUES (?, ?, ?, ?)");
 
       if (!$stmt3)
-        return false;
+        throw new PDOException("Error Processing Request", 1);
 
-      $stmt3->execute(array($id, $id_card,$address,strval($phone)));
+      $result3 = $stmt3->execute(array($id, $id_card,$address,strval($phone)));
+      if(!$result3)
+        throw new PDOException("Error Processing Request", 1);
 
       $conn->commit();
 
@@ -42,9 +48,12 @@
     }catch(PDOException $e) {
       $conn->rollback();
       echo $e->getMessage();
-      exit();
+      return false;
     }
-       
+  }
+
+  function createInventoryManager($email, $username, $password){
+    return createUser($email, $username, $password,'InventoryManager');
   }
 
   function isLoginCorrect($username, $password) {
@@ -110,14 +119,12 @@
       return 'user does not exist';
     }
     $id = $result[0]['id'];
-
-    echo "id of ".$username." = ".$id;
-
+    
     $stmt2 = $conn->prepare("SELECT * FROM clients where id = :id");
-    $stmt2->bindParam(":id", $id,PDO::PARAM_STR);
+    $stmt2->bindParam(":id", $id,PDO::PARAM_INT);
     $stmt2->execute();
-    $client = $stmt->fetchAll();
-    if(count($client) ===0){
+    $client = $stmt2->fetchAll();
+    if(count($client) === 0){
       return 'client does not exist';
     }
     return $client[0];
@@ -148,4 +155,131 @@
     }
     return $result[0];
   }
+
+  function getUserBookings($username){
+    global $conn;
+    
+    $stmt = $conn->prepare("SELECT items.name AS name, categories.name AS category, subcategories.name AS subcategory,reservations.start_time AS start_date, reservations.end_time AS end_date,  reservations.id AS id
+        FROM categories, subcategories, items, item_instances, reservations, users
+        WHERE users.username = :user AND users.id = reservations.id_client AND 
+              reservations.id_item_instance = item_instances.id AND item_instances.id_item = items.id AND
+              items.id_subcategory = subcategories.id AND subcategories.id_category = categories.id");
+    $stmt->bindParam(":user", $username,PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    
+    if(count($result) ===0){
+      return false;
+    }
+    return $result;  
+  }
+
+  function getUserHistory($username){
+    global $conn;
+    
+    $stmt = $conn->prepare("BEGIN;
+      SET TRANSACTION ISOLATION LEVEL READ COMMITTED READ ONLY;
+      SELECT items.name AS name, categories.name AS category, subcategories.name AS subcategory, item_history_records.date AS DATE, 
+      item_history_records.type AS TYPE
+      FROM items, item_instances, item_history_records, categories, subcategories, users, lend_records, return_records
+      WHERE users.username = :USER AND users.id = lend_records.id_client AND lend_records.id = item_history_records.id
+      AND item_history_records.id_item_instance = item_instances.id AND
+      item_instances.id_item = items.id AND items.id_subcategory = subcategories.id AND subcategories.id_category = categories.id
+      UNION
+      SELECT items.name AS name, categories.name AS category, subcategories.name AS subcategory, item_history_records.date AS DATE, 
+      item_history_records.type AS TYPE
+      FROM items, item_instances, item_history_records, categories, subcategories, users, lend_records, return_records
+      WHERE users.username = :USER AND users.id = return_records.id_client AND return_records.id = item_history_records.id
+      AND item_history_records.id_item_instance = item_instances.id AND
+      item_instances.id_item = items.id AND items.id_subcategory = subcategories.id AND subcategories.id_category = categories.id
+      ORDER BY DATE DESC
+      LIMIT :LIMIT
+      OFFSET :offset;
+      COMMIT;");
+    $stmt->bindParam(":USER", $username,PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    
+    if(count($result) ===0){
+      return false;
+    }
+    return $result; 
+  }
+
+  function getUserType($username){
+    global $conn;
+    $stmt = $conn->prepare("SELECT type FROM users where username = :username");
+    $stmt->bindParam(":username", $username,PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    if(count($result) ===0){
+      throw new Exception('user does not exist', 1);
+    }
+    $id = $result[0];
+  }
+
+  function inventoryManagerPreRegister($email){
+    global $conn;
+    $hash = sha1($email);
+    $type = 'InventoryManager';
+
+    $stmt = $conn->prepare("INSERT INTO pre_registers(email,type,hash) VALUES (:email, :type, :hash)");
+    $stmt->bindParam(":email", $email, PDO::PARAM_STR);
+    $stmt->bindParam(":type", $type, PDO::PARAM_STR);
+    $stmt->bindParam(":hash", $hash, PDO::PARAM_STR);
+    $result = $stmt->execute();
+    
+    if(!$result){
+      throw new Exception("Error Processing Request", 1);
+    }
+
+    return $hash;
+  }
+
+  function removeBooking($username, $id){
+
+    global $conn;
+    $stmt = $conn->prepare("SELECT id FROM users where username = :username");
+    $stmt->bindParam(":username", $username,PDO::PARAM_STR);
+    $stmt->execute();
+    $idL = $stmt->fetchAll();
+    if(count($idL) ===0){
+      return false;
+    }
+    $idC = $idL[0]['id'];
+
+    $stmt2 = $conn->prepare("DELETE FROM reservations WHERE id = :id AND id_client = :idC ");
+    $stmt2->bindParam(":id", $id,PDO::PARAM_INT);
+    $stmt2->bindParam(":idC", $idC,PDO::PARAM_INT);
+    $stmt2->execute();
+    $result = $stmt2->fetchAll();
+
+    return $result;
+  }
+
+  function isValidHashPreRegister($hash){
+    global $conn;
+    $stmt = $conn->prepare("SELECT email FROM pre_registers where hash = :hash");
+    $stmt->bindParam(":hash", $hash, PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    if(count($result) ===0){
+      return false;
+    }
+    return $result[0]['email'];
+  }
+
+  function editBooking($id, $start, $end){
+    global $conn;
+    $stmt = $conn->prepare("UPDATE reservations SET start_time = :start , end_time = :end WHERE id = :id");
+    $stmt->bindParam(":id", $id,PDO::PARAM_INT);
+    $stmt->bindParam(":start", $start,PDO::PARAM_STR);
+    $stmt->bindParam(":end", $end,PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+   
+    return $result;
+  }
+
+
 ?>
