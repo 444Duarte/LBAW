@@ -162,9 +162,5 @@
 <script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
 <script src="{$BASE_URL}javascript/admin/users_list.js"></script>
-<!--<script type="text/javascript">
-  $(".username").html('admin<span class="caret"></span>');
-  $("#loginButton").hide();
-</script> -->
 </body>
 </html>
