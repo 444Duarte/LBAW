@@ -66,7 +66,7 @@ function updateHistory(data){
 }
 
 function removeBooking(id){
-	$.get( "actions/user/remove_booking.php", 
+	$.get( "api/user/remove_booking.php", 
 		{ 
 			id : id
 		})
@@ -118,7 +118,7 @@ function submitEditDate(id){
 	startDate = document.getElementById('start'+id).value.replace("T", " ");
 	endDate = document.getElementById('end'+id).value.replace("T", " ");
 
-	$.get( "actions/user/edit_booking.php", 
+	$.get( "api/user/edit_booking.php", 
 		{ 
 			id : id,
 			start : startDate,
