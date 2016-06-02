@@ -60,19 +60,17 @@
                 <input type="text" name="name" required>
                 <br>Category<br>
                 <select name="category" required>
-								  <option value="inf">Informatics</option>
-								  <option value="video">Video</option>
-								  <option value="audio">Audi</option>
-								  <option value="room">Room</option>
-								  <option value="cleaning">Cleaning</option>
+                {foreach $categories as $category}
+								  <option value="{$category.id}"> {$category.name} </option>
+                {/foreach}                
 								</select>
                	<br>Sub-Category<br>
                 <select name="subcategory" required>
-								  <option value="peripheral">Peripheral</option>
+								  <<!-- option value="peripheral">Peripheral</option>
 								  <option value="computers">Computers</option>
 								  <option value="adapters">Adapters</option>
 								  <option value="cables">Cables</option>
-								  <option value="cd">CDs</option>
+								  <option value="cd">CDs</option> -->
 								</select>
                 <br>Description:<br>
                 <input type="text" name="description" required>
@@ -93,11 +91,8 @@
 
 <script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
 <script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-<script src="{$BASE_URL}javascript/admin/admin_user_list.js"></script>
-<script type="text/javascript">
-  $(".username").html('manager001<span class="caret"></span>');
-  $("#loginButton").hide();
-</script>
+<script type="text/javascript"> var subCategories = {$subCategories|@json_encode}; console.log(subCategories);</script>
+<script src="{$BASE_URL}javascript/management/inventory_management.js"></script>
 </body>
 </html>
   

@@ -74,4 +74,38 @@
 			exit();
 		}
 	}
+
+	function getCategories(){
+		global $conn;
+		try {
+			$stmt = $conn->prepare('SELECT * FROM categories; ');
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+			if(count($result)==0){
+				return false;
+			}
+			return $result;
+		} catch (Exception $e) {
+			echo $e->getMessage();
+			return false;
+			exit();
+		}
+	}
+
+	function getSubCategories(){
+		global $conn;
+		try {
+			$stmt = $conn->prepare('SELECT * FROM subcategories; ');
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+			if(count($result)==0){
+				return false;
+			}
+			return $result;
+		} catch (Exception $e) {
+			echo $e->getMessage();
+			return false;
+			exit();
+		}
+	}
 ?>
