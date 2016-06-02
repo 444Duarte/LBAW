@@ -24,13 +24,11 @@
 		$picture = $_POST['picture'];
 	}
 
-	/*
 	try {
-		addItem($category, $subcategory, $name, $description, $picture);
+		addItem($category, $subcategory, $item, $description, $picture);
 	} catch(PDOException $e){
 		die($e->getMessage());
 	}
-	*/
 
 	header('Content-Type: application/json');
 	echo json_encode($_POST);
