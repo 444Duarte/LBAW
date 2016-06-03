@@ -17,7 +17,7 @@
             </button>
           </div>
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table id="active-users" class="table table-striped">
               <thead>
                   <tr>
                     <th>#</th>
@@ -29,77 +29,14 @@
                 <tr>
                   <td>im01</td>
                   <td>Inventory Manager</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>im02</td>
-                  <td>Inventory Manager</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>im03</td>
-                  <td>Inventory Manager</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>im04</td>
-                  <td>Inventory Manager</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>im05</td>
-                  <td>Inventory Manager</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>client01</td>
-                  <td>Client</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>client02</td>
-                  <td>Client</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>client03</td>
-                  <td>Client</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>client04</td>
-                  <td>Client</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>client05</td>
-                  <td>Client</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>client06</td>
-                  <td>Client</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>client07</td>
-                  <td>Client</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>client08</td>
-                  <td>Client</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>client09</td>
-                  <td>Client</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                </tr>
-                <tr>
-                  <td>client10</td>
-                  <td>Client</td>
-                  <td><a href="" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                  <td>
+                    <a class="block-user-botton form-submit" href="javascript:;" title="Block Account">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <form class="block-user-form" action="{$BASE_URL}actions/admin/block_user.php" method="post">
+                        <input type="hidden" name="user" value="1">
+                      </form>
+                    </a>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -121,11 +58,26 @@
                 <tr>
                   <td>im99</td>
                   <td>Inventory Manager</td>
-                  <td><a href="" title="Revive Account"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>                </tr>
+                  <td>
+                    <a href="javascript:;" title="Revive Account">
+                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      <form class="revive-user-form form-submit" action="{$BASE_URL}actions/admin/revive_user.php" method="post">
+                        <input type="hidden" name="user" value="9">
+                      </form>
+                    </a>
+                  </td>                
+                </tr>
                 <tr>
                   <td>client20</td>
                   <td>Client</td>
-                  <td><a href="" title="Revive Account"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a></td>                </tr>
+                  <td>
+                    <a href="javascript:;" title="Revive Account">
+                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      <form class="revive-user-form form-submit" action="{$BASE_URL}actions/admin/revive_user.php" method="post">
+                        <input type="hidden" name="user" value="20">
+                      </form>
+                    </a>
+                  </td> 
                 </tr>
               </tbody>
             </table>
@@ -156,7 +108,9 @@
       </div>
     </div>
   </div>
-
+{if $ERROR_MESSAGES != NULL}
+  <script>alert('{$ERROR_MESSAGES[0]}');</script>
+{/if}
 <script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
 <script src="{$BASE_URL}lib/jquery.validate.js"></script>
 <script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
