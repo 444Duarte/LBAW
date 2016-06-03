@@ -294,5 +294,21 @@
     return $result;
   }
 
-
+  function blockUser($idUser, $note){
+    global $conn;
+    try {
+      if($note == null){
+        $stmt = $conn->prepare('INSERT INTO blocked_users(id,note) VALUES(:id);');
+        $stmt->bindParam(":id", $idUser,PDO::PARAM_INT);
+        return $stmt->execute();
+      }else{
+        $stmt = $conn->prepare('INSERT INTO blocked_users(id,note) VALUES(:id, :note);');
+        $stmt->bindParam(":id", $idUser,PDO::PARAM_INT);
+        $stmt->bindParam(":note", $note, PDO::PARAM_STR);
+        return $stmt->execute();
+      }
+    } catch (Exception $e) {
+      return false;
+    }
+  }
 ?>
