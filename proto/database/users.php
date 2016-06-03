@@ -211,11 +211,12 @@
     $stmt = $conn->prepare("SELECT type FROM users where username = :username");
     $stmt->bindParam(":username", $username,PDO::PARAM_STR);
     $stmt->execute();
-    $result = $stmt->fetchAll();
-    if(count($result) ===0){
+    $result = $stmt->fetch();
+    if(count($result) ===0 || $result == NULL){
       throw new Exception('user does not exist', 1);
     }
-    $id = $result[0];
+
+    return $result['type'];
   }
 
   function inventoryManagerPreRegister($email){
