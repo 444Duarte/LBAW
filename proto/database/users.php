@@ -281,5 +281,18 @@
     return $result;
   }
 
+  function bookItem($idClient, $itemInstance, $startDate, $endDate){
+    global $conn;
+    $stmt = $conn->prepare("INSERT INTO reservations (start_time,end_time,id_client,id_item_instance) VALUES (:start,:end,:client,:item)");
+    $stmt->bindParam(":client", $idClient,PDO::PARAM_INT);
+    $stmt->bindParam(":item", $itemInstance,PDO::PARAM_INT);
+    $stmt->bindParam(":start", $start,PDO::PARAM_STR);
+    $stmt->bindParam(":end", $end,PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+   
+    return $result;
+  }
+
 
 ?>

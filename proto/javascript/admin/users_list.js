@@ -36,11 +36,11 @@ function sendPreRegisterForm(e) {
 		success: function(response){
 			var result = response['result'];
 			var message = response['message'];
-			alertify.logPosition("bottom center");
+			alertify.logPosition("bottom left");
 	    	alertify.log(message);
 	    },
 	    error: function(response){
-			alertify.logPosition("bottom center");
+			alertify.logPosition("bottom left");
 	    	alertify.log("Request failed");
 	    	console.log(response);
 	    	//$('body').append(response['responseText']);	    

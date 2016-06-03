@@ -43,7 +43,11 @@ function initHistory(name){
 		})
 		.done(function( data ) {
 			updateHistory(data);
-	});
+		})
+		.fail(function(error){
+			var errorMessage = '<%= Session["error_messages"] %>';
+			alert(errorMessage);
+		});
 }
 
 function updateHistory(data){
@@ -71,11 +75,14 @@ function removeBooking(id){
 			id : id
 		})
 		.done(function( data ) {
+			var successMessage = '<%= Session["success_messages"][] %>';
+			//alert(data);
 			location.reload();
 
 	})
 		.fail(function(error){
-			alert("error");
+			var errorMessage = '<%= Session["error_message"] %>';
+			alert(errorMessage);
 		});
 }
 
