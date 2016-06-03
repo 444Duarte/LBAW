@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  	<meta charset="utf-8">
-    <title>ToolBox Login</title>
-  	<link href="{$BASE_URL}lib/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/lavish-bootstrap.css">
-  	<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/auth/login.css">
-	</head>
+{extends file="common/main.tpl"}
 
-	<body>
+{block name="title"} ToolBox Login {/block}
+{block name="css" append}
+  	<link rel="stylesheet" type="text/css" href="css/auth/login.css">
+{/block}
+{block name="content"}
 		<div>
-			<form id="login_form" class="generic-element" action="{$BASE_URL}actions/auth/login.php" method="post">
+			<form id="login_form" class="generic-element" action="actions/auth/login.php" method="post">
 				<div>
-					<img class="login_entity" src="{$BASE_URL}images/res/User_Avatar-64.png">
-					<input class="login_entity" class= type="text" name="username" placeholder="Username ex: up203012345" required>
+					<img class="login_entity" src="images/res/User_Avatar-64.png" alt="user label icon">
+					<input class="login_entity" type="text" name="username" placeholder="Username ex: up203012345" required>
 				</div>
 				<br>
 				<div>
-					<img class="login_entity" src="{$BASE_URL}images/res/Key_icon_64.png">
+					<img class="login_entity" src="images/res/Key_icon_64.png" alt="password label icon">
 					<input class="login_entity" type="password" name="password" placeholder="Password" required>
 				</div>
 				<br>
@@ -29,6 +25,4 @@
 				<input type="submit" value="Login">
 			</form>
 		</div>
-	</body>	
-
-</html>
+{/block}

@@ -8,6 +8,9 @@ $(document).ready(function(){
 	});
 
 
+	$('.form-submit').click(function () {
+		$(this).children('form').submit();
+	});
 
 	var form = $('.modal form');
 	form.submit(sendPreRegisterForm);

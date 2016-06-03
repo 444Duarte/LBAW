@@ -26,9 +26,5 @@
 
 	$item = getItem($category, $subcategory, $name);
 	
-	$smarty->assign('category', $category);
-	$smarty->assign('subcategory', $subcategory);
-	$smarty->assign('name', $name);
-	$smarty->assign('description', $item['description']);
-	$smarty->assign('picture', $item['picture']);
+	$smarty->assign('item', $item);
 	$smarty->display('inventory/item.tpl');

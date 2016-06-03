@@ -12,4 +12,3 @@
   $smarty->assign('subCategories', $subCategories);
 
   $smarty->display('management/inventory_management.tpl');
-?>

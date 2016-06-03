@@ -15,11 +15,11 @@
 	if (isLoginCorrect($username, $password)) {
 		$_SESSION['username'] = $username;
 		$_SESSION['user_type'] = getUserType($username);
+		var_dump(getUserType($username));
 		$_SESSION['success_messages'][] = 'Login successful';  
 	} else {
 		$_SESSION['error_messages'][] = 'Login failed';  
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
+		exit();
 	}
 	header('Location: ' . $BASE_URL);
-
-?>
