@@ -28,5 +28,3 @@ function validatePhoneNumber($phoneNumber){
 	}
 	return true;
 }
-
-?>
