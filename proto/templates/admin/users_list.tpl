@@ -59,9 +59,9 @@
                   <td>im99</td>
                   <td>Inventory Manager</td>
                   <td>
-                    <a href="javascript:;" title="Revive Account">
+                    <a href="javascript:;" class="form-submit" title="Revive Account">
                       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                      <form class="revive-user-form form-submit" action="{$BASE_URL}actions/admin/revive_user.php" method="post">
+                      <form class="revive-user-form" action="{$BASE_URL}actions/admin/revive_user.php" method="post">
                         <input type="hidden" name="user" value="9">
                       </form>
                     </a>
@@ -71,9 +71,9 @@
                   <td>client20</td>
                   <td>Client</td>
                   <td>
-                    <a href="javascript:;" title="Revive Account">
+                    <a href="javascript:;" class="form-submit" title="Revive Account">
                       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                      <form class="revive-user-form form-submit" action="{$BASE_URL}actions/admin/revive_user.php" method="post">
+                      <form class="revive-user-form" action="{$BASE_URL}actions/admin/revive_user.php" method="post">
                         <input type="hidden" name="user" value="20">
                       </form>
                     </a>
