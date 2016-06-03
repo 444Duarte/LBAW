@@ -13,7 +13,7 @@
 	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 	    		<ol class="breadcrumb">
 					<li><a href="#">Home</a></li>
-					<li><a href="#">Users</a></li>
+					<li><a onClick="bookItem(1, 2, 3, 4)">Users</a></li>
 					<li class="active">{$USERNAME}</li>
 				</ol>
 				<div>
