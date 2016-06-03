@@ -3,10 +3,14 @@
 	include_once($BASE_DIR .'database/users.php');
 
 
-	if(!isset($_POST['id_client']) || !isset($_POST['item_instance']) || !isset($_POST['start_date']) || isset($_POST['end_date']) || $_POST['id_client'] == "" || $_POST['item_instance'] == "" || $_POST['start_date'] == "" || $_POST['end_date'] == "") {
+	if(!isset($_POST['id_client']) || !isset($_POST['item_instance']) || !isset($_POST['start_date']) || !isset($_POST['end_date'])) {
 		$_SESSION['error_messages'][] = 'Invalid Input';
 		$_SESSION['form_values'] = $_POST;
-		header('Location: ' . $_SERVER['HTTP_REFERER']);
+		echo $_POST['id_client'];
+		echo $_POST['item_instance'];
+		echo $_POST['start_date'];
+		echo $_POST['end_date'];
+		//header('Location: ' . $_SERVER['HTTP_REFERER']);
 		exit;
 	}
 

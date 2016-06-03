@@ -138,20 +138,20 @@ function submitEditDate(id){
 
 //esta função não pertence a este ficheiro, mas para testar vou fazê-lo aqui. Lembrar de mudar.
 function bookItem(idClient, itemInstance, startDate, endDate){
-
-	idCLient = 71;
+/*
+	//valores de teste
+	idClient = 71;
 	itemInstance = 20;
 	startDate = "2016-07-01 10:00:00";
-	endDate = "2016-07-02 10:00:00";
-
-
+	endDate = "2016-07-03 11:00:00";
+*/
 	var url = "actions/user/book_item.php";
     $.ajax({
       url: url,
-      data: {id_client = idClient, item_instance = itemInstance, start_date = startDate, end_date = endDate}, //parameters go here in object literal form
-      type: 'GET',
+      data: {id_client : idClient, item_instance : itemInstance, start_date : startDate, end_date : endDate}, 
+      type: 'POST',
       datatype: 'json',
-      success: function(data) { alert('got here with data'); },
+      success: function(data) { console.log(data); },
       error: function() { alert('something bad happened'); }
     });
 }
