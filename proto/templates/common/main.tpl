@@ -12,10 +12,10 @@
 	</head>
 	<body>
 		{block name="content"}{/block}
-		{block name="js-code"}{/block}
 		{block name="js"}
 			<script src="lib/jquery-1.12.1.min.js"></script>
 			<script src="lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
 		{/block}
+		{block name="js-code"}{/block}
 	</body>
 </html>
