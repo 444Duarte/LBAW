@@ -17,4 +17,3 @@
   $smarty->assign('EMAIL', $email);
 
   $smarty->display('auth/admin_signup.tpl');
-?>

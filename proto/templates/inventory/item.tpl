@@ -1,3 +1,5 @@
+{extends file="common/main.tpl"}
+
 {function print_stars}
 	{for $i = 1 to $n_stars}
 		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -7,12 +9,12 @@
 	{/for}
 {/function}
 
-<html>
-{include file='common/header.tpl'}
-<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/inventory/item.css">
+{block name="title"} {$item.name} Item Page {/block}
+{block name="css" append}
+	<link rel="stylesheet" type="text/css" href="css/inventory/item.css">
+{/block}
 
-
-<body>
+{block name="content"}
 	{include file='common/topbar.tpl'}
 	<div class="container-fluid">
 	    <div class="row">
@@ -20,9 +22,9 @@
 	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 	    		<ol class="breadcrumb">
 					<li><a href="">Home</a></li>
-					<li><a href="#">{$category}</a></li>
-					<li><a href="#">{$subcategory}</a></li>
-					<li class="active">{$name}</li>
+					<li><a href="#">{$item.category}</a></li>
+					<li><a href="#">{$item.subcategory}</a></li>
+					<li class="active">{$item.name}</li>
 				</ol>
 				<div>
 					<!-- Nav tabs -->
@@ -41,16 +43,16 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<a href="#" class="thumbnail">
-											<img src="images/res/{$picture}" alt="Hammer" class="img-thumbnail">
+											<img src="images/res/{$item.picture}" alt="{$item.name}" class="img-thumbnail">
 										</a>
 									</div>
 									<div class="col-sm-6">
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<h3 class="panel-title">{$name}</h3>
+												<h3 class="panel-title">{$item.name}</h3>
 											</div>
 											<div class="panel-body">
-												{$description}
+												{$item.description}
 											</div>
 										</div>
 									</div>
@@ -235,8 +237,4 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-	  
-	  
-	<script src="lib/jquery-1.12.1.min.js"></script>
-	<script src="lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-{include file='common/footer.tpl'}
+{/block}
