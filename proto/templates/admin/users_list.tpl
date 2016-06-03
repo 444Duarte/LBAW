@@ -41,12 +41,28 @@
               </tbody>
             </table>
           </div>
+
+          <nav>
+            <ul id="pagination" class="pagination">
+              <li class="disabled">
+                <a href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="active"><a href="#">1</a></li>
+              <li>
+                <a href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
         
         <div class="generic-element">
           <h2 class="sub-header">Blocked Users</h2>
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table id="banned-users" class="table table-striped">
               <thead>
                   <tr>
                     <th>#</th>
@@ -82,6 +98,21 @@
               </tbody>
             </table>
           </div>
+            <nav>
+              <ul id="pagination-banned" class="pagination">
+                <li class="disabled">
+                  <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="active"><a href="#">1</a></li>
+                <li>
+                  <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+            </ul>
+          </nav>
         </div>  
       </div>
       <div id="add-user-modal" class="modal fade" tabindex="-1" role="dialog">

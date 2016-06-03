@@ -75,15 +75,10 @@
 		}
 	}
 
-	
-
 	$name = test_input($_POST['name']);
 	$category = test_input($_POST['category']);
 	$subcategory = test_input($_POST['subcategory']);
 	$description = test_input($_POST['description']);
-
-	
-
 	
 	try {
 		if(!addItem($category, $subcategory, $name, $description, $target_file)) {
@@ -98,10 +93,3 @@
       	echo json_encode($response);
 		exit();
 	}
-	
-	
-
-	$response = array("result" => true, "message" => "Item created");
-	header('Content-Type: application/json');
-    echo json_encode($response);
-	exit();

@@ -56,6 +56,36 @@
     return createUser($email, $username, $password,'InventoryManager');
   }
 
+  function getAllUsers($start, $nUsers, $banned){
+    global $conn;
+    $stmt = $conn->prepare(
+      "SELECT users.id as id, users.username AS username, users.type AS type FROM users
+       LEFT JOIN blocked_users
+        ON users.id = blocked_users.id
+        WHERE blocked_users.id IS " . ($banned? "NOT" : "") . " NULL
+        ORDER BY username
+        LIMIT ?
+        OFFSET ?;"
+      );
+    $stmt->bindValue(1, $nUsers, PDO::PARAM_INT);
+    $stmt->bindValue(2, $start, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+    return $result;
+  }
+
+  function getUserCount($banned){
+    global $conn;
+    $stmt = $conn->prepare(
+      "SELECT COUNT(*) AS count FROM users
+      LEFT JOIN blocked_users
+        ON users.id = blocked_users.id
+        WHERE blocked_users.id IS " . ($banned? "NOT" : "") . " NULL");
+    $stmt->execute();
+    $result = $stmt->fetch();
+    return $result['count'];
+  }
+
   function isLoginCorrect($username, $password) {
     global $conn;
     $stmt = $conn->prepare("SELECT password
@@ -287,11 +317,11 @@
     $stmt = $conn->prepare("INSERT INTO reservations (start_time,end_time,id_client,id_item_instance) VALUES (:start,:end,:client,:item)");
     $stmt->bindParam(":client", $idClient,PDO::PARAM_INT);
     $stmt->bindParam(":item", $itemInstance,PDO::PARAM_INT);
-    $stmt->bindParam(":start", $start,PDO::PARAM_STR);
-    $stmt->bindParam(":end", $end,PDO::PARAM_STR);
+    $stmt->bindParam(":start", $startDate,PDO::PARAM_STR);
+    $stmt->bindParam(":end", $endDate,PDO::PARAM_STR);
     $stmt->execute();
     $result = $stmt->fetchAll();
-   
+
     return $result;
   }
 

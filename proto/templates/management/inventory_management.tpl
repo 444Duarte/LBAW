@@ -15,6 +15,12 @@
             <button id="add-item-button" type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#add-item-modal" data-whatever="@getbootstrap">           
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Item
             </button>
+            <button id="add-item-button" type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#add-subcategory-modal" data-whatever="@getbootstrap">           
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Subcategory
+            </button>
+            <button id="add-item-button" type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#add-category-modal" data-whatever="@getbootstrap">           
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Category
+            </button>
           </div>
           <div class="table-responsive">
             <table class="table table-striped">
@@ -81,6 +87,60 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" id="submit_form_button" class="btn btn-primary">Add Item</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <div id="add-category-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">Add Category</h4>
+            </div> 
+            <div class="modal-body">
+              <form id="add-item-form" action="api/management/create_category.php" method="post" enctype="multipart/form-data">
+                Name:<br>
+                <input type="text" name="name" required>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" id="submit_form_button" class="btn btn-primary">Add Category</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <div id="add-subcategory-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 class="modal-title">Add Subcategory</h4>
+            </div> 
+            <div class="modal-body">
+              <form id="add-item-form" action="api/management/create_category.php" method="post" enctype="multipart/form-data">
+                Name:<br>
+                <input type="text" name="name" required>
+                <br>Category<br>
+                <select name="category" required>
+                  <option value="inf">Informatics</option>
+                  <option value="video">Video</option>
+                  <option value="audio">Audi</option>
+                  <option value="room">Room</option>
+                  <option value="cleaning">Cleaning</option>
+                </select>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" id="submit_form_button" class="btn btn-primary">Add Subcategory</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
