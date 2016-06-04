@@ -1,7 +1,11 @@
+var currentPage = 1;
+var itemsPerPage = 20;
+var totalPageNumber = 1;
+
 $(document).ready(function(){
 
 	initBookings(username);
-	//initHistory(username);
+	initHistory();
 	
 });
 
@@ -36,12 +40,14 @@ function updateBookings(data){
 	}
 }
 
-function initHistory(name){
-	$.get( "api/user/get_user_bookings.php", 
+function initHistory(){
+	$.get( "api/user/get_user_history.php", 
 		{ 
-			username : name
+			limit : itemsPerPage,
+			offset : (currentPage-1) * itemsPerPage
 		})
 		.done(function( data ) {
+			//console.log(data);
 			updateHistory(data);
 		})
 		.fail(function(error){
@@ -51,6 +57,15 @@ function initHistory(name){
 }
 
 function updateHistory(data){
+	console.log(data);
+	var history = data['items'];
+	var maxHistory = data['max'];
+
+	updateHistoryItems(history);
+	updatePages(maxHistory);
+}
+
+function updateHistoryItems(data){
 	var $historyBody = $('#history-body');
 	$historyBody.html('');
 
@@ -58,13 +73,11 @@ function updateHistory(data){
 	for (var i = 0; i < data.length; i++) {
 		//alert(data[i]['name']);
 		$line = $("<tr>");
-		$line.html("<td><a href=\"#\">" + data[i]['name']+ "</a></td>" +
+		$line.html("<td>" + data[i]['date']+ "</td>" +
+			"<td>" + data[i]['type'] + "</td>" +
+			"<td><a href=\"#\">" + data[i]['name'] + "</a></td>" +
 			"<td><a href=\"#\">" + data[i]['category'] + "</a></td>" +
-			"<td><a href=\"#\">" + data[i]['subcategory'] + "</a></td>" +
-			"<td>" + data[i]['start_date'] + "</td>" +
-			"<td>" + data[i]['end_date'] + "</td>" +
-			"<td>Edit</td>" + 
-			"<td><a href=\"\" title=\"Remove Booking\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></td></tr>");
+			"<td><a href=\"#\">" + data[i]['subcategory'] + "</a></td>");
 		$historyBody.append($line);
 	}
 }
@@ -102,8 +115,8 @@ function editBookingForm(id){
 	endTS = endDate.replace(" ", "T");
 
 	$startColumn.html('');
-	$startColumn.html("<td class=\"startDate\"><input id=\"start" + id + "\" type=\"datetime-local\" name=\"date\" value=\"" +  startTS + "\"></td>");
-	$endColumn.html("<td class=\"endDate\"><input id=\"end" + id + "\" type=\"datetime-local\" name=\"date2\" value=\"" +  endTS + "\"></td>");
+	$startColumn.html("<td class=\"startDate\"><input id=\"start" + id + "\" type=\"date\" name=\"date\" value=\"" +  startTS + "\"></td>");
+	$endColumn.html("<td class=\"endDate\"><input id=\"end" + id + "\" type=\"date\" name=\"date2\" value=\"" +  endTS + "\"></td>");
 	$editButton.html(str2);
 }
 
@@ -125,15 +138,84 @@ function submitEditDate(id){
 	startDate = document.getElementById('start'+id).value.replace("T", " ");
 	endDate = document.getElementById('end'+id).value.replace("T", " ");
 
-	$.get( "actions/user/edit_booking.php", 
-		{ 
-			id : id,
-			start : startDate,
-			end : endDate
-		})
-		.done(function( data ) {
-			location.reload();
-	});
+		$.get( "actions/user/edit_booking.php", 
+			{ 
+				id : id,
+				start : startDate,
+				end : endDate
+			})
+			.done(function( data ) {
+				location.reload();
+		});
+
+}
+
+function pageNumberAppears(number){
+	console.log(number);
+	if(number <= (currentPage+2) && (number >= (currentPage-2)))
+		return true;
+	if((number == 1) || (number == totalPageNumber))
+		return true;
+	else
+		return false;
+}
+
+function updatePages(maxItems){
+	totalPageNumber = Math.ceil(maxItems/itemsPerPage)
+	var items = maxItems;
+
+	var $pageList = $("#pagination");
+	$pageList.html("");
+	var $previousButton = $("<li>");
+	if(currentPage == 1){
+		$previousButton.addClass("disabled");
+	}
+	else {
+		$previousButton.click(onPreviousButtonClick);
+	}
+	$previousButton.html("<a aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a>");
+	$pageList.append($previousButton);
+
+	for(var i = 1; i <= totalPageNumber; ++i){
+		if (!pageNumberAppears(i))
+			continue;
+		$page = $("<li>");
+		$page.html("<a>" + i + "</a>");
+		$page.click(onPageClick);
+		$page.attr('number', i);
+		if(i == currentPage){
+			$page.addClass("active");
+		}
+		$pageList.append($page);
+	}
+
+	$nextButton = $("<li>");
+	$nextButton.html("<a aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a>");
+	if(currentPage == totalPageNumber){
+		$nextButton.addClass("disabled");
+	}
+	else {
+		$nextButton.click(onNextButtonClick);
+	}
+	$pageList.append($nextButton);
+}
+
+function onPageClick(event){
+	event.preventDefault();
+	currentPage = $(this).attr('number');
+	initHistory();
+}
+
+function onPreviousButtonClick(event){
+	event.preventDefault();
+	--currentPage;
+	initHistory();
+}
+
+function onNextButtonClick(event){
+	event.preventDefault();
+	++currentPage;
+	initHistory();
 }
 
 var url = document.location.toString();

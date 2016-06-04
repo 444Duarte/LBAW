@@ -71,11 +71,11 @@
 								</tr>
 								<tr>
 								 	<td>Start Date:</td>
-								  	<td><input type="datetime-local" name="start_date"></td>
+								  	<td><input type="date" name="start_date"></td>
 								</tr>
 								<tr>
 								  	<td>End Date:</td>
-								  	<td><input type="datetime-local" name="end_date"></td>
+								  	<td><input type="date" name="end_date"></td>
 								</tr>
 								<tr>
 									<td><input type="submit" value="Submit"></td>

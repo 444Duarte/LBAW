@@ -8,12 +8,14 @@ function bookItem(idClient, itemInstance, startDate, endDate){
 */
 	//alert($USERNAME);
 	var url = "actions/user/book_item.php";
-    $.ajax({
-      url: url,
-      data: {id_client : idClient, item_instance : itemInstance, start_date : startDate, end_date : endDate}, 
-      type: 'POST',
-      datatype: 'json',
-      success: function(data) { console.log(data); },
-      error: function() { alert('something bad happened'); }
-    });
+
+      $.ajax({
+        url: url,
+        data: {id_client : idClient, item_instance : itemInstance, start_date : startDate, end_date : endDate}, 
+        type: 'POST',
+        datatype: 'json',
+        success: function(data) { console.log(data); },
+        error: function() { alert('something bad happened'); }
+      });
+    }
 }
