@@ -25,6 +25,8 @@
 	$name = $_GET['item'];
 
 	$item = getItem($category, $subcategory, $name);
+	echo $item['id'];
+	$itemInstances = getItemInstances($item['id']);
 	
 	// need not found page
 	if (!$item) {
@@ -34,6 +36,7 @@
 	}
 	
 	$smarty->assign('item', $item);
+	$smarty->assign('itemInstances', $itemInstances);
 	
 	if ($userType != "InventoryManager") {
 		$smarty->display('inventory/item_no_admin.tpl');

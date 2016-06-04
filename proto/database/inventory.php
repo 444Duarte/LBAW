@@ -108,3 +108,24 @@
 			exit();
 		}
 	}
+
+	function getItemInstances($id_item){
+		global $conn;
+		try {
+			$stmt = $conn->prepare('SELECT id FROM item_instances WHERE id_item = :id_item; ');
+			$stmt->bindValue(':id_item', $id_item, PDO::PARAM_INT);
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+			for($i = 0; $i < count($result); $i++)
+				$result[$i] = $result[$i]['id'];
+		
+			if(count($result)==0){
+				return false;
+			}
+			return $result;
+		} catch (Exception $e) {
+			echo $e->getMessage();
+			return false;
+			exit();
+		}
+	}

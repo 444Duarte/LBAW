@@ -136,26 +136,6 @@ function submitEditDate(id){
 	});
 }
 
-//esta função não pertence a este ficheiro, mas para testar vou fazê-lo aqui. Lembrar de mudar.
-function bookItem(idClient, itemInstance, startDate, endDate){
-/*
-	//valores de teste
-	idClient = 71;
-	itemInstance = 20;
-	startDate = "2016-07-01 10:00:00";
-	endDate = "2016-07-03 11:00:00";
-*/
-	var url = "actions/user/book_item.php";
-    $.ajax({
-      url: url,
-      data: {id_client : idClient, item_instance : itemInstance, start_date : startDate, end_date : endDate}, 
-      type: 'POST',
-      datatype: 'json',
-      success: function(data) { console.log(data); },
-      error: function() { alert('something bad happened'); }
-    });
-}
-
 var url = document.location.toString();
 if (url.match('#')) {
 	$('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');

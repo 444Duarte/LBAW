@@ -3,10 +3,11 @@
 	include_once($BASE_DIR .'database/users.php');
 
 
-	if(!isset($_POST['id_client']) || !isset($_POST['item_instance']) || !isset($_POST['start_date']) || !isset($_POST['end_date'])) {
+	if(!isset($_POST['item_instance']) || !isset($_POST['start_date']) || !isset($_POST['end_date'])) {
 		$_SESSION['error_messages'][] = 'Invalid Input';
 		$_SESSION['form_values'] = $_POST;
-		echo $_POST['id_client'];
+		//echo 'cenas';
+		//echo $_POST['id_client'];
 		echo $_POST['item_instance'];
 		echo $_POST['start_date'];
 		echo $_POST['end_date'];
@@ -20,7 +21,8 @@
 		exit;
 	}
 
-	$idClient = $_POST['id_client'];
+	$idClient = getUserByUsername($username)['id'];
+
 	$item = $_POST['item_instance'];
 	$start = $_POST['start_date'];
 	$end = $_POST['end_date'];

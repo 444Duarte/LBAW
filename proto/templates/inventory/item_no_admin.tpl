@@ -39,13 +39,56 @@
 							</div>
 							<div class="row">
 								<div class="col-sm-6">
-									<button type="button" class="btn btn-primary btn-lg btn-block">Book Item</button>
+									<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#bookModal">Book Item</button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<!-- Modal -->
+				<div id="bookModal" class="modal fade" role="dialog">
+				  <div class="modal-dialog">
+
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">{$item.name}</h4>
+				      </div>
+				      <div class="modal-body">
+				      	<form action="actions/user/book_item.php" id="bookForm" method="POST">
+				      		<table name="form" style="width:100%">
+							  	<tr>
+							  		<td>Instance:</td> 
+								  	<td><select name="item_instance">
+								  		{foreach from=$itemInstances item=it}
+								  			<option value="{$it}">{$it}</option>
+								  		{/foreach}
+									</select></td>
+								</tr>
+								<tr>
+								 	<td>Start Date:</td>
+								  	<td><input type="datetime-local" name="start_date"></td>
+								</tr>
+								<tr>
+								  	<td>End Date:</td>
+								  	<td><input type="datetime-local" name="end_date"></td>
+								</tr>
+								<tr>
+									<td><input type="submit" value="Submit"></td>
+						  		</tr>
+						  	</table>
+						</form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				      </div>
+				    </div>
+
+				  </div>
+				</div>
 			</div>
 		</div>
 	</div>
+	<script src="{$BASE_URL}javascript/inventory/item.js"></script>
 {/block}
