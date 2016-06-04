@@ -17,16 +17,15 @@ $(document).ready(function(){
 	  $(this).find('form')[0].reset();
 	});
 
-
-	$('.form-submit').click(function () {
-		$(this).children('form').submit();
-	});
-
 	var form = $('.modal form');
 	form.submit(sendPreRegisterForm);
 	form.validate();
 	$('#submit_form_button').click(function(){
 		form.submit();
+	});
+
+	$('.form-submit').click(function () {
+		$(this).children('form').submit();
 	});
 });
 
@@ -59,6 +58,10 @@ function updatePageBanned(data) {
 
 	updateUsers(users, true);
 	updatePages(maxUsers, true);
+
+	$('.form-submit').click(function () {
+		$(this).children('form').submit();
+	});
 }
 
 function updatePageUnbanned(data) {
@@ -67,6 +70,10 @@ function updatePageUnbanned(data) {
 
 	updateUsers(users, false);
 	updatePages(maxUsers, false);
+
+	$('.form-submit').click(function () {
+		$(this).children('form').submit();
+	});
 }
 
 function updateUsers(data, banned){
@@ -86,10 +93,10 @@ function updateUsers(data, banned){
 
 		}
 		if(!banned){
-			var lastRow = '<td><a class="block-user-botton form-submit" href="javascript:;" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span><form class="block-user-form" action="/~up201304205/proto/actions/admin/block_user.php" method="post"><input type="hidden" name="user" value="' + data[i]['id'] + '"></form></a></td>';
+			var lastRow = '<td><a class="block-user-botton form-submit" href="javascript:;" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span><form class="block-user-form" action="actions/admin/block_user.php" method="post"><input type="hidden" name="user" value="' + data[i]['id'] + '"></form></a></td>';
 		}
 		else {
-			var lastRow = '<td><a href="javascript:;" class="form-submit" title="Revive Account"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><form class="revive-user-form" action="{$BASE_URL}actions/admin/revive_user.php" method="post"><input type="hidden" name="user" value="' + data[i]['id'] + '"></form></a></td> ';
+			var lastRow = '<td><a href="javascript:;" class="form-submit" title="Revive Account"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><form class="revive-user-form" action="actions/admin/revive_user.php" method="post"><input type="hidden" name="user" value="' + data[i]['id'] + '"></form></a></td> ';
 		}
 		var $userRow = $('<tr>');
 		userRow += lastRow;

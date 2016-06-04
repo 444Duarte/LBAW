@@ -2,7 +2,7 @@
 	include_once('../../config/init.php');
 	include_once($BASE_DIR .'database/users.php');
 	include_once($BASE_DIR .'database/util.php');
-	//include_once($BASE_DIR . 'utils/loggin_validation.php');
+	include_once($BASE_DIR . 'utils/loggin_validation.php');
 
 	if($_SERVER["REQUEST_METHOD"] != "POST"){
 		$_SESSION['error_messages'][] = 'Invalid request not post';
@@ -11,11 +11,11 @@
 		exit;
 	}
 
-	/*if($_SESSION['USER_TYPE'] != 'SystemManager'){
+	if($_SESSION['USER_TYPE'] != 'SystemManager'){
 		$_SESSION['error_messages'][] = 'Invalid request';
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 		exit;
-	}*/
+	}
 
 	if(!$_POST['user']){
 		$_SESSION['error_messages'][] = 'Invalid request no user';
