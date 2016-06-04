@@ -25,7 +25,6 @@
 	$name = $_GET['item'];
 
 	$item = getItem($category, $subcategory, $name);
-	echo $item['id'];
 	$itemInstances = getItemInstances($item['id']);
 	
 	// need not found page

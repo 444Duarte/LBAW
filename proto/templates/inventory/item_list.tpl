@@ -1,8 +1,11 @@
-<html>
-{include file='common/header.tpl'}
-<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/inventory/item_list.css">
+{extends file="common/main.tpl"}
 
-<body>
+{block name="title"} Item List {/block}
+{block name="css" append}
+<link rel="stylesheet" type="text/css" href="css/inventory/item_list.css">
+{/block}
+
+{block name="content"}
 	{include file='common/topbar.tpl'}
 
 	<div class="container-fluid">
@@ -35,9 +38,8 @@
 			</div>
 	    </div>
 	</div>
-	
-<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
-<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-<script src="{$BASE_URL}javascript/inventory/item_list.js"></script>
-</body>
-</html>
+{/block}
+
+{block name="js" append}	
+<script src="javascript/inventory/item_list.js"></script>
+{/block}

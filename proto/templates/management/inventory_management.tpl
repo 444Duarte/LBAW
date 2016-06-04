@@ -1,8 +1,12 @@
-<html>
-{include file='common/header.tpl' }
-<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/management/inventory_management.css">
+{extends file="common/main.tpl"}
 
-<body>
+{block name="title"} Inventory Management {/block}
+
+{block name="css" append}
+<link rel="stylesheet" type="text/css" href="css/management/inventory_management.css">
+{/block}
+
+{block name="content"}
 	{include file='common/topbar.tpl'}
 
 	<div class="container-fluid">
@@ -12,13 +16,13 @@
       	<div class="generic-element">
           <div class="table-top-header">
             <h2 class="sub-header">Items List</h2>
-            <button id="add-item-button" type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#add-item-modal" data-whatever="@getbootstrap">           
+            <button id="add-item-button" type="button" class="btn btn-default btn-lg add-button" data-toggle="modal" data-target="#add-item-modal" data-whatever="@getbootstrap">           
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Item
             </button>
-            <button id="add-item-button" type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#add-subcategory-modal" data-whatever="@getbootstrap">           
+            <button id="add-subcategory-button" type="button" class="btn btn-default btn-lg add-button" data-toggle="modal" data-target="#add-subcategory-modal" data-whatever="@getbootstrap">           
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Subcategory
             </button>
-            <button id="add-item-button" type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#add-category-modal" data-whatever="@getbootstrap">           
+            <button id="add-category-button" type="button" class="btn btn-default btn-lg add-button" data-toggle="modal" data-target="#add-category-modal" data-whatever="@getbootstrap">           
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Category
             </button>
           </div>
@@ -66,13 +70,15 @@
                 <input type="text" name="name" required>
                 <br>Category<br>
                 <select name="category" required>
+                <option value="">Choose</option>
                 {foreach $categories as $category}
 								  <option value="{$category.id}"> {$category.name} </option>
                 {/foreach}                
 								</select>
                	<br>Sub-Category<br>
                 <select name="subcategory" required>
-								  <<!-- option value="peripheral">Peripheral</option>
+                  <option value="">Choose</option>
+								  <!-- option value="peripheral">Peripheral</option>
 								  <option value="computers">Computers</option>
 								  <option value="adapters">Adapters</option>
 								  <option value="cables">Cables</option>
@@ -102,14 +108,14 @@
               <h4 class="modal-title">Add Category</h4>
             </div> 
             <div class="modal-body">
-              <form id="add-item-form" action="api/management/create_category.php" method="post" enctype="multipart/form-data">
+              <form id="add-category-form" action="api/management/create_category.php" method="post" enctype="multipart/form-data">
                 Name:<br>
                 <input type="text" name="name" required>
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" id="submit_form_button" class="btn btn-primary">Add Category</button>
+              <button type="button" id="submit_form_category_button" class="btn btn-primary">Add Category</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -125,11 +131,12 @@
               <h4 class="modal-title">Add Subcategory</h4>
             </div> 
             <div class="modal-body">
-              <form id="add-item-form" action="api/management/create_category.php" method="post" enctype="multipart/form-data">
+              <form id="add-subcategory-form" action="api/management/create_category.php" method="post" enctype="multipart/form-data">
                 Name:<br>
                 <input type="text" name="name" required>
                 <br>Category<br>
                 <select name="category" required>
+                  <option value="">Choose</option>
                   <option value="inf">Informatics</option>
                   <option value="video">Video</option>
                   <option value="audio">Audi</option>
@@ -140,7 +147,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" id="submit_form_button" class="btn btn-primary">Add Subcategory</button>
+              <button type="button" id="submit_form_subcategory_button" class="btn btn-primary">Add Subcategory</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -148,12 +155,12 @@
 
     </div>
   </div>
+{/block}
 
-<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
-<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
+{block name="js-code" append}
 <script type="text/javascript"> var subCategories = {$subCategories|@json_encode}; console.log(subCategories);</script>
-<script src="{$BASE_URL}javascript/management/inventory_management.js"></script>
-</body>
-</html>
+{/block}
+{block name="js" append} 
+<script src="javascript/management/inventory_management.js"></script>
+{/block}
   

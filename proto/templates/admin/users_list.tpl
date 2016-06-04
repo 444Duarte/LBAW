@@ -1,8 +1,12 @@
-<html>
-{include file='common/header.tpl'}
-<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/admin/admin_user_list.css">
+{extends file="common/main.tpl"}
 
-<body>
+
+{block name="title"} Users List {/block}
+{block name="css" append}
+  <link rel="stylesheet" type="text/css" href="{$BASE_URL}css/admin/admin_user_list.css">
+{/block}
+
+{block name="content"}
 	{include file='common/topbar.tpl'}
 
 	<div class="container-fluid">
@@ -99,17 +103,17 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
-
-      </div>
     </div>
   </div>
-{if $ERROR_MESSAGES != NULL}
-  <script>alert('{$ERROR_MESSAGES[0]}');</script>
-{/if}
-<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
-<script src="{$BASE_URL}lib/jquery.validate.js"></script>
-<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
-<script src="{$BASE_URL}javascript/admin/users_list.js"></script>
-</body>
-</html>
+{/block}
+{block name="js-code" append}
+  {if $ERROR_MESSAGES != NULL}
+    <script>alert('{$ERROR_MESSAGES[0]}');</script>
+  {/if}
+{/block}
+
+{block name="js" append}
+  <script src="{$BASE_URL}lib/jquery.validate.js"></script>
+  <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
+  <script src="{$BASE_URL}javascript/admin/users_list.js"></script>
+{/block}

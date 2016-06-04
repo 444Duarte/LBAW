@@ -37,14 +37,17 @@
 									</div>
 								</div>
 							</div>
+							{if $USERNAME != NULL}
 							<div class="row">
 								<div class="col-sm-6">
 									<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#bookModal">Book Item</button>
 								</div>
 							</div>
+							{/if}
 						</div>
 					</div>
 				</div>
+				{if $USERNAME != NULL}
 				<!-- Modal -->
 				<div id="bookModal" class="modal fade" role="dialog">
 				  <div class="modal-dialog">
@@ -87,8 +90,14 @@
 
 				  </div>
 				</div>
+				{/if}
 			</div>
 		</div>
 	</div>
+{/block}
+
+{block name="js" append}
+	{if $USERNAME != NULL}
 	<script src="{$BASE_URL}javascript/inventory/item.js"></script>
+	{/if}
 {/block}
