@@ -70,7 +70,6 @@
                 <input type="text" name="name" required>
                 <br>Category<br>
                 <select name="category" required>
-                <option value="">Choose</option>
                 {foreach $categories as $category}
 								  <option value="{$category.id}"> {$category.name} </option>
                 {/foreach}                
@@ -78,11 +77,6 @@
                	<br>Sub-Category<br>
                 <select name="subcategory" required>
                   <option value="">Choose</option>
-								  <!-- option value="peripheral">Peripheral</option>
-								  <option value="computers">Computers</option>
-								  <option value="adapters">Adapters</option>
-								  <option value="cables">Cables</option>
-								  <option value="cd">CDs</option> -->
 								</select>
                 <br>Description:<br>
                 <input type="text" name="description" required>
@@ -136,12 +130,6 @@
                 <input type="text" name="name" required>
                 <br>Category<br>
                 <select name="category" required>
-                  <option value="">Choose</option>
-                  <option value="inf">Informatics</option>
-                  <option value="video">Video</option>
-                  <option value="audio">Audi</option>
-                  <option value="room">Room</option>
-                  <option value="cleaning">Cleaning</option>
                 </select>
               </form>
             </div>

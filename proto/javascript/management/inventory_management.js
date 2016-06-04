@@ -51,15 +51,15 @@ function createItem(e) {
 		success: function(response){
 			var result = response['result'];
 			var message = response['message'];
-			alertify.logPosition("bottom left");
+			alertify.logPosition("bottom right");
 	    	alertify.log(message);
-	    	console.log(response);
+	    	//console.log(response);
 	    },
 	    error: function(response){
-			alertify.logPosition("bottom left");
-	    	alertify.log("Request failed");
-	    	console.log(response);
-	    	//$('body').append(response['responseText']);	    
+			alertify.logPosition("bottom right");
+	    	alertify.error("Request failed");
+	    	//console.log(response);
+	    		    
 	    }
 	});
 	e.preventDefault();

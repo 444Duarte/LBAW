@@ -12,19 +12,19 @@
 	include_once($BASE_DIR . 'database/util.php');
 
 
-
-	/*if($_SESSION['USER_TYPE'] != 'InventoryManager'){
+	if($userType != 'InventoryManager'){
 		$response = array("result" => false, "message" => "Invalid permissions");
       	header('Content-Type: application/json');
       	echo json_encode($response);
 		exit();
-	}*/
+	}
 
 	if(!isset($_POST['name']) || !isset($_POST['category']) || !isset($_POST['subcategory']) || !isset($_POST['description'])) {
 		$response = array("result" => false, "message" => "Invalid request");
       	header('Content-Type: application/json');
       	echo json_encode($response);
-		exit();	}
+		exit();	
+	}
 
 	if(!isset($_FILES['picture'])) {
 		$target_file = $BASE_DIR . "images/assets/item_default.png";
@@ -86,10 +86,17 @@
 	      	header('Content-Type: application/json');
 	      	echo json_encode($response);
 			exit();
+		}else {
+			$response = array("result" => true, "message" => "Item Added");
+		  	header('Content-Type: application/json');
+		  	echo json_encode($response);
+			exit();
 		}
-	} catch (Exception $e) {
+	} catch (PDOException $e) {
 		$response = array("result" => false, "message" => $e->getMessage() );
       	header('Content-Type: application/json');
       	echo json_encode($response);
 		exit();
 	}
+
+	
