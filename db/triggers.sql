@@ -11,6 +11,8 @@ DROP TRIGGER IF EXISTS check_expected_end ON maintenance_records;
 DROP TRIGGER IF EXISTS check_id_inventory_manager ON item_history_records;
 DROP TRIGGER IF EXISTS check_email_pre_register ON pre_registers;
 DROP TRIGGER IF EXISTS delete_pre_register ON users;
+DROP TRIGGER IF EXISTS add_end_to_lend ON lend_records;
+DROP TRIGGER IF EXISTS check_end_date ON lend_records;
 
 CREATE OR REPLACE FUNCTION abort()
 RETURNS TRIGGER AS $$
@@ -473,3 +475,51 @@ CREATE TRIGGER delete_pre_register
 AFTER INSERT ON users 
 FOR EACH ROW 
 EXECUTE PROCEDURE delete_pre_register();
+
+
+CREATE OR REPLACE FUNCTION add_end_date()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF 
+		NEW.end_date IS NOT NULL
+	THEN
+		RETURN NEW;		
+	END IF;
+	NEW.end_date := (SELECT date FROM item_history_records WHERE item_history_records.id = NEW.id) + (7 * interval '1 day');
+
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER add_end_to_lend
+BEFORE INSERT OR UPDATE ON lend_records
+FOR EACH ROW
+EXECUTE PROCEDURE add_end_date();
+
+/**
+ * Checks if end is null in a lend_record
+ */
+CREATE OR REPLACE FUNCTION valid_end_date()
+RETURNS TRIGGER AS $$
+BEGIN
+	IF (NEW.end_date IS NULL) THEN
+		RAISE 'End date can''t be NULL';
+	END IF;
+	IF EXISTS (SELECT *
+				FROM reservations 
+				WHERE	reservations.id_item_instance = id_item_inst
+					AND NEW.end_date >=reservations.start_time 
+					AND NEW.end_date <= reservations.end_time)
+	THEN 
+		RAISE 'End date conflicts with other reservations';	
+	END IF;
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_end_date
+BEFORE INSERT OR UPDATE ON lend_records
+FOR EACH ROW
+EXECUTE PROCEDURE valid_end_date();
+
+
