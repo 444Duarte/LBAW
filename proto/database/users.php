@@ -74,6 +74,19 @@
     return $result;
   }
 
+  function isUserBanned($username){
+    global $conn;
+    $stmt = $conn->prepare(
+      "SELECT 1 FROM blocked_users, users WHERE blocked_users.id = users.id AND users.username = ?"
+      );
+    $stmt->bindValue(1, $username, PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    if ($result !== FALSE)
+      return TRUE;
+    return $result;
+  }
+
   function getUserCount($banned){
     global $conn;
     $stmt = $conn->prepare(

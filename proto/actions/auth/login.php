@@ -13,6 +13,10 @@
 	$password = $_POST['password'];
 
 	if (isLoginCorrect($username, $password)) {
+		if(isUserBanned($username)){
+			header('HTTP/1.0 403 Forbidden');
+			die();
+		}
 		$_SESSION['username'] = $username;
 		$_SESSION['user_type'] = getUserType($username);
 		var_dump(getUserType($username));
