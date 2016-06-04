@@ -3,13 +3,16 @@
 	include_once($BASE_DIR .'database/users.php');
 
 
-	if(!isset($_GET['username'])){
-		$response = "not logged";
+	if(!isset($_GET['limit']) || !isset($_GET['offset']) || $_GET['limit'] == "" || $_GET['offset'] == ""){
+		$response = "fill all variables";
 	}
 	else{
-		$username = $_GET['username'];
+		$limit = $_GET['limit'];
+		$offset = $_GET['offset'];
 		try {
-			$response = getUserHistory($username);
+			$id = getUserByUsername($username)['id'];
+			$max = getUserHistoryCount($id);
+			$items = getUserHistory($username, $limit, $offset);
 			
 			
 		} catch(PDOException $e){
@@ -19,6 +22,6 @@
 
 	
 
-	
+	$response = array('items' => $items, 'max' => $max);
 	header('Content-Type: application/json');
 	echo json_encode($response);

@@ -111,11 +111,11 @@
 					            <table class="table table-striped">
 					              <thead>
 					                  <tr>
+					                    <th>Date</th>
+					                    <th>Type</th>
 					                    <th>Name</th>
 					                    <th>Category</th>
 					                    <th>Sub-Category</th>
-					                    <th>Start Date</th>
-					                    <th>Due Date</th>
 					                  </tr>
 					              </thead>
 					              <tbody id="history-body">
@@ -142,6 +142,21 @@
 									</tr>               
 					              </tbody>
 					            </table>
+					            <nav>
+								  <ul id="pagination" class="pagination">
+								    <li class="disabled">
+								      <a href="#" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+								    <li class="active"><a href="#">1</a></li>
+								    <li>
+								      <a href="#" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+								  </ul>
+								</nav>
 					          </div>
 					        </div>
 
