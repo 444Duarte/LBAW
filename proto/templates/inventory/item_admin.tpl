@@ -1,10 +1,39 @@
-			<div>
+{extends file="common/main.tpl"}
+
+{function name=print_stars}
+	{for $i = 1 to $n_stars}
+		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+	{/for}
+	{for $i = $n_stars + 1 to 5}
+		<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+	{/for}
+{/function}
+
+{block name="title"} {$item.name} Item Page {/block}
+{block name="css" append}
+{print_stars n_stars=2}
+	<link rel="stylesheet" type="text/css" href="css/inventory/item.css">
+{/block}
+
+{block name="content"}
+	{include file='common/topbar.tpl'}
+	<div class="container-fluid">
+	    <div class="row">
+	      	{include file='common/sidebar.tpl'}	
+	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
+	    		<ol class="breadcrumb">
+					<li><a href="">Home</a></li>
+					<li><a href="#">{$item.category}</a></li>
+					<li><a href="#">{$item.subcategory}</a></li>
+					<li class="active">{$item.name}</li>
+				</ol>
+				<div>
 					<!-- Nav tabs -->
 						<div class="row">
 						<ul class="nav nav-tabs nav-justified" role="tablist">
-							<li role="presentation" class="active"><a href="{$smarty.server.REQUEST_URI}#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
-							<li role="presentation"><a href="{$smarty.server.REQUEST_URI}#history" aria-controls="history" role="tab" data-toggle="tab">History</a></li>
-							<li role="presentation"><a href="{$smarty.server.REQUEST_URI}#instances" aria-controls="instances" role="tab" data-toggle="tab">Instances</a></li>
+							<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
+							<li role="presentation"><a href="#history" aria-controls="history" role="tab" data-toggle="tab">History</a></li>
+							<li role="presentation"><a href="#instances" aria-controls="instances" role="tab" data-toggle="tab">Instances</a></li>
 						</ul>
 					</div>
 
@@ -115,12 +144,12 @@
 												</div>
 												<div class="panel-body">
 													<table class="table table-striped">
-														<thead>
+														<thead><tr>
 															<th> ID </th>
 															<th> State </th>
 															<th> Condition </th>
 															<th> Actions </th>
-														</thead>
+														</tr></thead>
 														<tr>
 															<td> 000001 </td>
 															<td> Available </td>
@@ -177,17 +206,16 @@
             </div> 
             <div class="modal-body">
               <form id="remove-instance-form" action="" method="post">
-                Condition: {print_stars n_stars = 2}
+                Condition: 
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" id="submit_form_button" class="btn btn-primary">Remove Instance</button>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
-	
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	  </div><!-- /.modal -->
+
 	<div id="add-instance-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -205,7 +233,7 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <button type="button" id="submit_form_button" class="btn btn-primary">Add Instance</button>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
+	      </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+	  </div><!-- /.modal -->
+{/block}

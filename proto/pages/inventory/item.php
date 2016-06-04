@@ -41,5 +41,5 @@
 		$smarty->display('inventory/item_no_admin.tpl');
 	}
 	else {
-		echo "need page for inventory manager";
+		$smarty->display('inventory/item_admin.tpl');
 	}
