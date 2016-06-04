@@ -362,3 +362,11 @@
     return $stmt->execute();
     
   }
+
+  function getUserEmail($idUser){
+    global $conn;
+    $stmt = $conn->prepare('SELECT email FROM users where id = :id');
+    $stmt->bindParam(":id", $idUser,PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch()['email'];
+  }
