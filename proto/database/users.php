@@ -111,7 +111,7 @@
       return false;
     }
     
-    return crypt($password, $pass);
+    return crypt($password, $pass) == $pass;
 
   }
 
