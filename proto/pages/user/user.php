@@ -6,6 +6,22 @@
 		header('Location: ' . $BASE_URL);
 	}
 
+	if(isset($_GET['user'])){
+		if($userType != 'SystemManager') {
+			header('HTTP/1.0 403 Forbidden');
+			die();
+		}
+		else {
+			displayUserInfo($_GET['user']);
+		}
+	}
+
+	if($userType == 'Client')
+		displayUserInfo($username);
+
+
+function displayUserInfo($username){
+	global $smarty;
 	$userInfo = getUserByUsername($username);
 
 	// @TODO: error handling
@@ -28,6 +44,7 @@
 	$idCard = $clientInfo['id_card'];
 	$picture = $clientInfo['picture'];
 
+	$smarty->assign('USER', $username);
 	$smarty->assign('ADDRESS', $address);
 	$smarty->assign('PHONE', $phone);
 	$smarty->assign('EMAIL', $email);
@@ -36,3 +53,4 @@
 
 
 	$smarty->display('user/user_profile.tpl');
+}

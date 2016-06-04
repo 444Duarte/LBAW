@@ -44,7 +44,7 @@
 											<div class="col-sm-4">
 												<div class="panel panel-default">
 													<div class="panel-heading">
-														<h3 class="panel-title">{$USERNAME}</h3>
+														<h3 class="panel-title">{$USER}</h3>
 													</div>
 													<div class="panel-body">
 														<p><strong>Address: </strong>{$ADDRESS}</p>

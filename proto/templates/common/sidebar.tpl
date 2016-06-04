@@ -10,7 +10,7 @@
   {/if}
   {if $USER_TYPE == 'SystemManager'}
     <ul class="nav nav-sidebar">
-    	<li><a href="{$BASE_URL}pages/admin/admin_user_list.php">Users Lists</a> </li>
+    	<li><a href="{$BASE_URL}pages/admin/users_list.php">Users Lists</a> </li>
     </ul>
   {/if}
 </div>

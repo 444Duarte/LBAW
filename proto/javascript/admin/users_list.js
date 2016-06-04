@@ -78,7 +78,13 @@ function updateUsers(data, banned){
 	$activeUsers.html('');
 
 	for(var i = 0; i < data.length; ++i){
-		var userRow = '<td>' + data[i]['username'] + '</td><td>' + data[i]['type'] + '</td>';
+		if(data[i]['type'] == 'Client'){
+			var userRow = '<td><a href="pages/user/user.php?user=' + data[i]['username'] + '">' + data[i]['username'] + '</a></td><td>' + data[i]['type'] + '</td>';
+		}
+		else {
+			var userRow = '<td>' + data[i]['username'] + '</td><td>' + data[i]['type'] + '</td>';
+
+		}
 		if(!banned){
 			var lastRow = '<td><a class="block-user-botton form-submit" href="javascript:;" title="Block Account"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span><form class="block-user-form" action="/~up201304205/proto/actions/admin/block_user.php" method="post"><input type="hidden" name="user" value="' + data[i]['id'] + '"></form></a></td>';
 		}

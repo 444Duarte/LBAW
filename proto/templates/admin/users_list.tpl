@@ -26,18 +26,6 @@
                   </tr>
               </thead>
               <tbody>                
-                <tr>
-                  <td>im01</td>
-                  <td>Inventory Manager</td>
-                  <td>
-                    <a class="block-user-botton form-submit" href="javascript:;" title="Block Account">
-                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                      <form class="block-user-form" action="{$BASE_URL}actions/admin/block_user.php" method="post">
-                        <input type="hidden" name="user" value="1">
-                      </form>
-                    </a>
-                  </td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -71,30 +59,6 @@
                   </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>im99</td>
-                  <td>Inventory Manager</td>
-                  <td>
-                    <a href="javascript:;" class="form-submit" title="Revive Account">
-                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                      <form class="revive-user-form" action="{$BASE_URL}actions/admin/revive_user.php" method="post">
-                        <input type="hidden" name="user" value="9">
-                      </form>
-                    </a>
-                  </td>                
-                </tr>
-                <tr>
-                  <td>client20</td>
-                  <td>Client</td>
-                  <td>
-                    <a href="javascript:;" class="form-submit" title="Revive Account">
-                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                      <form class="revive-user-form" action="{$BASE_URL}actions/admin/revive_user.php" method="post">
-                        <input type="hidden" name="user" value="20">
-                      </form>
-                    </a>
-                  </td> 
-                </tr>
               </tbody>
             </table>
           </div>
