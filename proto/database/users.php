@@ -111,7 +111,7 @@
       return false;
     }
     
-    return crypt($password, $pass);
+    return crypt($password, $pass) == $pass;
 
   }
 
@@ -217,12 +217,10 @@
     return $result;  
   }
 
-  function getUserHistory($username){
+  function getUserHistory($username, $limit, $offset){
     global $conn;
     
-    $stmt = $conn->prepare("BEGIN;
-      SET TRANSACTION ISOLATION LEVEL READ COMMITTED READ ONLY;
-      SELECT items.name AS name, categories.name AS category, subcategories.name AS subcategory, item_history_records.date AS DATE, 
+    $stmt = $conn->prepare("SELECT items.name AS name, categories.name AS category, subcategories.name AS subcategory, item_history_records.date AS DATE, 
       item_history_records.type AS TYPE
       FROM items, item_instances, item_history_records, categories, subcategories, users, lend_records, return_records
       WHERE users.username = :USER AND users.id = lend_records.id_client AND lend_records.id = item_history_records.id
@@ -237,9 +235,10 @@
       item_instances.id_item = items.id AND items.id_subcategory = subcategories.id AND subcategories.id_category = categories.id
       ORDER BY DATE DESC
       LIMIT :LIMIT
-      OFFSET :offset;
-      COMMIT;");
+      OFFSET :offset;");
     $stmt->bindParam(":USER", $username,PDO::PARAM_STR);
+    $stmt->bindParam(":LIMIT", $limit,PDO::PARAM_INT);
+    $stmt->bindParam(":offset", $offset,PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetchAll();
     
@@ -247,6 +246,17 @@
       return false;
     }
     return $result; 
+  }
+
+
+  function getUserHistoryCount($id){
+    global $conn;
+    $stmt = $conn->prepare(
+      "SELECT COUNT(*) AS count FROM lend_records, return_records WHERE lend_records.id_client = :id AND return_records.id_client = :id;");
+    $stmt->bindParam(":id", $id,PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    return $result['count'];
   }
 
   function getUserType($username){
@@ -361,4 +371,12 @@
     $stmt->bindParam(":id", $idUser,PDO::PARAM_INT);
     return $stmt->execute();
     
+  }
+
+  function getUserEmail($idUser){
+    global $conn;
+    $stmt = $conn->prepare('SELECT email FROM users where id = :id');
+    $stmt->bindParam(":id", $idUser,PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch()['email'];
   }
