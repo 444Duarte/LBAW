@@ -29,7 +29,9 @@ function updateBookings(data){
 		$startD = data[i]['start_date'];
 		$endD = data[i]['end_date'];
 		$line = $("<tr id=\"bookingN" + data[i]['id'] + "\">");
-		$line.html("<td><a href=\"#\">" + data[i]['name']+ "</a></td>" +
+		var itemURL = "pages/inventory/item.php?category=" + data[i]['category'] + "&subcategory=" + data[i]['subcategory'] + "&item=" + data[i]['name'];
+		
+		$line.html("<td><a href=\""+ itemURL +"\">" + data[i]['name']+ "</a></td>" +
 			"<td><a href=\"#\">" + data[i]['category'] + "</a></td>" +
 			"<td><a href=\"#\">" + data[i]['subcategory'] + "</a></td>" +
 			"<td class=\"startDate\">" + $startD + "</td>" +
@@ -73,9 +75,10 @@ function updateHistoryItems(data){
 	for (var i = 0; i < data.length; i++) {
 		//alert(data[i]['name']);
 		$line = $("<tr>");
+		var itemURL = "pages/inventory/item.php?category=" + data[i]['category'] + "&subcategory=" + data[i]['subcategory'] + "&item=" + data[i]['name'];
 		$line.html("<td>" + data[i]['date']+ "</td>" +
 			"<td>" + data[i]['type'] + "</td>" +
-			"<td><a href=\"#\">" + data[i]['name'] + "</a></td>" +
+			"<td><a href=\""+ itemURL +"\">" + data[i]['name'] + "</a></td>" +
 			"<td><a href=\"#\">" + data[i]['category'] + "</a></td>" +
 			"<td><a href=\"#\">" + data[i]['subcategory'] + "</a></td>");
 		$historyBody.append($line);
