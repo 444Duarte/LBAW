@@ -12,8 +12,8 @@
 															INNER JOIN (SELECT id_item_instance, max(date) AS date
 																					FROM item_history_records
 																					GROUP BY id_item_instance) AS recent_records
-															ON 
-															(item_history_records.id_item_instance = recent_records.id_item_instance AND item_history_records.date = recent_records.date)
+																ON 
+																(item_history_records.id_item_instance = recent_records.id_item_instance AND item_history_records.date = recent_records.date)
 															NATURAL JOIN lend_records
 														WHERE type = \'Lend\' AND lend_records.end_date < now() ;');
 		$stmt->bindParam(":maxDate", $maxReservationDays,PDO::PARAM_INT);
