@@ -11,8 +11,9 @@
 		exit;
 	}
 
-	if($_SESSION['USER_TYPE'] != 'SystemManager'){
+	if($userType != 'SystemManager'){
 		$_SESSION['error_messages'][] = 'Invalid request';
+		// echo $_SESSION['USER_TYPE'];
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 		exit;
 	}
