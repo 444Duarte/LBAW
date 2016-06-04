@@ -54,7 +54,7 @@ function updateItems(items){
 
 		for(var j = i; j < items.length && (j < (i + itemsPerPage/rows)); ++j){
 			$item = $('<div class="col-xs-6 col-md-3">');
-			$item.html("<a class=\"thumbnail\">" + "<img src=\"images/res/" + items[j]['picture'] + "\"alt=\"" +items[j]['name'] + "\"> <div class=\"caption\"><h3>"+items[j]['name']+"</h3></div></a></div>");
+			$item.html("<a class=\"thumbnail\" href=\"pages/inventory/item.php?category=" + items[j]['category'] + "&subcategory=" + items[j]['subcategory'] + "&item=" + items[j]['name'] + "\">" + "<img src=\"images/res/" + items[j]['picture'] + "\"alt=\"" +items[j]['name'] + "\"> <div class=\"caption\"><h3>"+items[j]['name']+"</h3></div></a></div>");
 			
 			$itemrow.append($item);
 		}

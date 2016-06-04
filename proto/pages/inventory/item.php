@@ -26,5 +26,18 @@
 
 	$item = getItem($category, $subcategory, $name);
 	
+	// need not found page
+	if (!$item) {
+		header('HTTP/1.0 404 Not Found');
+		echo "need not found page";
+		exit();
+	}
+	
 	$smarty->assign('item', $item);
-	$smarty->display('inventory/item.tpl');
+	
+	if ($userType != "InventoryManager") {
+		$smarty->display('inventory/item_no_admin.tpl');
+	}
+	else {
+		echo "need page for inventory manager";
+	}

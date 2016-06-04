@@ -1,14 +1,14 @@
-<html>
-<?php include_once '{$BASE_URL}templates/common/header.tpl';?>
-<link rel="stylesheet" type="text/css" href="{$BASE_URL}css/inventory/about_us.css">
+{extends file="common/main.tpl"}
+{block name="title"}About Us{/block}
+{block name="css" append}
+	<link rel="stylesheet" type="text/css" href="css/inventory/about_us.css">
+{/block}
 
-
-<body>
-	<?php include_once '{$BASE_URL}templates/common/topbar.tpl';?>
-
+{block name="content"}
+	{include file="common/topbar.tpl"}
 	<div class="container-fluid">
 	    <div class="row">
-	      	<?php include_once '{$BASE_URL}templates/common/sidebar.tpl';?>
+	      	{include file="common/sidebar.tpl"}
 
 	      	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 		      	<div class="about-us">
@@ -30,12 +30,4 @@
           	</div>
 	   	</div>
 	</div>
-
-<script src="{$BASE_URL}lib/jquery-1.12.1.min.js"></script>
-<script src="{$BASE_URL}lib/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	$(".username").hide();
-</script>
-
-</body>
-</html>
+{/block}
