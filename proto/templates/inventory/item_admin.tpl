@@ -62,61 +62,8 @@
 								{include file="inventory/item_history.tpl"}
 							</div>
 							<div role="tabpanel" class="tab-pane" id="instances">
-								<div class="row">
-									<div class="col-sm-12">
-										<div class="panel panel-default">
-											<div class="panel-heading clearfix">
-													<span class="panel-title">Available Items</span>
-													<span class="pull-right">
-													<button id="add-item-button" type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#add-instance-modal" data-whatever="@getbootstrap">           
-														<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Instance
-													</button>
-													</span>
-												</div>
-												<div class="panel-body">
-													<table class="table table-striped">
-														<thead><tr>
-															<th> ID </th>
-															<th> State </th>
-															<th> Condition </th>
-															<th> Actions </th>
-														</tr></thead>
-														<tr>
-															<td> 000001 </td>
-															<td> Available </td>
-										                    <td>
-															<a href="#" title="Lend"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
-															<a href="#" title="Maintenance"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
-															<a href="#" title="Return"><span class="glyphicon glyphicon-log-in transparent" aria-hidden="true"></span></a>
-															<a href="#" title="Remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-															</td>
-														</tr>
-														<tr>
-															<td> 000003 </td>
-															<td> Maintenance </td>
-										                    <td>
-															<a href="#" title="Lend"><span class="glyphicon glyphicon-log-out transparent" aria-hidden="true"></span></a>
-															<a href="#" title="Maintenance"><span class="glyphicon glyphicon-wrench transparent" aria-hidden="true"></span></a>
-															<a href="#" title="Return"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a>
-															<a href="#" title="Remove"><span class="glyphicon glyphicon-remove transparent" aria-hidden="true"></span></a>
-															</td>
-														</tr>
-														<tr>
-															<td> 000005 </td>
-															<td> Available </td>
-										                    <td>
-															<a href="#" title="Lend"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a>
-															<a href="#" title="Maintenance"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
-															<a href="#" title="Return"><span class="glyphicon glyphicon-log-in transparent" aria-hidden="true"></span></a>
-															<a href="#" title="Remove"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
-															</td>
-														</tr>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+								{include file="inventory/item_instances.tpl"}
+							</div>
 							</div>
 							<div role="tabpanel" class="tab-pane" id="settings">...</div>
 						</div>

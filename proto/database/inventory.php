@@ -175,3 +175,30 @@
 		  return false;
 		}
 	}
+
+	function getInstancesInfo($category, $subcategory, $name){
+		global $conn;
+		$stmt = $conn->prepare("SELECT item_instances.id AS id, item_instances.condition AS condition FROM item_instances, items, categories, subcategories
+			WHERE item_instances.id_item = items.id AND items.name = :item AND items.id_subcategory = subcategories.id
+			AND subcategories.name = :subcategory AND subcategories.id_category = categories.id AND categories.name = :category;"
+		);
+		$stmt->bindValue(':category', $category, PDO::PARAM_STR);
+		$stmt->bindValue(':subcategory', $subcategory, PDO::PARAM_STR);
+		$stmt->bindValue(':item', $name, PDO::PARAM_STR);
+		$stmt->execute();
+
+		$result = $stmt->fetchAll();
+		return $result;
+	}
+
+	function getInstanceState($id){
+		global $conn;
+		$stmt = $conn->prepare("SELECT item_history_records.id AS id, item_history_records.type AS type FROM item_history_records WHERE item_history_records.id_item_instance = :id
+			ORDER BY id DESC;"
+			);
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetch();
+		return $result;
+	}

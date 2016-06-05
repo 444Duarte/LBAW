@@ -30,7 +30,6 @@
 	// need not found page
 	if (!$item) {
 		header('HTTP/1.0 404 Not Found');
-		echo "need not found page";
 		exit();
 	}
 	
@@ -42,6 +41,23 @@
 	}
 	else {
 		$records = getItemRecords($item['id'], 0, 5);
+		$instances = getInstancesInfo($category, $subcategory, $name);
+		for($i = 0; $i < count($instances); $i++){
+			$state = getInstanceState($instances[$i]['id']);
+			if($state['type'] == 'Add' or $state['type'] == 'Return' or $state['type'] == 'Repaired')
+				$instances[$i]['state'] = 'Available';
+			else
+				$instances[$i]['state'] = $state['type'];
+
+		}
+		foreach ($instances as $row) {
+			$state = getInstanceState($row['id']);
+			if($state['type'] == 'Add' or $state['type'] == 'Return' or $state['type'] == 'Repaired')
+				$row['state'] = 'Available';
+			else
+				$row['state'] = $state['type'];
+		}
 		$smarty->assign('records', $records);
+		$smarty->assign('instances', $instances);
 		$smarty->display('inventory/item_admin.tpl');
 	}
