@@ -28,3 +28,15 @@ function validatePhoneNumber($phoneNumber){
 	}
 	return true;
 }
+
+function validateDatePicker($date){
+	//06/31/2016
+	if(strlen($date)!=10){
+		throw new Exception("Invalid date", 1);
+	}
+	$mes = substr($date, 0, 2);
+	$dia = substr($date, 3, 2);
+	$ano = substr($date, 6, 4);
+	$result = $ano.'-'.$mes.'-'.$dia;
+	return $result;
+}

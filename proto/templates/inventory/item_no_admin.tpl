@@ -3,6 +3,7 @@
 {block name="title"} {$item.name} Item Page {/block}
 {block name="css" append}
 	<link rel="stylesheet" type="text/css" href="css/inventory/item.css">
+	
 {/block}
 
 {block name="content"}
@@ -40,12 +41,13 @@
 							{if $USERNAME != NULL}
 							<div class="row">
 								<div class="col-sm-6">
-									<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#bookModal">Book Item</button>
+									<button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#bookModal" onClick="updateSelectedInstance()">Book Item</button>
 								</div>
 							</div>
 							{/if}
 						</div>
 					</div>
+					<div id="reservations" style="display: none;">{$reservations|@json_encode}</div>
 				</div>
 				{if $USERNAME != NULL}
 				<!-- Modal -->
@@ -63,7 +65,7 @@
 				      		<table name="form" style="width:100%">
 							  	<tr>
 							  		<td>Instance:</td> 
-								  	<td><select name="item_instance">
+								  	<td><select name="item_instance" id="selectForm">
 								  		{foreach from=$itemInstances item=it}
 								  			<option value="{$it}">{$it}</option>
 								  		{/foreach}
@@ -71,11 +73,11 @@
 								</tr>
 								<tr>
 								 	<td>Start Date:</td>
-								  	<td><input type="date" name="start_date"></td>
+								  	<td><input type="text" class="datepicker" name="start_date"></td>
 								</tr>
 								<tr>
 								  	<td>End Date:</td>
-								  	<td><input type="date" name="end_date"></td>
+								  	<td><input type="text" class="datepicker" name="end_date"></td>
 								</tr>
 								<tr>
 									<td><input type="submit" value="Submit"></td>
@@ -84,7 +86,7 @@
 						</form>
 				      </div>
 				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeButton">Close</button>
 				      </div>
 				    </div>
 
@@ -99,5 +101,13 @@
 {block name="js" append}
 	{if $USER_TYPE == 'Client'}
 	<script src="{$BASE_URL}javascript/inventory/item.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script>
+  $(function() {
+    $( ".datepicker" ).datepicker();
+  });
+  </script>
 	{/if}
 {/block}
