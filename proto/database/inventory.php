@@ -257,6 +257,7 @@
 			'INSERT INTO categories(name) VALUES (:name)');
 		$stmt->bindValue(':name', $nameCategory, PDO::PARAM_STR);
 		return $stmt->execute();
+	}
 
 	function getReservations($id_item){
 		global $conn;
