@@ -145,10 +145,10 @@
     $stmt = $conn->prepare("SELECT * FROM users where username = :username");
     $stmt->bindParam(":username", $username,PDO::PARAM_STR);
     $stmt->execute();
-    $result = $stmt->fetchAll();
-    if(count($result) ===0){
-      return false;
-    }
+    $result = $stmt->fetch();
+    if(count($result) ===0 || $result == NULL){
+      throw new Exception('user does not exist', 1);
+    }    
     return $result[0];   
   }
 
@@ -260,16 +260,7 @@
   }
 
   function getUserType($username){
-    global $conn;
-    $stmt = $conn->prepare("SELECT type FROM users where username = :username");
-    $stmt->bindParam(":username", $username,PDO::PARAM_STR);
-    $stmt->execute();
-    $result = $stmt->fetch();
-    if(count($result) ===0 || $result == NULL){
-      throw new Exception('user does not exist', 1);
-    }
-
-    return $result['type'];
+    return getUserByUsername($username)['type'];
   }
 
   function inventoryManagerPreRegister($email){
@@ -374,9 +365,13 @@
   }
 
   function getUserEmail($idUser){
+    return getUser($idUser)['email'];
+  }
+
+  function getUser($idUser){
     global $conn;
-    $stmt = $conn->prepare('SELECT email FROM users where id = :id');
+    $stmt = $conn->prepare('SELECT * FROM users where id = :id');
     $stmt->bindParam(":id", $idUser,PDO::PARAM_INT);
     $stmt->execute();
-    return $stmt->fetch()['email'];
+    return $stmt->fetch();
   }

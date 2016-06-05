@@ -24,3 +24,18 @@
 		}
 		return $result;
 	}
+
+	function deleteReservation($idReservation){
+		global $conn;
+		$stmt = $conn->prepare('DELETE FROM reservations 
+								WHERE id = :idReservation
+								RETURNING *');
+		$stmt->bindParam(":idReservation",$idReservation, PDO::PARAM_INT);
+		if(!$stmt->execute())
+			return false;
+		$result = $stmt->fetchAll();
+		if(count($result) == 0){
+			throw new Exception("Error Processing Request", 1);
+		}
+		return $result[0];
+	}

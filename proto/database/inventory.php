@@ -276,3 +276,18 @@
 			exit();
 		}
 	}
+	function getItemByItemInstanceId($idItemInstance){
+		global $conn;
+		$stmt = $conn->prepare('SELECT items.* 
+								FROM items, item_instances
+								WHERE 	item_instances.id = :idItemInstance 
+										AND items.id = item_instances.id_item:');
+		$stmt->bindValue(':idItemInstance', $idItemInstance, PDO::PARAM_INT);
+		if(!$stmt->execute())
+			return false;
+		$result = $stmt->fetchAll();
+		if(count($result)==0){
+			return false;
+		}
+		return $result[0];
+	}
