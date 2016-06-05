@@ -1,21 +1,19 @@
 {extends file="common/main.tpl"}
 
-{function name=print_stars}
-	{for $i = 1 to $n_stars}
-		<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-	{/for}
-	{for $i = $n_stars + 1 to 5}
-		<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-	{/for}
-{/function}
-
 {block name="title"} {$item.name} Item Page {/block}
 {block name="css" append}
-{print_stars n_stars=2}
 	<link rel="stylesheet" type="text/css" href="css/inventory/item.css">
 {/block}
 
 {block name="content"}
+	{function name=print_stars}
+		{for $i = 1 to $n_stars}
+			<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+		{/for}
+		{for $i = $n_stars + 1 to 5}
+			<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+		{/for}
+	{/function}
 	{include file='common/topbar.tpl'}
 	<div class="container-fluid">
 	    <div class="row">
@@ -23,8 +21,8 @@
 	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 	    		<ol class="breadcrumb">
 					<li><a href="">Home</a></li>
-					<li><a href="#">{$item.category}</a></li>
-					<li><a href="#">{$item.subcategory}</a></li>
+					<li><a>{$item.category}</a></li>
+					<li><a>{$item.subcategory}</a></li>
 					<li class="active">{$item.name}</li>
 				</ol>
 				<div>
@@ -58,77 +56,10 @@
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-sm-6">
-										<button type="button" class="btn btn-primary btn-lg btn-block">Book Item</button>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group">
-										<div class="row">
-											<div class="col-md-8">
-												<div id="datetimepicker12"></div>
-											</div>
-										</div>
-									</div>
-								</div>
 							</div>
+							
 							<div role="tabpanel" class="tab-pane" id="history">
-								<table class="table table-striped">
-					              <thead>
-					                  <tr>
-										<th>ID</th>
-									    <th>Action</th>
-					                    <th>Date</th>
-										<th>Manager</th>
-										<th>Client</th>
-					                  </tr>
-					              </thead>
-								  <tbody>
-					                <tr>
-									  <td>000003</td>
-					                  <td>Maintenance</td>
-					                  <td>12/03/2016</td>
-					                  <td>Pedro Ferreira</td>
-									  <td>MarMan - Manutencao de Martelos, Lda</td>
-					                </tr>
-									<tr>
-									  <td>000003</td>
-					                  <td>Return</td>
-					                  <td>12/03/2016</td>
-									  <td>Pedro Ferreira</td>
-									  <td><a href="pages/user/user_profile.php">Marcelo Rebelo de Sousa</a></td>
-					                </tr>
-					                <tr>
-									  <td>000003</td>
-					                  <td>Lend</td>
-					                  <td>10/03/2016</td>
-									  <td>Afonso Castro</td>
-									  <td><a href="user_profile.php">Marcelo Rebelo de Sousa</a></td>
-					                </tr>
-									<tr>
-									  <td>000005</td>
-					                  <td>Add Instance</td>
-					                  <td>10/03/2016</td>
-									  <td>Afonso Castro</td>
-									  <td>---</td>
-					                </tr>    
-									<tr>
-									  <td>000003</td>
-					                  <td>Add Instance</td>
-					                  <td>10/03/2016</td>
-									  <td>Afonso Castro</td>
-									  <td>---</td>
-					                </tr>    
-					                <tr>
-									  <td>000001</td>
-					                  <td>Add Instance</td>
-					                  <td>10/03/2016</td>
-									  <td>Afonso Castro</td>
-									  <td>---</td>
-					                </tr>               
-					              </tbody>
-					            </table>
+								{include file="inventory/item_history.tpl"}
 							</div>
 							<div role="tabpanel" class="tab-pane" id="instances">
 								<div class="row">

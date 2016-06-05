@@ -41,5 +41,7 @@
 		$smarty->display('inventory/item_no_admin.tpl');
 	}
 	else {
+		$records = getItemRecords($item['id'], 0, 5);
+		$smarty->assign('records', $records);
 		$smarty->display('inventory/item_admin.tpl');
 	}

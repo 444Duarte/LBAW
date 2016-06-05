@@ -97,7 +97,7 @@
 {/block}
 
 {block name="js" append}
-	{if $USERNAME != NULL}
+	{if $USER_TYPE == 'Client'}
 	<script src="{$BASE_URL}javascript/inventory/item.js"></script>
 	{/if}
 {/block}

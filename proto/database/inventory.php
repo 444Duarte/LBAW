@@ -129,3 +129,54 @@
 			exit();
 		}
 	}
+	
+	function getItemRecords($id_item, $offset, $limit) {
+		global $conn;
+		try {
+			$conn->beginTransaction();
+			$stmt1 = $conn->prepare('SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;');
+		  
+		  if(!$stmt1)
+			throw new PDOException("Error Processing Request", 1);
+			
+		  $stmt1->execute();
+		  
+		  $stmt2 = $conn->prepare(
+			"SELECT item_history_records.id, item_instances.id AS item_instance, item_history_records.date,
+				item_history_records.type, users.username AS inventory_manager INTO TEMP instance_records FROM
+				(item_instances INNER JOIN item_history_records ON item_instances.id = item_history_records.id_item_instance)
+				INNER JOIN users ON item_history_records.id_inventory_manager = users.id WHERE id_item = ?
+				ORDER BY date DESC OFFSET ? LIMIT ?;");
+
+		  if(!$stmt2)
+			throw new PDOException("Error Processing Request", 1);
+
+		  $stmt2->execute(array($id_item, $offset, $limit));
+
+		  $stmt3 = $conn->prepare(
+		  "(SELECT instance_records.item_instance, instance_records.type, instance_records.date, instance_records.inventory_manager, NULL AS entity FROM instance_records WHERE (TYPE = 'Add' OR TYPE = 'Repaired' OR TYPE = 'Remove'))
+			UNION ALL
+			(SELECT instance_records.item_instance, instance_records.type, instance_records.date, instance_records.inventory_manager, users.username AS entity FROM instance_records INNER JOIN lend_records ON (TYPE = 'Lend' AND lend_records.id = instance_records.id) INNER JOIN users ON lend_records.id_client = users.id)
+			UNION ALL
+			(SELECT instance_records.item_instance, instance_records.type, instance_records.date, instance_records.inventory_manager, users.username AS entity FROM instance_records INNER JOIN return_records ON (TYPE = 'Return' AND return_records.id = instance_records.id)
+			INNER JOIN users ON return_records.id_client = users.id)
+			UNION ALL
+			(SELECT instance_records.item_instance, instance_records.type, instance_records.date, instance_records.inventory_manager, repairer AS entity FROM instance_records INNER JOIN maintenance_records ON maintenance_records.id = instance_records.id)
+			ORDER BY DATE DESC;");
+
+		  if (!$stmt3)
+			throw new PDOException("Error Processing Request", 1);
+
+		  $stmt3->execute();
+		  
+		  $result = $stmt3->fetchAll();
+
+		  $conn->commit();
+		  
+		  return $result; 
+		}catch(PDOException $e) {
+		  $conn->rollback();
+		  echo $e->getMessage();
+		  return false;
+		}
+	}
