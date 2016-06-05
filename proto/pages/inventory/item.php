@@ -50,13 +50,6 @@
 				$instances[$i]['state'] = $state['type'];
 
 		}
-		foreach ($instances as $row) {
-			$state = getInstanceState($row['id']);
-			if($state['type'] == 'Add' or $state['type'] == 'Return' or $state['type'] == 'Repaired')
-				$row['state'] = 'Available';
-			else
-				$row['state'] = $state['type'];
-		}
 		$smarty->assign('records', $records);
 		$smarty->assign('instances', $instances);
 		$smarty->display('inventory/item_admin.tpl');
