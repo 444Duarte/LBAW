@@ -9,10 +9,9 @@ $(document).ready(function(){
 
 
 
-	var form = $('#add-item-modal form');
-	form.submit(createItem);
-	$('#submit_form_button').click(function(){
-		form.submit();
+	$('.modal form').submit(submitFormAjax);
+	$('.submit_form_button').click(function(){
+		$(this).closest('.modal').find('form').submit();
 	});
 	changeSubCategory(null,$('#add-item-form select[name ="category"]'));
 	$('#add-item-form select[name ="category"]').change(changeSubCategory)
@@ -32,7 +31,7 @@ function changeSubCategory(e, ndom){
 	}
 }
 
-function createItem(e) {
+function submitFormAjax(e) {
 	var dom = $(this);
 	var inputs = dom.find('input');
 	for (var i = 0; i < inputs.length; i++) {
@@ -65,5 +64,5 @@ function createItem(e) {
 	    }
 	});
 	e.preventDefault();
-	$('#add-item-modal').modal('toggle');
+	dom.closest('.modal').modal('toggle');
 };
