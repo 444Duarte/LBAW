@@ -22,7 +22,7 @@
 	    		<ol class="breadcrumb">
 					<li><a href="">Home</a></li>
 					<li><a>{$item.category}</a></li>
-					<li><a>{$item.subcategory}</a></li>
+					<li><a href="pages/inventory/subcategory.php?category={$item.category}&amp;subcategory={$item.subcategory}">{$item.subcategory}</a></li>
 					<li class="active">{$item.name}</li>
 				</ol>
 				<div>

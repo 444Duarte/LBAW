@@ -26,6 +26,21 @@
 		return $result['count'];
 	}
 
+	function getSubcategoryItemCount($category, $subcategory){
+		global $conn;
+		$stmt = $conn->prepare(
+			"SELECT COUNT(*) AS count FROM items, subcategories, categories
+			WHERE items.id_subcategory = subcategories.id
+			AND subcategories.id_category = categories.id
+			AND categories.name = ?
+			AND subcategories.name = ?");
+		$stmt->bindValue(1, $category, PDO::PARAM_STR);
+		$stmt->bindValue(2, $subcategory, PDO::PARAM_STR);
+		$stmt->execute();
+		$result = $stmt->fetch();
+		return $result['count'];
+	}
+
 	function getItem($category, $subcategory, $name){
 		global $conn;
 		try {
@@ -85,6 +100,28 @@
 			return false;
 			exit();
 		}
+	}
+
+	function getSubcategoryItemList($category, $subcategory, $start, $nItems){
+		global $conn;
+		$stmt = $conn->prepare(
+			"SELECT items.name as name, subcategories.name as subcategory, categories.name as category, items.picture as picture
+			FROM items, subcategories, categories
+			WHERE items.id_subcategory = subcategories.id
+				AND subcategories.id_category = categories.id
+				AND categories.name = ?
+				AND subcategories.name = ?
+			ORDER BY name
+			LIMIT ?
+			OFFSET ?;");
+		$stmt->bindValue(1, $category, PDO::PARAM_STR);
+		$stmt->bindValue(2, $subcategory, PDO::PARAM_STR);
+		$stmt->bindValue(3, $nItems, PDO::PARAM_INT);
+		$stmt->bindValue(4, $start, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetchAll();
+		return $result;
 	}
 
 	function getSubCategories(){
