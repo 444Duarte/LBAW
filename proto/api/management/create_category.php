@@ -18,22 +18,21 @@
 		exit();
 	}
 
-	if(!isset($_POST['category'],$_POST['name'])) {
+	if(!isset($_POST['name'])) {
 		$response = array("result" => false, "message" => "Invalid request");
       	echo json_encode($response);
 		exit();	
 	}
 
-	$nameSubCategory = test_input($_POST['name']);
-	$idCategory = test_input($_POST['category']);
+	$name = test_input($_POST['name']);
 
 	try {
-		if(!createSubCategory($nameSubCategory, $idCategory)) {
+		if(!createCategory($name)) {
 			$response = array("result" => false, "message" => "Request failed");
 	      	echo json_encode($response);
 			exit();
 		}else {
-			$response = array("result" => true, "message" => "Sub-category created");
+			$response = array("result" => true, "message" => "Category created");
 		  	echo json_encode($response);
 			exit();
 		}
@@ -44,6 +43,6 @@
 	}
 
 
-	$response = array("result" => true, "message" => "Sub-category created");
+	$response = array("result" => true, "message" => "Categorycreated");
   	echo json_encode($response);
 	exit();	

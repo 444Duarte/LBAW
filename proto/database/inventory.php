@@ -212,3 +212,12 @@
 		$stmt->bindValue(':category', $idCategory, PDO::PARAM_INT);
 		return $stmt->execute();
 	}
+
+	function createCategory($nameCategory){
+		global $conn;
+		
+		$stmt = $conn->prepare(
+			'INSERT INTO categories(name) VALUES (:name)');
+		$stmt->bindValue(':name', $nameCategory, PDO::PARAM_STR);
+		return $stmt->execute();
+	}
