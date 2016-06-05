@@ -202,3 +202,13 @@
 		$result = $stmt->fetch();
 		return $result;
 	}
+
+	function createSubCategory($nameSubCategory, $idCategory){
+		global $conn;
+		
+		$stmt = $conn->prepare(
+			'INSERT INTO subcategories(name,id_category) VALUES (:name,:category)');
+		$stmt->bindValue(':name', $nameSubCategory, PDO::PARAM_STR);
+		$stmt->bindValue(':category', $idCategory, PDO::PARAM_INT);
+		return $stmt->execute();
+	}

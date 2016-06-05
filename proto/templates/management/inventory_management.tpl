@@ -86,7 +86,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" id="submit_form_button" class="btn btn-primary">Add Item</button>
+              <button type="button" id="submit_item_form_button" class="btn btn-primary submit_form_button">Add Item</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -109,7 +109,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" id="submit_form_category_button" class="btn btn-primary">Add Category</button>
+              <button type="button" id="submit_form_category_button" class="btn btn-primary submit_form_button">Add Category</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -125,17 +125,21 @@
               <h4 class="modal-title">Add Subcategory</h4>
             </div> 
             <div class="modal-body">
-              <form id="add-subcategory-form" action="api/management/create_category.php" method="post" enctype="multipart/form-data">
-                Name:<br>
-                <input type="text" name="name" required>
-                <br>Category<br>
+              <form id="add-subcategory-form" action="api/management/create_subcategory.php" method="post" enctype="multipart/form-data">
+                Category<br>
                 <select name="category" required>
+                {foreach $categories as $category}
+                  <option value="{$category.id}"> {$category.name} </option>
+                {/foreach}
                 </select>
+                <br>Name:<br>
+                <input type="text" name="name" required>
+
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" id="submit_form_subcategory_button" class="btn btn-primary">Add Subcategory</button>
+              <button type="button" id="submit_form_subcategory_button" class="btn btn-primary submit_form_button">Add Subcategory</button>
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
