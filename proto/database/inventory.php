@@ -60,19 +60,14 @@
 
 	function addItem($category, $subcategory, $name, $description, $picture){
 		global $conn;
-		try {
-			$stmt = $conn->prepare(
-				'INSERT INTO items(name, id_subcategory, description, picture) SELECT :name, subcategories.id, :description, :picture FROM subcategories, categories WHERE categories.name = :category AND categories.id = subcategories.id_category AND subcategories.name = :subcategory;');
-			$stmt->bindValue(':category', $category, PDO::PARAM_STR);
-			$stmt->bindValue(':description', $description, PDO::PARAM_STR);
-			$stmt->bindValue(':subcategory', $category, PDO::PARAM_STR);
-			$stmt->bindValue(':name', $category, PDO::PARAM_STR);
-			$stmt->bindValue(':picture', $picture, PDO::PARAM_STR);
-			$stmt->execute();
-		} catch(PDOException $e) {
-			echo $e->getMessage();
-			exit();
-		}
+		
+		$stmt = $conn->prepare(
+			'INSERT INTO items(name, id_subcategory, description, picture) VALUES (:name,:subcategory,:description,:picture)');
+		$stmt->bindValue(':name', $name, PDO::PARAM_STR);
+		$stmt->bindValue(':subcategory', $subcategory, PDO::PARAM_INT);
+		$stmt->bindValue(':description', $description, PDO::PARAM_STR);
+		$stmt->bindValue(':picture', $picture, PDO::PARAM_STR);
+		return $stmt->execute();		
 	}
 
 	function getCategories(){

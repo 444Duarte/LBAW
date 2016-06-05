@@ -9,9 +9,8 @@ $(document).ready(function(){
 
 
 
-	var form = $('.modal form');
+	var form = $('#add-item-modal form');
 	form.submit(createItem);
-	//form.validate();
 	$('#submit_form_button').click(function(){
 		form.submit();
 	});
@@ -42,24 +41,27 @@ function createItem(e) {
 		}
 	}
 	var action = dom.attr("action");
-	var data = dom.serialize();
+	var formData = new FormData($(this)[0]);
 	console.log(action);
-	console.log(data);
+	console.log(formData);
 	$.ajax({url: action, 
 		type: 'post',
-		data: data, 
+		data: formData,
+		cache: false,
+    	contentType: false,
+    	processData: false, 
 		success: function(response){
 			var result = response['result'];
 			var message = response['message'];
-			alertify.logPosition("bottom left");
+			alertify.logPosition("bottom right");
 	    	alertify.log(message);
 	    	console.log(response);
 	    },
 	    error: function(response){
-			alertify.logPosition("bottom left");
-	    	alertify.log("Request failed");
+			alertify.logPosition("bottom right");
+	    	alertify.error("Request failed");
 	    	console.log(response);
-	    	//$('body').append(response['responseText']);	    
+	    		    
 	    }
 	});
 	e.preventDefault();
