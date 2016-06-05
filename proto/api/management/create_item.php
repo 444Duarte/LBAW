@@ -1,8 +1,8 @@
 <?php
+	header('Content-Type: application/json');
 
 	if($_SERVER["REQUEST_METHOD"] != "POST"){
 		$response = array("result" => false, "message" => "Invalid request");
-      	header('Content-Type: application/json');
       	echo json_encode($response);
 		exit();
 	}
@@ -14,20 +14,19 @@
 
 	if($userType != 'InventoryManager'){
 		$response = array("result" => false, "message" => "Invalid permissions");
-      	header('Content-Type: application/json');
       	echo json_encode($response);
 		exit();
 	}
 
 	if(!isset($_POST['name']) || !isset($_POST['category']) || !isset($_POST['subcategory']) || !isset($_POST['description'])) {
 		$response = array("result" => false, "message" => "Invalid request");
-      	header('Content-Type: application/json');
       	echo json_encode($response);
 		exit();	
 	}
 
 	if(!isset($_FILES['picture'])) {
 		$target_file = $BASE_DIR . "images/assets/item_default.png";
+		//var_dump($_FILES);
 	}
 	else {
 		$target_dir = $BASE_DIR . "images/res/";
@@ -39,38 +38,38 @@
 		
 	    $check = getimagesize($_FILES["picture"]["tmp_name"]);
 	    if($check !== false) {
-	        echo "File is an image - " . $check["mime"] . ".";
+	        //echo "File is an image - " . $check["mime"] . ".";
 	        $uploadOk = 1;
 	    } else {
-	        echo "File is not an image.";
+	        //echo "File is not an image.";
 	        $uploadOk = 0;
 	    }
 		
 		// Check if file already exists
 		if (file_exists($target_file)) {
-		    echo "Sorry, file already exists.";
+		    //echo "Sorry, file already exists.";
 		    $uploadOk = 0;
 		}
 		// Check file size
 		if ($_FILES["picture"]["size"] > 500000) {
-		    echo "Sorry, your file is too large.";
+		    //echo "Sorry, your file is too large.";
 		    $uploadOk = 0;
 		}
 		// Allow certain file formats
 		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 		&& $imageFileType != "gif" ) {
-		    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+		    //echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
 		    $uploadOk = 0;
 		}
 		// Check if $uploadOk is set to 0 by an error
 		if ($uploadOk == 0) {
-		    echo "Sorry, your file was not uploaded.";
+		    //echo "Sorry, your file was not uploaded.";
 		// if everything is ok, try to upload file
 		} else {
 		    if (move_uploaded_file($_FILES["picture"]["tmp_name"], $target_file)) {
-		        echo "The file ". basename( $_FILES["picture"]["name"]). " has been uploaded.";
+		        //echo "The file ". basename( $_FILES["picture"]["name"]). " has been uploaded in $target_file";
 		    } else {
-		        echo "Sorry, there was an error uploading your file.";
+		        //echo "Sorry, there was an error uploading your file.";
 		    }
 		}
 	}
@@ -83,20 +82,20 @@
 	try {
 		if(!addItem($category, $subcategory, $name, $description, $target_file)) {
 			$response = array("result" => false, "message" => "Request failed");
-	      	header('Content-Type: application/json');
 	      	echo json_encode($response);
 			exit();
 		}else {
 			$response = array("result" => true, "message" => "Item Added");
-		  	header('Content-Type: application/json');
 		  	echo json_encode($response);
 			exit();
 		}
 	} catch (PDOException $e) {
 		$response = array("result" => false, "message" => $e->getMessage() );
-      	header('Content-Type: application/json');
       	echo json_encode($response);
 		exit();
 	}
 
-	
+
+	$response = array("result" => true, "message" => "Item Added");
+  	echo json_encode($response);
+	exit();	
