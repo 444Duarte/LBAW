@@ -1,21 +1,78 @@
-function bookItem(idClient, itemInstance, startDate, endDate){
-/*
-	//valores de teste
-	idClient = 71;
-	itemInstance = 20;
-	startDate = "2016-07-01 10:00:00";
-	endDate = "2016-07-03 11:00:00";
-*/
-	//alert($USERNAME);
-	var url = "actions/user/book_item.php";
+var selectedInstance = 0;
+var dates = new Array();
+var reservations = JSON.parse($('#reservations').html());
 
-      $.ajax({
-        url: url,
-        data: {id_client : idClient, item_instance : itemInstance, start_date : startDate, end_date : endDate}, 
-        type: 'POST',
-        datatype: 'json',
-        success: function(data) { console.log(data); },
-        error: function() { alert('something bad happened'); }
-      });
+$(document).ready(function() {
+  
+  updateDates(reservations);
+  console.log(reservations);
+  
+  /*dates = {
+    '2016/6/4': 'some description',
+    '2016/6/6': 'some other description',
+    '2016/6/9': 'some other description'
+  };*/
+
+  $('.datepicker').datepicker({
+    beforeShowDay: function(date) {
+      var search = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
+
+      //if (search in dates) {
+      if (jQuery.inArray(search, dates) == -1){
+        return [true, 'highlight', (dates[search] || '')];
+      }
+
+      return [false, '', ''];
     }
+  });
+
+});
+
+function updateDates(reservations){
+  dates = new Array();
+
+  for(var i = 0; i < reservations.length; i++){
+
+    if(reservations[i].id_item_instance != selectedInstance)
+      continue;
+
+    var start = new Date(reservations[i].start_time);
+    var end = new Date(reservations[i].end_time);
+
+    var result = getDates(start, end);
+    for(var x = 0; x < result.length; x++){
+      var data = result[x].getFullYear() + "/" + (result[x].getMonth() + 1) + '/' + result[x].getDate();
+      dates.push(data);
+    }
+
+  }
 }
+
+Date.prototype.addDays = function(days) {
+    var dat = new Date(this.valueOf())
+    dat.setDate(dat.getDate() + days);
+    return dat;
+}
+
+function getDates(startDate, stopDate) {
+    var dateArray = new Array();
+    var currentDate = startDate;
+    while (currentDate <= stopDate) {
+        dateArray.push( new Date (currentDate) )
+        currentDate = currentDate.addDays(1);
+    }
+    return dateArray;
+}
+
+function updateSelectedInstance(){
+  var e = document.getElementById("selectForm");
+  var strUser = e.options[e.selectedIndex].value;
+  selectedInstance = strUser;
+  console.log(selectedInstance);
+  updateDates(reservations);
+  console.log(dates);
+};
+
+$( "#selectForm" ).change(function() {
+  updateSelectedInstance();
+});

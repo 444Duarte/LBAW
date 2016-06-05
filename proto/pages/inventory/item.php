@@ -26,6 +26,7 @@
 
 	$item = getItem($category, $subcategory, $name);
 	$itemInstances = getItemInstances($item['id']);
+	$reservations = getReservations($item['id']);
 	
 	// need not found page
 	if (!$item) {
@@ -35,6 +36,8 @@
 	
 	$smarty->assign('item', $item);
 	$smarty->assign('itemInstances', $itemInstances);
+	$smarty->assign('reservations', $reservations);
+
 	
 	if ($userType != "InventoryManager") {
 		$smarty->display('inventory/item_no_admin.tpl');

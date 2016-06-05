@@ -25,6 +25,9 @@
 	$start = $_POST['start_date'];
 	$end = $_POST['end_date'];
 
+	$start = validateDatePicker($start);
+	$end = validateDatePicker($end);
+
 
 	if (bookItem($idClient, $item, $start, $end)){
 		$_SESSION['success_messages'][] = 'Booking successful';

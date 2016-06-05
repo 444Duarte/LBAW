@@ -220,4 +220,21 @@
 			'INSERT INTO categories(name) VALUES (:name)');
 		$stmt->bindValue(':name', $nameCategory, PDO::PARAM_STR);
 		return $stmt->execute();
+
+	function getReservations($id_item){
+		global $conn;
+		try {
+			$stmt = $conn->prepare('SELECT reservations.id_item_instance, reservations.start_time, reservations.end_time FROM reservations, item_instances WHERE reservations.id_item_instance = item_instances.id AND item_instances.id_item = :id; ');
+			$stmt->bindValue(':id', $id_item, PDO::PARAM_INT);
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+			if(count($result)==0){
+				return false;
+			}
+			return $result;
+		} catch (Exception $e) {
+			echo $e->getMessage();
+			return false;
+			exit();
+		}
 	}
