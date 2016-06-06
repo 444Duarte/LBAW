@@ -43,7 +43,7 @@
 		$smarty->display('inventory/item_no_admin.tpl');
 	}
 	else {
-		$records = getItemRecords($item['id'], 0, 5);
+		$records = getItemRecords($item['id'], 0, 20);
 		$instances = getInstancesInfo($category, $subcategory, $name);
 		for($i = 0; $i < count($instances); $i++){
 			$state = getInstanceState($instances[$i]['id']);

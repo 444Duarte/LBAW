@@ -127,7 +127,11 @@
 {/block}
 
 {block name="js-code" append}
-<script type="text/javascript"> var subCategories = {$subCategories|@json_encode}; console.log(subCategories);</script>
+<script type="text/javascript"> var subCategories = {$subCategories|@json_encode}; var items = {$items|@json_encode}; var max = {$max|@json_encode};
+  //console.log("items:");
+  //console.log(items);
+  //console.log("max -> " + max);
+</script>
 {/block}
 {block name="js" append} 
 <script src="javascript/management/inventory_management.js"></script>

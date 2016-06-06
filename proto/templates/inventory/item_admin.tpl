@@ -42,7 +42,7 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<a href="#" class="thumbnail">
-											<img src="images/res/{$item.picture}" alt="{$item.name}" class="img-thumbnail">
+											<img src="{$item.picture}" alt="{$item.name}" class="img-thumbnail">
 										</a>
 									</div>
 									<div class="col-sm-6">
@@ -115,3 +115,4 @@
 	    </div><!-- /.modal-dialog -->
 	  </div><!-- /.modal -->
 {/block}
+
