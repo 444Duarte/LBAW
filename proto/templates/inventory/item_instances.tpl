@@ -26,7 +26,7 @@
 						<td>
 							{if $ins.state == 'Available'}
 								<button onClick="updateLendForm({$ins.id})" title="Lend" type="button" data-toggle="modal" data-target="#lend-item-modal" data-whatever="@getbootstrap"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button>
-								<button title="Maintenance" type="button" data-toggle="modal" data-target="#maintenace-item-modal" data-whatever="@getbootstrap"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></button>
+								<button onClick="updateMaintenance({$ins.id})" title="Maintenance" type="button" data-toggle="modal" data-target="#maintenance-item-modal" data-whatever="@getbootstrap"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></button>
 								<button title="Return" type="button"><span class="glyphicon glyphicon-log-in transparent" aria-hidden="true"></span></button>
 								<button title="Remove" type="button" data-toggle="modal" data-target="#remove-item-modal" data-whatever="@getbootstrap"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 							{elseif $ins.state == 'Removed'}
@@ -37,7 +37,7 @@
 							{else}
 								<button title="Lend" type="button" data-whatever="@getbootstrap"><span class="glyphicon glyphicon-log-out transparent" aria-hidden="true"></span></button>
 								<button title="Maintenance" type="button" data-whatever="@getbootstrap"><span class="glyphicon glyphicon-wrench transparent" aria-hidden="true">
-								<button title="Return" onClick="updateReturnForm({$ins.id})" type="button" data-toggle="modal" data-target="#return-item-modal" data-whatever="@getbootstrap"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>
+								<button title="Return" onClick="updateReturnForm({$ins.id}, '{$ins.state}')" type="button" data-toggle="modal" data-target="#return-item-modal" data-whatever="@getbootstrap"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>
 								<button title="Remove" type="button" data-whatever="@getbootstrap"><span class="glyphicon glyphicon-remove transparent" aria-hidden="true"></span></button>
 							{/if}
 						</td>
@@ -87,17 +87,18 @@
         <h4 class="modal-title">Send for Maintenance</h4>
       </div> 
       <div class="modal-body">
-        <form id="maintenance-item-form" action="actions/inventory/lend_item.php" method="post" enctype="multipart/form-data">
+        <form id="maintenance-item-form" action="actions/inventory/maintenance.php" method="post" enctype="multipart/form-data">
           Maintenance Provider:<br>
           <input type="text" name="provider" required>
           <br>End Date:<br>
           <input type="date" name="end_date" required>
           <input type="hidden" name="id">
+          <input type="hidden" name="today">
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" id="submit_form_subcategory_button" class="btn btn-primary">Send for Maintenance</button>
+        <button type="submit" form="maintenance-item-form" id="submit_form_subcategory_button" class="btn btn-primary">Send for Maintenance</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -117,6 +118,7 @@
         <form id="return-item-form" action="actions/inventory/return_item.php" method="post" enctype="multipart/form-data">
           <input type="hidden" name="id" value="{$ins.id}">
           <input type="hidden" name="today">
+          <input type="hidden" name="state">
         </form>
       </div>
       <div class="modal-footer">

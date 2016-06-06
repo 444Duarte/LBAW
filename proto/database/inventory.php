@@ -350,10 +350,9 @@
 		return $stmt->execute();
 	}
 
-	function lendItem($day, $instance, $manager, $id_client, $end_date){
+	function lendItem($instance, $manager, $id_client, $end_date){
 		global $conn;
-		$stmt = $conn->prepare("INSERT INTO item_history_records (date, id_item_instance, id_inventory_manager, type) VALUES (:data, :instance, :manager, 'Lend') RETURNING id;");
-		$stmt->bindValue(':data', $day, PDO::PARAM_STR);
+		$stmt = $conn->prepare("INSERT INTO item_history_records (id_item_instance, id_inventory_manager, type) VALUES (:instance, :manager, 'Lend') RETURNING id;");
 		$stmt->bindValue(':instance', $instance, PDO::PARAM_INT);
 		$stmt->bindValue(':manager', $manager, PDO::PARAM_INT);
 
@@ -368,7 +367,7 @@
 		return $stmt->execute();
 	}
 
-	function getUserWhoLent($instance){
+	function getUserWhoLent($instance, $type){
 		global $conn;
 		$stmt = $conn->prepare("SELECT id FROM item_history_records WHERE id_item_instance = :instance AND type = 'Lend' ORDER BY date DESC LIMIT 1");
 		$stmt->bindValue(':instance', $instance, PDO::PARAM_INT);
@@ -382,10 +381,9 @@
 		return $stmt->fetch()['id_client'];
 	}
 
-	function returnItem($today, $instance, $idManager, $id_client){
+	function returnItem($instance, $idManager, $id_client){
 		global $conn;
-		$stmt = $conn->prepare("INSERT INTO item_history_records (date, id_item_instance, id_inventory_manager, type) VALUES (:data, :instance, :manager, 'Return') RETURNING id;");
-		$stmt->bindValue(':data', $today, PDO::PARAM_STR);
+		$stmt = $conn->prepare("INSERT INTO item_history_records (id_item_instance, id_inventory_manager, type) VALUES (:instance, :manager, 'Return') RETURNING id;");
 		$stmt->bindValue(':instance', $instance, PDO::PARAM_INT);
 		$stmt->bindValue(':manager', $idManager, PDO::PARAM_INT);
 		$stmt->execute();
@@ -396,4 +394,28 @@
 		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 		$stmt->bindValue(':id_client', $id_client, PDO::PARAM_INT);
 		return $stmt->execute();
+	}
+
+	function maintenance($instance, $manager, $repairer, $end_date){
+		global $conn;
+		$stmt = $conn->prepare("INSERT INTO item_history_records (id_item_instance, id_inventory_manager, type) VALUES (:instance, :manager, 'Maintenance') RETURNING id;");
+		$stmt->bindValue(':instance', $instance, PDO::PARAM_INT);
+		$stmt->bindValue(':manager', $manager, PDO::PARAM_INT);
+		$stmt->execute();
+		$id = $stmt->fetch();
+		$id = $id['id'];
+
+		$stmt = $conn->prepare("INSERT INTO maintenance_records (id, repairer, expected_end) VALUES (:id, :repairer, :end);");
+		$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+		$stmt->bindValue(':repairer', $repairer, PDO::PARAM_STR);
+		$stmt->bindValue(':end', $end_date, PDO::PARAM_STR);
+		return $stmt->execute();
+	}
+
+	function repaired($instance, $manager){
+		global $conn;
+		$stmt = $conn->prepare("INSERT INTO item_history_records (id_item_instance, id_inventory_manager, type) VALUES (:instance, :manager, 'Repaired');");
+		$stmt->bindValue(':instance', $instance, PDO::PARAM_INT);
+		$stmt->bindValue(':manager', $manager, PDO::PARAM_INT);
+		$stmt->execute();
 	}
