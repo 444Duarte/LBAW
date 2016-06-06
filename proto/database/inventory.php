@@ -2,10 +2,11 @@
 	function getItemList($start, $nItems){
 		global $conn;
 		$stmt = $conn->prepare(
-			"SELECT items.name as name, items.removed as removed, subcategories.name as subcategory, categories.name as category, items.picture as picture
+			"SELECT items.name as name, subcategories.name as subcategory, categories.name as category, items.picture as picture
 			FROM items, subcategories, categories
 			WHERE items.id_subcategory = subcategories.id
 				AND subcategories.id_category = categories.id
+				AND items.removed = FALSE
 			ORDER BY name
 			LIMIT ?
 			OFFSET ?;");
@@ -20,7 +21,8 @@
 	function getItemCount(){
 		global $conn;
 		$stmt = $conn->prepare(
-			"SELECT COUNT(*) AS count FROM items");
+			"SELECT COUNT(*) AS count FROM items
+			WHERE items.removed = FALSE");
 		$stmt->execute();
 		$result = $stmt->fetch();
 		return $result['count'];
@@ -33,7 +35,8 @@
 			WHERE items.id_subcategory = subcategories.id
 			AND subcategories.id_category = categories.id
 			AND categories.name = ?
-			AND subcategories.name = ?");
+			AND subcategories.name = ?
+			AND items.removed = FALSE");
 		$stmt->bindValue(1, $category, PDO::PARAM_STR);
 		$stmt->bindValue(2, $subcategory, PDO::PARAM_STR);
 		$stmt->execute();
@@ -111,6 +114,7 @@
 				AND subcategories.id_category = categories.id
 				AND categories.name = ?
 				AND subcategories.name = ?
+				AND items.removed = FALSE
 			ORDER BY name
 			LIMIT ?
 			OFFSET ?;");
@@ -326,9 +330,9 @@
 		global $conn;
 		$stmt = $conn->prepare("UPDATE items SET removed = ? WHERE items.id = (SELECT items.id FROM items, subcategories, categories WHERE items.name = ? AND items.id_subcategory = subcategories.id AND subcategories.name = ? AND subcategories.id_category = categories.id AND categories.name = ?);");
 		$stmt->bindValue(1, $state, PDO::PARAM_BOOL);
-		$stmt->bindValue(2, $category, PDO::PARAM_STR);
+		$stmt->bindValue(2, $item, PDO::PARAM_STR);
 		$stmt->bindValue(3, $subcategory, PDO::PARAM_STR);
-		$stmt->bindValue(4, $item, PDO::PARAM_STR);
+		$stmt->bindValue(4, $category, PDO::PARAM_STR);
 
 		$stmt->execute();
 		$result = $stmt->fetchAll();

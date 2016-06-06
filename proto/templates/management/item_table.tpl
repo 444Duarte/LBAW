@@ -61,7 +61,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" id="submit_form_remove_button" class="btn btn-primary">Remove Item</button>
+        <input type="submit" value="Remove Item" id="submit_form_remove_button" form="remove-item-form" class="btn btn-primary">
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -86,7 +86,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" id="submit_form_subcategory_button" class="btn btn-primary">Add Item</button>
+        <input type="submit" value="Add item" id="submit_form_subcategory_button" form="add-item-form" class="btn btn-primary">
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

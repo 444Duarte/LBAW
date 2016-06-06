@@ -14,4 +14,4 @@
 	$item = $_POST['item'];
 
 	updateItemState(TRUE, $category, $subcategory, $item);
-	header('Location: ' . $BASE_URL);
+	header('Location: ' . $BASE_URL . 'pages/management/inventory_management.php');

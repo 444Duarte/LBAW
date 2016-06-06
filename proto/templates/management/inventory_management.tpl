@@ -79,7 +79,7 @@
               <h4 class="modal-title">Add Category</h4>
             </div> 
             <div class="modal-body">
-              <form id="add-category-form" action="api/management/create_category.php" method="post" enctype="multipart/form-data">
+              <form id="add-category-form" action="api/management/create_category.php" method="get" enctype="multipart/form-data">
                 Name:<br>
                 <input type="text" name="name" required>
               </form>
@@ -102,7 +102,7 @@
               <h4 class="modal-title">Add Subcategory</h4>
             </div> 
             <div class="modal-body">
-              <form id="add-subcategory-form" action="api/management/create_subcategory.php" method="post" enctype="multipart/form-data">
+              <form id="add-subcategory-form" action="api/management/create_subcategory.php" method="get" enctype="multipart/form-data">
                 Category<br>
                 <select name="category" required>
                 {foreach $categories as $category}
