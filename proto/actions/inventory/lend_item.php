@@ -27,7 +27,7 @@
 		$idManager = $idManager['id'];
 		//var_dump($idClient);
 		//echo "cenas2";
-		lendItem($today, $id, $idManager, $idClient, $endDate);
+		lendItem($id, $idManager, $idClient, $endDate);
 	}
 
 	header('Location: ' . $BASE_URL);

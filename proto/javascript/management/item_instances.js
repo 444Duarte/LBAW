@@ -45,11 +45,23 @@ function resetLendForm(){
 	form.html('Client:<br><input type="text" name="client" required><br>End Date:<br><input type="date" name="end_date" required><input type="hidden" name="id"><input type="hidden" name="today">');
 }
 
-function updateReturnForm(instance){
+function updateReturnForm(instance, state){
 	var today = new Date();
 	var idInput = document.getElementById("return-item-form").elements[0];
 	idInput.value = instance;
 	var todayS = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 	var todayInput = document.getElementById("return-item-form").elements[1];
+	todayInput.value = todayS;
+	var todayInput = document.getElementById("return-item-form").elements[2];
+	todayInput.value = state;
+
+}
+
+function updateMaintenance(instance){
+	var today = new Date();
+	var idInput = document.getElementById("maintenance-item-form").elements[2];
+	idInput.value = instance;
+	var todayS = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+	var todayInput = document.getElementById("maintenance-item-form").elements[3];
 	todayInput.value = todayS;
 }
