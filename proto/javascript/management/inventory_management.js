@@ -1,12 +1,15 @@
 $(document).ready(function(){
-	$('.modal').on('shown.bs.modal', function () {
+	$('.modal').on('shown.bs.modal', function (e) {
+		var $button = $(e.relatedTarget);
 	  $(this).find('input')[0].focus();
+	  $(this).find('input[name="category"]').attr('value', $button.data('category'));
+	  $(this).find('input[name="subcategory"]').attr('value', $button.data('subcategory'));
+	  $(this).find('input[name="item"]').attr('value', $button.data('item'));
 	});
 
 	$('.modal').on('hidden.bs.modal', function () {
 	  $(this).find('form')[0].reset();
 	});
-
 
 
 	$('.modal form').submit(submitFormAjax);

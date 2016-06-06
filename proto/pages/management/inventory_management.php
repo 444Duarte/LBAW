@@ -7,6 +7,11 @@
   $categories = getCategories();
   $subCategories = getSubCategories();
 
+  for($i = 0; $i < count($items); ++$i){
+    $condition = getAverageCondition($items[$i]['category'], $items[$i]['subcategory'], $items[$i]['name']);
+    $items[$i]['condition'] = intval(round($condition));
+  }
+
   $smarty->assign('items', $items);
   $smarty->assign('categories', $categories);
   $smarty->assign('subCategories', $subCategories);

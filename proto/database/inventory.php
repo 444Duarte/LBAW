@@ -2,7 +2,7 @@
 	function getItemList($start, $nItems){
 		global $conn;
 		$stmt = $conn->prepare(
-			"SELECT items.name as name, subcategories.name as subcategory, categories.name as category, items.picture as picture
+			"SELECT items.name as name, items.removed as removed, subcategories.name as subcategory, categories.name as category, items.picture as picture
 			FROM items, subcategories, categories
 			WHERE items.id_subcategory = subcategories.id
 				AND subcategories.id_category = categories.id
@@ -307,4 +307,30 @@
 		$stmt->execute();
 		$result = $stmt->fetch();
 		return $result['count'];
+	}
+
+	function getAverageCondition($category, $subcategory, $name){
+		global $conn;
+		$stmt = $conn->prepare(" SELECT avg(condition) AS average FROM item_instances, items, subcategories, categories
+			WHERE item_instances.id_item = items.id AND items.name = ? AND items.id_subcategory = subcategories.id AND subcategories.name = ? AND subcategories.id_category = categories.id AND categories.name = ?;");
+		$stmt->bindValue(1, $name, PDO::PARAM_STR);
+		$stmt->bindValue(2, $subcategory, PDO::PARAM_STR);
+		$stmt->bindValue(3, $category, PDO::PARAM_STR);
+
+		$stmt->execute();
+		$result = $stmt->fetch();
+		return $result['average'];
+	}
+
+	function updateItemState($state, $category, $subcategory, $item){
+		global $conn;
+		$stmt = $conn->prepare("UPDATE items SET removed = ? WHERE items.id = (SELECT items.id FROM items, subcategories, categories WHERE items.name = ? AND items.id_subcategory = subcategories.id AND subcategories.name = ? AND subcategories.id_category = categories.id AND categories.name = ?);");
+		$stmt->bindValue(1, $state, PDO::PARAM_BOOL);
+		$stmt->bindValue(2, $category, PDO::PARAM_STR);
+		$stmt->bindValue(3, $subcategory, PDO::PARAM_STR);
+		$stmt->bindValue(4, $item, PDO::PARAM_STR);
+
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+		return $result;
 	}

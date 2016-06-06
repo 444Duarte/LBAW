@@ -27,30 +27,7 @@
             </button>
           </div>
           <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Sub-Category</th>
-                    <th>State</th>
-                    <th>Average Condition</th>
-                    <th>Action</th>
-                  </tr>
-              </thead>
-              <tbody>
-                {foreach $items as $item}
-                  <tr>
-                    <td><a href="{$BASE_URL}pages/inventory/item.php">{$item.name}</a></td>
-                    <td><a href="#">{$item.category}</a></td>
-                    <td><a href="#">{$item.subcategory}</a></td>
-                    <td>Available</td>
-                    <td> {* {print_stars nStars = 3} *} </td>
-                    <td><a href="" title="Remove item"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
-                  </tr>
-                {/foreach}                
-              </tbody>
-            </table>
+            {include file='management/item_table.tpl'}
           </div>
         </div>
       </div>
