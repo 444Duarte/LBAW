@@ -115,3 +115,4 @@
 	    </div><!-- /.modal-dialog -->
 	  </div><!-- /.modal -->
 {/block}
+
