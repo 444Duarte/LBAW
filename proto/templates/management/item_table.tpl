@@ -18,7 +18,7 @@
         <th>Action</th>
       </tr>
   </thead>
-  <tbody>
+  <tbody id="item-list-table">
     {foreach $items as $item}
       <tr>
         <td><a href="pages/inventory/item.php?category={$item.category}&amp;subcategory={$item.subcategory}&amp;item={$item.name}">{$item.name}</a></td>
@@ -26,7 +26,7 @@
         <td><a href="pages/inventory/subcategory.php?category={$item.category}&amp;subcategory={$item.subcategory}">{$item.subcategory}</a></td>
         {if $item.removed == FALSE}
           <td>Available</td>
-        {else}
+        {else} 
           <td>Removed</td>
         {/if}
         <td> {print_stars nStars = $item.condition} </td>
@@ -41,6 +41,22 @@
     {/foreach}                
   </tbody>
 </table>
+
+<nav>
+  <ul id="pagination" class="pagination">
+    <li class="disabled">
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="active"><a href="#">1</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 
 <div id="remove-item-modal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">

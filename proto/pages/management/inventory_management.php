@@ -3,7 +3,7 @@
   include_once($BASE_DIR . 'database/users.php');
   include_once($BASE_DIR . 'database/inventory.php');
   
-  $items = getItemList(0, 20);  
+  $items = getItemList(0, 10);  
   $categories = getCategories();
   $subCategories = getSubCategories();
 
@@ -12,8 +12,11 @@
     $items[$i]['condition'] = intval(round($condition));
   }
 
+  $max = getItemCount();
+
   $smarty->assign('items', $items);
   $smarty->assign('categories', $categories);
   $smarty->assign('subCategories', $subCategories);
+  $smarty->assign('max', $max);
 
   $smarty->display('management/inventory_management.tpl');
