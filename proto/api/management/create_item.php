@@ -25,12 +25,11 @@
 	}
 
 	if(!isset($_FILES['picture'])) {
-		$target_file = $BASE_DIR . "images/assets/item_default.png";
-		//var_dump($_FILES);
+		$target_dir = "images/assets/item_default.png";
 	}
 	else {
-		$target_dir = $BASE_DIR . "images/res/";
-		$target_file = $target_dir . basename($_FILES["picture"]["name"]);
+		$target_dir =  "images/res/" . basename($_FILES["picture"]["name"]) ;
+		$target_file = $BASE_DIR . $target_dir;
 		$uploadOk = 1;
 		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
@@ -80,7 +79,7 @@
 	$description = test_input($_POST['description']);
 	
 	try {
-		if(!addItem($category, $subcategory, $name, $description, $target_file)) {
+		if(!addItem($category, $subcategory, $name, $description, $target_dir)) {
 			$response = array("result" => false, "message" => "Request failed");
 	      	echo json_encode($response);
 			exit();
