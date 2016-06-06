@@ -162,6 +162,18 @@
 		}
 	}
 	
+	function fullTextSearch($search, $offset, $limit) {
+		global $conn;
+		try {
+			$stmt = $conn->prepare("SELECT * FROM items, plainto_tsquery(:search) query
+							WHERE query @@ tsv
+							ORDER BY ts_rank(tsv, query) DESC LIMIT :limit OFFSET :offset;");
+			$stmt->execute(array($search, $limit, $offset));
+			
+			return $stmt->fetchAll();
+		}
+	}
+	
 	function getItemRecords($id_item, $offset, $limit) {
 		global $conn;
 		try {
