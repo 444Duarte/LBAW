@@ -34,7 +34,7 @@
         {if $item.removed == FALSE}
         <button title="Remove item" type="button" data-toggle="modal" data-target="#remove-item-modal" data-category="{$item.category}" data-subcategory="{$item.subcategory}" data-item="{$item.name}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
         {else}
-        <button title="Add item" type="button" data-toggle="modal" data-target="#add-item-modal" data-category="{$item.category}" data-subcategory="{$item.subcategory}" data-item="{$item.name}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+        <button title="Add item" type="button" data-toggle="modal" data-target="#add-confirmation-modal" data-category="{$item.category}" data-subcategory="{$item.subcategory}" data-item="{$item.name}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
         {/if}
         </td>
       </tr>

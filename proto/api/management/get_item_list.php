@@ -10,10 +10,10 @@
 		$limit = $_GET['limit'];
 		$offset = $_GET['offset'];
 		try {
-			$items = getItemList($offset, $limit); 
+			$items = getItemListWithRemoved($offset, $limit); 
 			$categories = getCategories();
 			$subCategories = getSubCategories();
-			$max = getItemCount();
+			$max = getItemCountWithRemoved();
 
 			for($i = 0; $i < count($items); ++$i){
 				$condition = getAverageCondition($items[$i]['category'], $items[$i]['subcategory'], $items[$i]['name']);

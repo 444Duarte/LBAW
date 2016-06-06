@@ -4,7 +4,7 @@
 
 	if(!$_POST['category'] or !$_POST['subcategory'] or !$_POST['item']) {
 		$_SESSION['error_messages'][] = 'Invalid item';
-		$_SESSION['form_values'] = $_GET;
+		$_SESSION['form_values'] = $_POST;
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 		exit;
 	}

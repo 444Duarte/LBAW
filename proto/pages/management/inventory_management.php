@@ -3,7 +3,7 @@
   include_once($BASE_DIR . 'database/users.php');
   include_once($BASE_DIR . 'database/inventory.php');
   
-  $items = getItemList(0, 10);  
+  $items = getItemListWithRemoved(0, 10);  
   $categories = getCategories();
   $subCategories = getSubCategories();
 
@@ -12,7 +12,7 @@
     $items[$i]['condition'] = intval(round($condition));
   }
 
-  $max = getItemCount();
+  $max = getItemCountWithRemoved();
 
   $smarty->assign('items', $items);
   $smarty->assign('categories', $categories);
