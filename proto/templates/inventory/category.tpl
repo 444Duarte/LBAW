@@ -14,8 +14,7 @@
 	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 	    		<ol class="breadcrumb">
 				  <li><a href="">Home</a></li>
-				  <li><a href="pages/inventory/category.php?category={$category}">{$category}</a></li>
-				  <li class="active">{$subcategory}</li>
+				  <li class="active">{$category}</a></li>
 				</ol>
 
 				<div id="item-list">
@@ -43,5 +42,5 @@
 {/block}
 
 {block name="js" append}	
-<script src="javascript/inventory/subcategory.js"></script>
+<script src="javascript/inventory/category.js"></script>
 {/block}

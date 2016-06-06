@@ -276,3 +276,35 @@
 			exit();
 		}
 	}
+
+	function getCategorySubcategoryList($category, $start, $nItems){
+		global $conn;
+		$stmt = $conn->prepare(
+			"SELECT DISTINCT ON (subcategories.name) subcategories.name as subcategory, items.picture as picture
+			FROM subcategories, categories, items
+			WHERE subcategories.id_category = categories.id
+				AND categories.name = ?
+				AND items.id_subcategory = subcategories.id
+			ORDER BY subcategories.name
+			LIMIT ?
+			OFFSET ?;");
+		$stmt->bindValue(1, $category, PDO::PARAM_STR);
+		$stmt->bindValue(2, $nItems, PDO::PARAM_INT);
+		$stmt->bindValue(3, $start, PDO::PARAM_INT);
+		$stmt->execute();
+
+		$result = $stmt->fetchAll();
+		return $result;
+	}
+
+	function getCategorySubcategoryCount($category){
+		global $conn;
+		$stmt = $conn->prepare(
+			"SELECT COUNT(*) AS count FROM categories, subcategories
+			WHERE subcategories.id_category = categories.id
+			AND categories.name = ?");
+		$stmt->bindValue(1, $category, PDO::PARAM_STR);
+		$stmt->execute();
+		$result = $stmt->fetch();
+		return $result['count'];
+	}
