@@ -37,7 +37,7 @@
         </div> 
         <div class="modal-body">
           <form id="forgot-password-form" action="actions/user/forgot_password.php" method="post" enctype="multipart/form-data">
-            <label>Category</label><br>
+            <label>Email</label><br>
             <input type="email" name="email" required>
           </form>
         </div>
