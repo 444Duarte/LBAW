@@ -2,7 +2,9 @@ var usernameIsValid;
 
 $("document").ready(function(){
 	$('#username').focusout(validUsername);
+	$('#email').focusout(validEmail);
 	$('#signup_form input[type="submit"]').click(validateRegister);
+	$('[data-toggle="tooltip"]').tooltip(); 
 
 });
 
@@ -20,6 +22,17 @@ function validateRegister(e){
 	}else{
 		return true;
 	}
+};
+
+function validEmail(e) {
+	var input = $('#email').val();
+    var re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if(!re.test(input)){
+    	$('#email').css('border', 'solid 2px red');
+    }
+    else {
+    	$('#email').css('border', 'solid 1px grey');
+    }
 };
 
 function validUsername(e) {
