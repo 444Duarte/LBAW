@@ -34,9 +34,9 @@
       </ul>
   {/if}
 
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-right" method="get" role="search" action="pages/inventory/search.php">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <input type="text" name="word" class="form-control" placeholder="Search" required>
         </div>
         <button type="submit" class="btn btn-default">Search</button>
       </form>

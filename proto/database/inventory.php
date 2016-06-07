@@ -195,8 +195,8 @@
 	
 	function fullTextSearch($search, $offset, $limit) {
 		global $conn;	
-		$stmt = $conn->prepare("SELECT * FROM items, plainto_tsquery(:search) query
-						WHERE query @@ tsv
+		$stmt = $conn->prepare("SELECT items.name AS name, items.picture AS picture, subcategories.name AS subcategory, categories.name AS category FROM items, subcategories, categories, plainto_tsquery(:search) query
+						WHERE query @@ tsv AND items.id_subcategory = subcategories.id AND subcategories.id_category = categories.id
 						ORDER BY ts_rank(tsv, query) DESC LIMIT :limit OFFSET :offset;");
 		$stmt->execute(array($search, $limit, $offset));
 		
