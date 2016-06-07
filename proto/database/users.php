@@ -147,9 +147,9 @@
     $stmt->execute();
     $result = $stmt->fetch();
     if(count($result) ===0 || $result == NULL){
-      throw new Exception('user does not exist', 1);
-    }    
-    return $result[0];   
+      return false;
+    }
+    return $result;   
   }
 
   function getClientByUsername($username){

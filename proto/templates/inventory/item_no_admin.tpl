@@ -14,7 +14,7 @@
 	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
 	    		<ol class="breadcrumb">
 					<li><a href="">Home</a></li>
-					<li><a href="#">{$item.category}</a></li>
+					<li><a href="pages/inventory/category.php?category={$item.category}">{$item.category}</a></li>
 					<li><a href="pages/inventory/subcategory.php?category={$item.category}&amp;subcategory={$item.subcategory}">{$item.subcategory}</a></li>
 					<li class="active">{$item.name}</li>
 				</ol>
@@ -24,7 +24,7 @@
 							<div class="row">
 								<div class="col-sm-6">
 									<a href="#" class="thumbnail">
-										<img src="images/res/{$item.picture}" alt="{$item.name}" class="img-thumbnail">
+										<img src="{$item.picture}" alt="{$item.name}" class="img-thumbnail">
 									</a>
 								</div>
 								<div class="col-sm-6">
