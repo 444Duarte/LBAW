@@ -194,6 +194,14 @@
     return $stmt->execute();
   }
 
+  function changePasswordByMail($newPassword, $email){
+    global $conn;
+    $stmt = $conn->prepare("UPDATE users SET password = :password WHERE email = :email");
+    $stmt->bindParam(":email", $email,PDO::PARAM_STR);
+    $stmt->bindParam(":password", crypt($newPassword),PDO::PARAM_STR);
+    return $stmt->execute();
+  }
+
   function getUserBookings($username){
     global $conn;
     
