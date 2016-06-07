@@ -11,12 +11,27 @@
 		$end = $_GET['end'];
 		$id = $_GET['id'];
 		try {
-			$response = editBooking($id, $start, $end);
-			if($response){
-				$_SESSION['success_messages'][] = 'Booking edited';
+			$instance = getInstanceFromBookingID($id);
+			$bookings = getBookingsFromInstance($instance);
+
+			$alterar = TRUE;
+
+			for($i = 0; $i < count($bookings); $i++){
+				if ($bookings[$i]['start_time'] <= $end || $bookings[$i]['end_time'] >= $start)
+					$alterar = FALSE;
+			}
+
+			if ($alterar){
+				$response = editBooking($id, $start, $end);
+				if($response){
+					$_SESSION['success_messages'][] = 'Booking edited';
+				}
+				else{
+					$_SESSION['error_messages'][] = 'Booking edit failed';  
+				}
 			}
 			else{
-				$_SESSION['error_messages'][] = 'Booking edit failed';  
+				$response = FALSE;
 			}
 			
 		} catch(PDOException $e){

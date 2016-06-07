@@ -326,6 +326,26 @@
     return $result;
   }
 
+  function getInstanceFromBookingID($id){
+    global $conn;
+    $stmt = $conn->prepare("SELECT id_item_instance FROM reservations WHERE reservations.id = :id");
+    $stmt->bindParam(":id", $id,PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch()['id_item_instance'];
+   
+    return $result;
+  }
+
+  function getBookingsFromInstance($instance){
+    global $conn;
+    $stmt = $conn->prepare("SELECT * FROM reservations WHERE reservations.id_item_instance = :instance");
+    $stmt->bindParam(":instance", $instance,PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetchAll();
+   
+    return $result;
+  }
+
   function bookItem($idClient, $itemInstance, $startDate, $endDate){
     global $conn;
     $stmt = $conn->prepare("INSERT INTO reservations (start_time,end_time,id_client,id_item_instance) VALUES (:start,:end,:client,:item)");
