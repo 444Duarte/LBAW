@@ -136,10 +136,10 @@ function updateItemsDisplayed(data){
 		starsInfo = starsInfo + "</td>";
 
 		if (!remBool){
-			actionI = "<td><button title=\"Remove item\" type=\"button\" data-toggle=\"modal\" data-target=\"#remove-item-modal\" data-category=\""+ Icategory +"\" data-subcategory=\""+ IsubCategory +"\" data-item=\""+ Iname +"\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></button></td>";
+			actionI = "<td><a href=\"javascript:;\" title=\"Remove item\" data-toggle=\"modal\" data-target=\"#remove-item-modal\" data-category=\""+ Icategory +"\" data-subcategory=\""+ IsubCategory +"\" data-item=\""+ Iname +"\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span></a></td>";
 		}
 		else{
-			actionI = "<td><button title=\"Add item\" type=\"button\" data-toggle=\"modal\" data-target=\"#add-confirmation-modal\" data-category=\""+ Icategory +"\" data-subcategory=\""+ IsubCategory +"\" data-item=\""+ Iname +"\"><span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span></button></td>";
+			actionI = "<td><a href=\"javascript:;\" title=\"Add item\" data-toggle=\"modal\" data-target=\"#add-confirmation-modal\" data-category=\""+ Icategory +"\" data-subcategory=\""+ IsubCategory +"\" data-item=\""+ Iname +"\"><span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span></a></td>";
 		}
 
 		var result = info + avaib + starsInfo + actionI;

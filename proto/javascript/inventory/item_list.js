@@ -5,6 +5,18 @@ var totalPageNumber = 1;
 
 $("document").ready(function(){
 	initItemList();
+
+	$('.modal').on('shown.bs.modal', function (e) {
+	  $(this).find('input')[0].focus();
+	});
+
+	$('.modal').on('hidden.bs.modal', function () {
+	  $(this).find('form')[0].reset();
+	});
+
+	$('.submit_form_button').click(function(){
+		$(this).closest('.modal').find('form').submit();
+	});
 });
 
 function onPageClick(event){

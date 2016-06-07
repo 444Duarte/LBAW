@@ -472,3 +472,11 @@
 		}
 		return $result[0];
 	}
+
+	function createInstance($idItem, $condition){
+		global $conn;
+		$stmt = $conn->prepare('INSERT INTO item_instances(id_item,condition)	VALUES (:idItem,:condition);');
+		$stmt->bindValue(':idItem', $idItem, PDO::PARAM_INT);
+		$stmt->bindValue(':condition', $condition, PDO::PARAM_INT);
+		return $stmt->execute();	
+	}

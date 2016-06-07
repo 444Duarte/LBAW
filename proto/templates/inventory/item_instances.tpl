@@ -4,7 +4,7 @@
 			<div class="panel-heading clearfix">
 				<span class="panel-title">Available Items</span>
 				<span class="pull-right">
-				<button id="add-item-button" type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#add-instance-modal" data-whatever="@getbootstrap">           
+				<button id="add-instance-button"  type="button" class="btn btn-default btn-lg add-button flipthis-highlight" data-toggle="modal" data-target="#add-instance-modal" data-whatever="@getbootstrap">           
 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Instance
 				</button>
 				</span>
@@ -161,7 +161,7 @@
   //console.log(itemInstances);
   //console.log(reservations);
 </script>
-{/block}
-{block name="js" append}
-<script src="javascript/management/item_instances.js"></script>
+{if $ERROR_MESSAGES != NULL}
+    <script>alert('{$ERROR_MESSAGES[0]}');</script>
+{/if}
 {/block}

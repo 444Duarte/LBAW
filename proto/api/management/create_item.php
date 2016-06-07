@@ -25,11 +25,11 @@
 	}
 
 	if(!isset($_FILES['picture'])) {
-		$target_dir = "images/assets/item_default.png";
+		$target_dir = "images/res/item_default.png";
 	}
 	else {
-		$target_dir =  "images/res/" . basename($_FILES["picture"]["name"]) ;
-		$target_file = $BASE_DIR . $target_dir;
+		$target_dir =  basename($_FILES["picture"]["name"]) ;
+		$target_file = $BASE_DIR . "images/res/" .  $target_dir;
 		$uploadOk = 1;
 		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
