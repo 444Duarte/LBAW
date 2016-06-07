@@ -61,9 +61,9 @@
       </div> 
       <div class="modal-body">
         <form id="lend-item-form" action="actions/inventory/lend_item.php" method="post" enctype="multipart/form-data">
-          Client:<br>
+          <label>Client</label> 
           <input type="text" name="client" required>
-          <br>End Date:<br>
+          <br><label>End Date</label>
           <input type="date" name="end_date" required>
           <input type="hidden" name="id">
           <input type="hidden" name="today">
@@ -88,9 +88,9 @@
       </div> 
       <div class="modal-body">
         <form id="maintenance-item-form" action="actions/inventory/maintenance.php" method="post" enctype="multipart/form-data">
-          Maintenance Provider:<br>
+          <label>Maintenance Provider</label>
           <input type="text" name="provider" required>
-          <br>End Date:<br>
+          <br><label>End Date</label>
           <input type="date" name="end_date" required>
           <input type="hidden" name="id">
           <input type="hidden" name="today">

@@ -64,7 +64,7 @@
 				      	<form action="actions/user/book_item.php" id="bookForm" method="POST">
 				      		<table name="form" style="width:100%">
 							  	<tr>
-							  		<td>Instance:</td> 
+							  		<td><label>Instance</label></td> 
 								  	<td><select name="item_instance" id="selectForm">
 								  		{foreach from=$itemInstances item=it}
 								  			<option value="{$it}">{$it}</option>
@@ -72,11 +72,11 @@
 									</select></td>
 								</tr>
 								<tr>
-								 	<td>Start Date:</td>
+								 	<td><label>Start Date</label></td>
 								  	<td><input type="text" class="datepicker" name="start_date"></td>
 								</tr>
 								<tr>
-								  	<td>End Date:</td>
+								  	<td><label>End Date</label></td>
 								  	<td><input type="text" class="datepicker" name="end_date"></td>
 								</tr>
 								<tr>

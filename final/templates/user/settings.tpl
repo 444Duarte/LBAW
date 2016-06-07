@@ -20,11 +20,11 @@
 
 		      			<div class="edit-field">
 			      			<form class="email_form" action="actions/user/change_email.php" method="post">
-			      				<br>New Email<br>
+			      				<br><label>New Email</label><br>
 								<input type="email" name="email"required>
-								<br>Confirm Email<br>
+								<br><label>Confirm Email</label><br>
 								<input type="email" name="confirm_email" required>
-								<br>Password<br>
+								<br><label>Password</label><br>
 								<input type="password" name="password" required>
 								<br><br>
 								<input type="submit" value="Change Email" >
@@ -39,11 +39,11 @@
 		      			</div>
 		      			<div class="edit-field">
 							<form id="password_form" action="actions/user/change_password.php" method="post">
-								<br><br>Password<br>
+								<br><label>Password</label><br>
 								<input type="password" name="password" required>
-								<br>New Password<br>
+								<br><label>New Password</label><br>
 								<input type="password" name="new_password" required>
-								<br>Confirm Password<br>
+								<br><label>Confirm Password</label><br>
 								<input type="password" name="confirm_password" required>
 								<br><br>
 								<input type="submit" value="Change Password">

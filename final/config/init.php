@@ -1,12 +1,12 @@
 <?php
-  session_set_cookie_params(3600, '/~up201304777');
+  session_set_cookie_params(3600, '/~lbaw1533');
   session_start();
 
   error_reporting(E_ALL); 
 
   $BASE_LINK = 'https://gnomo.fe.up.pt';
-  $BASE_DIR = '/usr/users2/mieic2013/up201304777/public_html/proto/'; 
-  $BASE_URL = '/~up201304777/proto/'; 
+  $BASE_DIR = '/opt/lbaw/lbaw1533/public_html/final/'; 
+  $BASE_URL = '/~lbaw1533/final/'; 
 
   $conn = new PDO('pgsql:host=dbm;dbname=lbaw1533', 'lbaw1533', 'VN12B1N7'); 
   $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);

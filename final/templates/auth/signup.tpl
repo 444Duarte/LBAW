@@ -7,19 +7,19 @@
 	<div>
 		<form id="signup_form" class="generic-element" action="actions/auth/register.php" method="post">
 			<h1 class="form_name">Register</h1>
-			<br>Username<br>
-			<input type="text" name="username" id="username" required>	
-			<br>Email<br>
+			<label>Username</label>
+			<input type="text" name="username" id="username" required>
+			<label>Email</label>
 			<input type="email" name="email" required>
-			<br>Password<br>
+			<label>Password</label>
 			<input type="password" name="password" required>
-			<br>Confirm Password<br>
+			<br><label>Confirm Password</label><br>
 			<input type="password" name="confirm_password" required>
-			<br><br>Identification Card<br>
+			<label>Identification Card</label>
 			<input type="text" name="id_card" required>
-			<br>Address<br>
+			<label>Address</label>
 			<input type="text" name="address" required>
-			<br>Phone Number<br>
+			<label>Phone Number</label>
 			<input type="number" name="phone" required>
 
 			<input type="submit" value="Register">

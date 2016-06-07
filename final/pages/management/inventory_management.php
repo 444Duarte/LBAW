@@ -3,6 +3,12 @@
   include_once($BASE_DIR . 'database/users.php');
   include_once($BASE_DIR . 'database/inventory.php');
   
+if($userType != 'InventoryManager'){
+    $_SESSION['error_messages'][] = 'Invalid permissions';
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit;
+  }
+
   $items = getItemListWithRemoved(0, 10);  
   $categories = getCategories();
   $subCategories = getSubCategories();

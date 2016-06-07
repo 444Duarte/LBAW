@@ -205,7 +205,7 @@
             </div> 
             <div class="modal-body">
               <form id="remove-instance-form" action="" method="post">
-                Condition: {print_stars n_stars = 2}
+                <label>Condition:</label> {print_stars n_stars = 2}
               </form>
             </div>
             <div class="modal-footer">
@@ -227,7 +227,7 @@
             </div> 
             <div class="modal-body">
               <form id="add-instance-form" action="" method="post">
-                Condition:
+                <label>Condition:</label>
               </form>
             </div>
             <div class="modal-footer">

@@ -43,21 +43,21 @@
             </div> 
             <div class="modal-body">
               <form id="add-item-form" action="api/management/create_item.php" method="post" enctype="multipart/form-data">
-                Name:<br>
+                <label>Name</label><br>
                 <input type="text" name="name" required>
-                <br>Category<br>
+                <br><label>Category</label><br>
                 <select name="category" required>
                 {foreach $categories as $category}
 								  <option value="{$category.id}"> {$category.name} </option>
                 {/foreach}                
 								</select>
-               	<br>Sub-Category<br>
+               	<br><label>Sub-Category</label><br>
                 <select name="subcategory" required>
                   <option value="">Choose</option>
 								</select>
-                <br>Description:<br>
+                <br><label>Description</label><br>
                 <input type="text" name="description" required>
-								<br>Image<br>
+								<br><label>Image</label><br>
 								<input type="file" name="picture" accept="image/*">
               </form>
             </div>
@@ -80,7 +80,7 @@
             </div> 
             <div class="modal-body">
               <form id="add-category-form" action="api/management/create_category.php" method="get" enctype="multipart/form-data">
-                Name:<br>
+                <label>Name</label><br>
                 <input type="text" name="name" required>
               </form>
             </div>
@@ -103,13 +103,13 @@
             </div> 
             <div class="modal-body">
               <form id="add-subcategory-form" action="api/management/create_subcategory.php" method="get" enctype="multipart/form-data">
-                Category<br>
+                <label>Category</label><br>
                 <select name="category" required>
                 {foreach $categories as $category}
                   <option value="{$category.id}"> {$category.name} </option>
                 {/foreach}
                 </select>
-                <br>Name:<br>
+                <br><label>Name</label><br>
                 <input type="text" name="name" required>
 
               </form>
