@@ -26,14 +26,14 @@
 						  <tbody id="item-list-table">
 						    {foreach $reservations as $reserv}  
 						      <tr>
-						        <td>{$reserv.name}</a></td>
+						        <td>{$reserv.name}</td>
 						        <td>{$reserv.id_item_instance}</td>
 						        <td><a href="pages/user.php?user={$reserv.id_client}">{$reserv.username}</a></td>
 						        <td> {$reserv.start_time} </td>
 						        <td> {$reserv.end_time} </td>
 						        <td>
 							        <a href="javascript:;" class="submit-delete-form">
-							        	<span class="glyphicon glyphicon-remove" href aria-hidden="true" ></span>
+							        	<span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>
 							        	<form action="actions/management/delete_reservation.php" method="post">
 							        		<input type="hidden" name="reservation" value="{$reserv.id}">
 							        	</form>
