@@ -1,0 +1,37 @@
+.editTable{
+	border: 2px solid;
+	padding: 3px;
+	border-radius: 5px;
+}
+
+.editLine:not(:last-child){
+	border-bottom: 1px solid;
+}
+
+.editLine{
+	padding: 0.4em;
+	/*position: relative;*/
+	/*display: ;*/
+}
+
+.editLine *{
+	display: inline-block;
+}
+
+.editInfo{
+	text-align: center;
+}
+
+.edit-button{
+/*	position: absolute;
+	right: 0;*/
+	float:right;
+}
+
+.edit-field{
+	display: none;
+}
+
+.edit-field form input[type="submit"]{
+	float: right;
+}
