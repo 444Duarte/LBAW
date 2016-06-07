@@ -17,7 +17,9 @@
 			$alterar = TRUE;
 
 			for($i = 0; $i < count($bookings); $i++){
-				if ($bookings[$i]['start_time'] <= $end || $bookings[$i]['end_time'] >= $start)
+				$st = $bookings[$i]['start_time'];
+				$et = $bookings[$i]['end_time'];
+				if (($st >= $start && $st <= $end)|| ($et >= $start && $et <= $end) || ($start >= $st && $start <= $et) || ($end >= $st && $end <= $et))
 					$alterar = FALSE;
 			}
 
@@ -31,6 +33,7 @@
 				}
 			}
 			else{
+				$_SESSION['error_messages'][] = 'Booking edit failed';  
 				$response = FALSE;
 			}
 			

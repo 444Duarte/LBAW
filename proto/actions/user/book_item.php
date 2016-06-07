@@ -29,11 +29,27 @@
 	$end = validateDatePicker($end);
 
 
-	if (bookItem($idClient, $item, $start, $end)){
-		$_SESSION['success_messages'][] = 'Booking successful';
+	$bookings = getBookingsFromInstance($item);
+
+	$alterar = TRUE;
+
+	for($i = 0; $i < count($bookings); $i++){
+		$st = $bookings[$i]['start_time'];
+		$et = $bookings[$i]['end_time'];
+		if (($st >= $start && $st <= $end)|| ($et >= $start && $et <= $end) || ($start >= $st && $start <= $et) || ($end >= $st && $end <= $et))
+			$alterar = FALSE;
 	}
+
+	if ($alterar){
+		if (bookItem($idClient, $item, $start, $end)){
+			$_SESSION['success_messages'][] = 'Booking successful';
+		}
+		else{
+			$_SESSION['error_messages'][] = 'Booking failed';  
+		}
+	}	
 	else{
-		$_SESSION['error_messages'][] = 'Booking failed';  
+		$_SESSION['error_messages'][] = 'Booking failed'; 
 	}
 
 

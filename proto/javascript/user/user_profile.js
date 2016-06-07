@@ -148,6 +148,8 @@ function submitEditDate(id){
 				end : endDate
 			})
 			.done(function( data ) {
+				if (data == false)
+					alert("Booking edit failed");
 				location.reload();
 		});
 
