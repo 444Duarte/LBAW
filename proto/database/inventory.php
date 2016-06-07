@@ -473,10 +473,42 @@
 		return $result[0];
 	}
 
-	function createInstance($idItem, $condition){
+	function createInstance($idItem, $condition,$idManager){
 		global $conn;
-		$stmt = $conn->prepare('INSERT INTO item_instances(id_item,condition)	VALUES (:idItem,:condition);');
-		$stmt->bindValue(':idItem', $idItem, PDO::PARAM_INT);
-		$stmt->bindValue(':condition', $condition, PDO::PARAM_INT);
-		return $stmt->execute();	
+
+		try {
+			$conn->beginTransaction();
+			$stmt1 = $conn->prepare(
+        'SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;');
+			if(!$stmt1->execute())
+        throw new PDOException("Error Processing Request", 1);
+
+			$stmt2 = $conn->prepare('INSERT INTO item_instances(id_item,condition)	VALUES (:idItem,:condition) RETURNING id;');
+			$stmt2->bindValue(':idItem', $idItem, PDO::PARAM_INT);
+			$stmt2->bindValue(':condition', $condition, PDO::PARAM_INT);
+			$result2= $stmt2->execute();
+			if(!$result2){
+				throw new PDOException("Error Processing Request", 1);
+			}
+
+			$id_item_instance=$stmt2->fetch()['id'];
+			$stmt3 = $conn->prepare("INSERT INTO item_history_records(id_item_instance, id_inventory_manager, type)  VALUES(:id_item_instance, :id_inventory_manager,:type);");
+			$stmt3->bindValue(':id_item_instance',$id_item_instance,PDO::PARAM_INT);
+			$stmt3->bindValue(':id_inventory_manager',$idManager,PDO::PARAM_INT);
+			$stmt3->bindValue(':type','Add',PDO::PARAM_STR);
+
+			if(!$stmt3->execute()){
+				throw new PDOException("Error Processing Request", 1);
+			}
+			$conn->commit();
+			return true;
+		} catch (PDOException $e) {
+			$conn->rollback();
+      echo $e->getMessage();
+      return false;
+		}catch(Exception $e){
+			$conn->rollback();
+      echo $e->getMessage();
+      return false;
+		}		
 	}

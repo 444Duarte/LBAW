@@ -1,6 +1,7 @@
 <?php 
 	include_once('../../config/init.php');
 	include_once($BASE_DIR .'database/inventory.php');
+	include_once($BASE_DIR .'database/users.php');
 	include_once($BASE_DIR .'database/util.php');
 	include_once($BASE_DIR . 'utils/loggin_validation.php');
 
@@ -25,16 +26,22 @@
 
 	$idItem = test_input($_POST['id-item']);
 	$condition = test_input($_POST['condition']);
+	$userId = getUserByUsername($username)['id'];
 
 	try {
-		createInstance($idItem,$condition);
+		if(!createInstance($idItem,$condition,$userId)){
+			echo "Failed to create instance";
+			/*$_SESSION['error_messages'][] = 'Invalid request';
+			header('Location: ' . $_SERVER['HTTP_REFERER']);
+			exit;*/
+		}
 	} catch (PDOException $e) {
 		echo $e->getMessage();
 		$_SESSION['error_messages'][] = 'Invalid request';
-		//header('Location: ' . $_SERVER['HTTP_REFERER']);
+		header('Location: ' . $_SERVER['HTTP_REFERER']);
 		exit;
 	}
 
 	$_SESSION['success_messages'][] = 'Instance created';
-	//header('Location: ' . $_SERVER['HTTP_REFERER']);
+	header('Location: ' . $_SERVER['HTTP_REFERER']);
 	exit;
