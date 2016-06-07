@@ -33,17 +33,18 @@
 	}
 
 	if (isLoginCorrect($username, $password)) {
-		$_SESSION['success_messages'][] = 'Login successful';  
+		$_SESSION['success_messages'][] = 'Login successful'; 
+		if (changeEmail($username, $email)){
+			$_SESSION['success_messages'][] = 'email changed sucessfully';
+		}
+		else{
+			$_SESSION['error_messages'][] = 'failed to change email';  
+		} 
 	} else {
 		$_SESSION['error_messages'][] = 'Login failed';  
 	}
 
-	if (changeEmail($username, $email)){
-		$_SESSION['success_messages'][] = 'email changed sucessfully';
-	}
-	else{
-		$_SESSION['error_messages'][] = 'failed to change email';  
-	}
+	
 
 
 

@@ -51,8 +51,6 @@ function submitFormAjax(e) {
 	}
 	var action = dom.attr("action");
 	var formData = new FormData($(this)[0]);
-	console.log(action);
-	console.log(formData);
 	$.ajax({url: action, 
 		type: 'post',
 		data: formData,
@@ -64,12 +62,10 @@ function submitFormAjax(e) {
 			var message = response['message'];
 			alertify.logPosition("bottom right");
 	    	alertify.log(message);
-	    	console.log(response);
 	    },
 	    error: function(response){
 			alertify.logPosition("bottom right");
 	    	alertify.error("Request failed");
-	    	console.log(response);
 	    		    
 	    }
 	});
@@ -78,9 +74,6 @@ function submitFormAjax(e) {
 };
 
 function initItems(){
-	//alert("max = " + max);
-	//console.log("ITEMS: ");
-	//console.log(items);
 
 	$.get( "api/management/get_item_list.php", 
 		{ 
@@ -88,7 +81,6 @@ function initItems(){
 			offset : (currentPage-1) * itemsPerPage
 		})
 		.done(function( data ) {
-			//console.log(data);
 			updateItems(data);
 		})
 		.fail(function(error){
@@ -98,8 +90,6 @@ function initItems(){
 }
 
 function updateItems(data){
-	//console.log("UPDATED");
-	//console.log(data);
 	var items = data['items'];
 	var max = data['max'];
 
@@ -109,14 +99,11 @@ function updateItems(data){
 
 function updateItemsDisplayed(data){
 	var historyBody = $('#item-list-table');
-	//console.log(historyBody);
-	//location.reload();
 	
 
 	historyBody.html('');
 
 	for (var i = 0; i < data.length; i++) {
-		//alert(data[i]['name']);
 		$line = $("<tr>");
 		var itemURL = "pages/inventory/item.php?category=" + data[i]['category'] + "&subcategory=" + data[i]['subcategory'] + "&item=" + data[i]['name'];
 		var cateURL = "pages/inventory/category.php?category=" + data[i]['category'];
@@ -156,7 +143,6 @@ function updateItemsDisplayed(data){
 		}
 
 		var result = info + avaib + starsInfo + actionI;
-		//console.log(starsInfo);
 
 		$line.html(result);
 		historyBody.append($line);
@@ -166,7 +152,6 @@ function updateItemsDisplayed(data){
 }
 
 function pageNumberAppears(number){
-	//console.log(number);
 	if(number <= (currentPage+2) && (number >= (currentPage-2)))
 		return true;
 	if((number == 1) || (number == totalPageNumber))
@@ -178,8 +163,6 @@ function pageNumberAppears(number){
 function updatePages(maxItems){
 	totalPageNumber = Math.ceil(maxItems/itemsPerPage)
 	var items = maxItems;
-	//console.log("totalPages = " + totalPageNumber);
-	//console.log(maxItems);
 
 	var $pageList = $("#pagination");
 	$pageList.html("");

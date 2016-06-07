@@ -26,17 +26,20 @@
 
 	if (isLoginCorrect($username, $password)) {
 		$_SESSION['success_messages'][] = 'Login successful';  
+		
+
+		if (changePassword($new_pass, $username)){
+			$_SESSION['success_messages'][] = 'password changed sucessfully';
+		}
+		else{
+			$_SESSION['error_messages'][] = 'failed to change password';  
+		}
+
 	} else {
 		$_SESSION['error_messages'][] = 'Login failed';  
 	}
 
-	if (changePassword($new_pass)){
-		$_SESSION['success_messages'][] = 'password changed sucessfully';
-	}
-	else{
-		$_SESSION['error_messages'][] = 'failed to change password';  
-	}
-
+	
 
 
 	header('Location: ' . $_SERVER['HTTP_REFERER']);

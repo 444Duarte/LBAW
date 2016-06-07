@@ -5,13 +5,6 @@ var reservations = JSON.parse($('#reservations').html());
 $(document).ready(function() {
   
   updateDates(reservations);
-  console.log(reservations);
-  
-  /*dates = {
-    '2016/6/4': 'some description',
-    '2016/6/6': 'some other description',
-    '2016/6/9': 'some other description'
-  };*/
 
   $('.datepicker').datepicker({
     beforeShowDay: function(date) {
@@ -68,9 +61,7 @@ function updateSelectedInstance(){
   var e = document.getElementById("selectForm");
   var strUser = e.options[e.selectedIndex].value;
   selectedInstance = strUser;
-  console.log(selectedInstance);
   updateDates(reservations);
-  console.log(dates);
 };
 
 $( "#selectForm" ).change(function() {

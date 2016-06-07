@@ -30,7 +30,6 @@ function validUsername(e) {
 			username: input
 		},
 		function(response){
-			console.log(response);
 			if (response['valid'] == true){
 				usernameIsValid = false;
 				$('#username').css('border', 'solid 2px red');
@@ -41,8 +40,7 @@ function validUsername(e) {
 			}
 	 	},
 	 	'json'
-	).fail(function(error){
-	 	console.log(error);
-	 	console.log(error['responseText']);
+	).fail(function(error){ 
+	 	//console.log(error['responseText']);
 	});
 };

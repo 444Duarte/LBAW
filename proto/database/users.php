@@ -186,17 +186,12 @@
     return $result[0];
   }
 
-  function changePassword($newPassword){
+  function changePassword($newPassword, $username){
     global $conn;
     $stmt = $conn->prepare("UPDATE users SET password = :password where username = :username");
     $stmt->bindParam(":username", $username,PDO::PARAM_STR);
-    $stmt->bindParam(":password", $newPassword,PDO::PARAM_STR);
-    $stmt->execute();
-    $result = $stmt->fetchAll();
-    if(count($result) ===0){
-      return false;
-    }
-    return $result[0];
+    $stmt->bindParam(":password", crypt($newPassword),PDO::PARAM_STR);
+    return $stmt->execute();
   }
 
   function getUserBookings($username){

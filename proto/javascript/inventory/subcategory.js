@@ -46,7 +46,6 @@ function initItemList(){
 }
 
 function updatePage(data) {
-	console.log('Data: ' + data);
 	var items = data['items'];
 	var maxItems = data['max'];
 
@@ -74,7 +73,6 @@ function updateItems(items){
 }
 
 function pageNumberAppears(number){
-	console.log(number);
 	if(number <= (currentPage+2) && (number >= (currentPage-2)))
 		return true;
 	if((number == 1) || (number == totalPageNumber))

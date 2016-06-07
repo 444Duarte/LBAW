@@ -49,7 +49,6 @@ function initHistory(){
 			offset : (currentPage-1) * itemsPerPage
 		})
 		.done(function( data ) {
-			//console.log(data);
 			updateHistory(data);
 		})
 		.fail(function(error){
@@ -59,7 +58,6 @@ function initHistory(){
 }
 
 function updateHistory(data){
-	console.log(data);
 	var history = data['items'];
 	var maxHistory = data['max'];
 
@@ -156,7 +154,6 @@ function submitEditDate(id){
 }
 
 function pageNumberAppears(number){
-	console.log(number);
 	if(number <= (currentPage+2) && (number >= (currentPage-2)))
 		return true;
 	if((number == 1) || (number == totalPageNumber))
