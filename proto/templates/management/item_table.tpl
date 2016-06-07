@@ -19,11 +19,11 @@
       </tr>
   </thead>
   <tbody id="item-list-table">
-    {foreach $items as $item}
+    {foreach $items as $item}  
       <tr>
-        <td><a href="pages/inventory/item.php?category={$item.category}&amp;subcategory={$item.subcategory}&amp;item={$item.name}">{$item.name}</a></td>
-        <td><a href="pages/inventory/category.php?category={$item.category}">{$item.category}</a></td>
-        <td><a href="pages/inventory/subcategory.php?category={$item.category}&amp;subcategory={$item.subcategory}">{$item.subcategory}</a></td>
+        <td><a href="pages/inventory/item.php?category={$item.category|escape:'url'}&amp;subcategory={$item.subcategory|escape:'url'}&amp;item={$item.name|escape:'url'}">{$item.name}</a></td>
+        <td><a href="pages/inventory/category.php?category={$item.category|escape:'url'}">{$item.category}</a></td>
+        <td><a href="pages/inventory/subcategory.php?category={$item.category|escape:'url'}&amp;subcategory={$item.subcategory|escape:'url'}">{$item.subcategory}</a></td>
         {if $item.removed == FALSE}
           <td>Available</td>
         {else} 
@@ -78,7 +78,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <input type="submit" value="Remove Item" id="submit_form_remove_button" form="remove-item-form" class="btn btn-primary">
+        <input type="submit" value="Remove Item" form="remove-item-form" class="btn btn-primary">
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -95,7 +95,7 @@
       </div> 
       <div class="modal-body">
         Are you sure you want to add the item?
-        <form id="add-item-form" action="actions/inventory/add_item.php" method="post" enctype="multipart/form-data">
+        <form id="revive-item-form" action="actions/inventory/add_item.php" method="post" enctype="multipart/form-data">
           <input type="hidden" name="category">
           <input type="hidden" name="subcategory">
           <input type="hidden" name="item">
@@ -103,7 +103,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <input type="submit" value="Add item" id="submit_form_subcategory_button" form="add-item-form" class="btn btn-primary">
+        <input type="submit" value="Add item" form="revive-item-form" class="btn btn-primary">
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

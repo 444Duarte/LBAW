@@ -71,7 +71,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" id="submit_form_subcategory_button" class="btn btn-primary" form="lend-item-form">Lend Item</button>
+        <button type="submit" class="btn btn-primary" form="lend-item-form">Lend Item</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -98,7 +98,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" form="maintenance-item-form" id="submit_form_subcategory_button" class="btn btn-primary">Send for Maintenance</button>
+        <button type="submit" form="maintenance-item-form" class="btn btn-primary">Send for Maintenance</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -123,7 +123,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" id="submit_form_subcategory_button" class="btn btn-primary" form="return-item-form">Return Item</button>
+        <button type="submit" class="btn btn-primary" form="return-item-form">Return Item</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -146,7 +146,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" id="submit_form_subcategory_button" class="btn btn-primary">Remove Item</button>
+        <button type="button" class="btn btn-primary">Remove Item</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -160,7 +160,7 @@
   //console.log(item);
   //console.log(itemInstances);
   //console.log(reservations);
-</script>
+</script> 
 {if $ERROR_MESSAGES != NULL}
     <script>alert('{$ERROR_MESSAGES[0]}');</script>
 {/if}

@@ -13,7 +13,11 @@ $(document).ready(function(){
 	$('.submit_form_button').click(function(){
 		$(this).closest('.modal').find('form').submit();
 	});
-	console.log($('.submit_form_button'));
+	//console.log($('.submit_form_button'));
+
+	if($('[type="date"]').prop('type') != 'date')
+		$('[type="date"]').datepicker();
+	
 });
 
 function updateLendForm(instance){
