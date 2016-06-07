@@ -6,6 +6,7 @@
   {if $USER_TYPE == 'InventoryManager'}
     <ul class="nav nav-sidebar">
     	<li><a href="pages/management/inventory_management.php">Inventory Management</a> </li>
+      <li><a href="pages/management/reservations_list.php">Reservations List</a> </li>
     </ul>
   {/if}
   {if $USER_TYPE == 'SystemManager'}

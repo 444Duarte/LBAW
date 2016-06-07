@@ -318,6 +318,28 @@
 		}
 	}
 
+	function getAllReservations(){
+		global $conn;
+		try {
+			$stmt = $conn->prepare("SELECT reservations.*, users.username, items.name
+									FROM reservations,users,items,item_instances
+									WHERE fulfilled = 'false' 
+										AND reservations.id_client = users.id
+										AND reservations.id_item_instance = item_instances.id
+										AND item_instances.id_item = items.id ;");
+			$stmt->execute();
+			$result = $stmt->fetchAll();
+			if(count($result)==0){
+				return false;
+			}
+			return $result;
+		} catch (Exception $e) {
+			echo $e->getMessage();
+			return false;
+			exit();
+		}
+	}
+
 	function getCategorySubcategoryList($category, $start, $nItems){
 		global $conn;
 		$stmt = $conn->prepare(
@@ -462,7 +484,7 @@
 		$stmt = $conn->prepare('SELECT items.* 
 								FROM items, item_instances
 								WHERE 	item_instances.id = :idItemInstance 
-										AND items.id = item_instances.id_item:');
+										AND items.id = item_instances.id_item;');
 		$stmt->bindValue(':idItemInstance', $idItemInstance, PDO::PARAM_INT);
 		if(!$stmt->execute())
 			return false;
