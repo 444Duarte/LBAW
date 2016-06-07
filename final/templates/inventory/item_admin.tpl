@@ -16,57 +16,57 @@
 	{/function}
 	{include file='common/topbar.tpl'}
 	<div class="container-fluid">
-    <div class="row">
-      	{include file='common/sidebar.tpl'}	
-    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
-    		<ol class="breadcrumb">
-				<li><a href="">Home</a></li>
-				<li><a href="pages/inventory/category.php?category={$item.category}">{$item.category}</a></li>
-				<li><a href="pages/inventory/subcategory.php?category={$item.category}&amp;subcategory={$item.subcategory}">{$item.subcategory}</a></li>
-				<li class="active">{$item.name}</li>
+	    <div class="row">
+	      	{include file='common/sidebar.tpl'}	
+	    	<div class="col-sm-0 col-sm-offset-3 col-md-0 col-md-offset-2 main">
+	    		<ol class="breadcrumb">
+					<li><a href="">Home</a></li>
+					<li><a href="pages/inventory/category.php?category={$item.category|escape:'url'}">{$item.category}</a></li>
+					<li><a href="pages/inventory/subcategory.php?category={$item.category|escape:'url'}&amp;subcategory={$item.subcategory|escape:'url'}">{$item.subcategory}</a></li>
+					<li class="active">{$item.name}</li>
 				</ol>
-			</div>
-			<div>
-				<!-- Nav tabs -->
+				<div>
+					<!-- Nav tabs -->
 					<div class="row">
-					<ul class="nav nav-tabs nav-justified" role="tablist">
-						<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
-						<li role="presentation"><a href="#history" aria-controls="history" role="tab" data-toggle="tab">History</a></li>
-						<li role="presentation"><a href="#instances" aria-controls="instances" role="tab" data-toggle="tab">Instances</a></li>
-					</ul>
-				</div> 
+						<ul class="nav nav-tabs nav-justified" role="tablist">
+							<li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
+							<li role="presentation"><a href="#history" aria-controls="history" role="tab" data-toggle="tab">History</a></li>
+							<li role="presentation"><a href="#instances" aria-controls="instances" role="tab" data-toggle="tab">Instances</a></li>
+						</ul>
+					</div>
 
-				<!-- Tab panes -->
-				<div class="row" id="item-pane">
-					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="info">
-							<div class="row">
-								<div class="col-sm-6">
-									<a href="#" class="thumbnail">
-										<img src="images/res/{$item.picture}" alt="{$item.name}" class="img-thumbnail">
-									</a>
-								</div>
-								<div class="col-sm-6">
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h3 class="panel-title">{$item.name}</h3>
-										</div>
-										<div class="panel-body">
-											{$item.description}
+					<!-- Tab panes -->
+					<div class="row" id="item-pane">
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane active" id="info">
+								<div class="row">
+									<div class="col-sm-6">
+										<a href="#" class="thumbnail">
+											<img src="images/res/{$item.picture}" alt="{$item.name}" class="img-thumbnail">
+										</a>
+									</div>
+									<div class="col-sm-6">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h3 class="panel-title">{$item.name}</h3>
+											</div>
+											<div class="panel-body">
+												{$item.description}
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							
+							<div role="tabpanel" class="tab-pane" id="history">
+								{include file="inventory/item_history.tpl"}
+							</div>
+							<div role="tabpanel" class="tab-pane" id="instances">
+								{include file="inventory/item_instances.tpl"}
+							</div>
 						</div>
-						
-						<div role="tabpanel" class="tab-pane" id="history">
-							{include file="inventory/item_history.tpl"}
-						</div>
-						<div role="tabpanel" class="tab-pane" id="instances">
-							{include file="inventory/item_instances.tpl"}
-						</div>
+						<div role="tabpanel" class="tab-pane" id="settings">...</div>
 					</div>
-					<div role="tabpanel" class="tab-pane" id="settings">...</div>
 				</div>
 			</div>
 		</div>
